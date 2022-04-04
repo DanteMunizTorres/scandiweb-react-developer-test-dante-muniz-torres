@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom'
 
-import CartArticle from './CartArticle'
 
-class Cart extends Component {
+import ProductArticle from './ProductArticle'
+
+
+class ProductList extends Component {
 
   constructor(props) {
     super(props);
@@ -25,12 +27,14 @@ class Cart extends Component {
 
     return (
       <section>
-        <h2>Cart</h2>
-        <CartArticle />
+        <ProductArticle />
       </section>
     );
 
   }
 }
 
-export default Cart;
+export default ProductList;
+
+
+

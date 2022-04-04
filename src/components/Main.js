@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 
+import ProductList from './ProductList';
+import ProductDetail from './ProductDetail';
+import Cart from './Cart'
+
+
 class Main extends Component {
 
   constructor(props) {
@@ -23,7 +28,11 @@ class Main extends Component {
 
     return (
       <main>
-
+      <Routes>
+        <Route path='/' exact={true} element={ <Cart />}/>
+        <Route path='/' exact={true} element={ <ProductDetail />}/>
+        <Route path='/' exact={true} element={ <ProductList />}/>
+      </Routes>
       </main>
     );
 
@@ -34,7 +43,3 @@ export default Main;
 
 
 
-      <Routes>
-      <Route path='/login' exact={true} element={ <LoginForm />}/>
-      <Route path='/register' exact={true} element={ <RegisterForm />}/>
-    </Routes>

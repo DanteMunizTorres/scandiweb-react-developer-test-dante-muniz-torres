@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import CartArticle from './CartArticle'
 
-class Cart extends Component {
+class CartTinyView extends Component {
 
   constructor(props) {
     super(props);
@@ -25,12 +25,20 @@ class Cart extends Component {
 
     return (
       <section>
-        <h2>Cart</h2>
+        <h2>My bag<span>, x items</span></h2>
         <CartArticle />
+        <div>
+          <h3>total</h3>
+          <h3>xxxx</h3>
+        </div>
+        <div>
+          <button>view bag</button>
+          <button>check out</button>
+        </div>
       </section>
     );
 
   }
 }
 
-export default Cart;
+export default CartTinyView;

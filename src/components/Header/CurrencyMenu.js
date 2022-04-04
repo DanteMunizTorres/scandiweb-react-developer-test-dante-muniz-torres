@@ -6,7 +6,7 @@ function CurrencyMenu(props) {
 
   return (
     <ul>
-      {props.currencies.map(currency => {return <li><Link>{currency}</Link></li>})}
+      {props.currencies.map(currency => {return <li><button><span>X</span>XXX</button></li>})}
     </ul>
   )
 }
