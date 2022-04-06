@@ -8,6 +8,7 @@ import Header from './components/header/Header'
 import Main from './components/Main';
 
 
+
 class App extends Component {
 
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
 
   componentDidMount () {
     //llamado a api 
+
   }
 
   componentDidUpdate () {

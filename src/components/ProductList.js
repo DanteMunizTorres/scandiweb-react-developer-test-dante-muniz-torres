@@ -10,6 +10,7 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      products: this.props.products
     }
   }
 
@@ -24,10 +25,17 @@ class ProductList extends Component {
 
   render () {
 
+    console.log('en render PRODUCT LIST', this.state.products)
+    console.log('en render PRODUCT LIST PROPS---------------', this.props.products)
+
+    let articles
+    if (this.props.products) {
+      articles = this.props.products.map((product, i) => <ProductArticle key={i} product={product}/>)
+    }
 
     return (
       <section>
-        <ProductArticle />
+        {articles}
       </section>
     );
 
