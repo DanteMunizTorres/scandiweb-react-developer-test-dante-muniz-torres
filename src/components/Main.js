@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 
+import CurrencyContext from './ContextCurrency';
+
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import Cart from './Cart'
@@ -19,6 +21,8 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache()
 });
+
+
 
 class Main extends Component {
 
@@ -83,6 +87,7 @@ render () {
   console.log('EN RENDER MAIN-----------------------------------',this.state.productList)
 
     return (
+      
       <main>
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.state.productList}/>}/>
@@ -90,6 +95,7 @@ render () {
         <Route path='/detail/:id' exact={true} element={ <ProductDetail />}/>
       </Routes>
       </main>
+      
     );
 
   }

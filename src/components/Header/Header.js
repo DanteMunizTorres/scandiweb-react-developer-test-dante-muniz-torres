@@ -16,6 +16,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currencies: []
     }
   }
 
@@ -34,11 +35,13 @@ class Header extends Component {
 
     return (
       <header>
-        <ul>
-          <li><Link to='/'>women</Link></li>
-          <li><Link to='/'>men</Link></li>
-          <li><Link to='/'>kid</Link></li>          
-        </ul>
+        <nav>
+          <ul>
+            <li><Link to='/'>women</Link></li>
+            <li><Link to='/'>men</Link></li>
+            <li><Link to='/'>kid</Link></li>          
+          </ul>
+        </nav>
         <div>
           <button>
             <img src={reloadSVG}></img>
@@ -49,7 +52,8 @@ class Header extends Component {
           $
           <img src={arrowDownSVG}></img>
         </button>
-        <CurrencyMenu currencies={[]} />
+
+        <CurrencyMenu currencies={this.state.currencies} changeCurrency={this.props.changeCurrency}/>
         <button>
           <p>x</p>
           <img src={cartSVG}></img>

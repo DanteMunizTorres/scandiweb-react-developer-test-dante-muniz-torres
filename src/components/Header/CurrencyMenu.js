@@ -5,9 +5,15 @@ function CurrencyMenu(props) {
 
 
   return (
+    <select className='selectCurrency' onChange={()=>this.props.changeCurrency}>
+      {props.currencies.map((currency, i) => {return <option key={i} value={i}></option>})}
+    </select>
+/*     <nav>
+
     <ul>
       {props.currencies.map(currency => {return <li><button><span>X</span>XXX</button></li>})}
     </ul>
+    </nav> */
   )
 }
 
