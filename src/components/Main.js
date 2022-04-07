@@ -84,7 +84,7 @@ componentDidUpdate () {
 render () {
 
 
-  console.log('EN RENDER MAIN-----------------------------------',this.state.productList)
+
 
     return (
       

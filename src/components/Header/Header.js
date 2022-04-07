@@ -7,7 +7,20 @@ import arrowUpSVG from '../../icons/arrowUp.svg'
 import reloadSVG from '../../icons/reload.svg'
 
 
-import CurrencyMenu  from './CurrencyMenu';
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery, //I'm not going to use this hook because the assigment says hooks can't be used: 
+  gql
+} from "@apollo/client";
+
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache()
+});
 
 
 
@@ -23,6 +36,20 @@ class Header extends Component {
 
   componentDidMount () {
     //llamado a api 
+    client
+    .query({
+      query: gql`
+      query {
+        currencies {
+          label
+          symbol
+        }
+      }
+      `
+  })
+  .then(result => {
+    return this.setState({currencies: result.data.currencies})
+  });
   }
 
   componentDidUpdate () {
@@ -53,7 +80,10 @@ class Header extends Component {
           <img src={arrowDownSVG}></img>
         </button>
 
-        <CurrencyMenu currencies={this.state.currencies} changeCurrency={this.props.changeCurrency}/>
+
+        <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
+          {this.state.currencies.map((currency, i) => {return <option key={i} value={i}>{currency.symbol}{currency.label}</option>})}
+        </select>
         <button>
           <p>x</p>
           <img src={cartSVG}></img>

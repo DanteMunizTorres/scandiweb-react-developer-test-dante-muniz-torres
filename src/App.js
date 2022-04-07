@@ -40,7 +40,7 @@ class App extends Component {
 
       <BrowserRouter>
         <CurrencyContext.Provider value={this.state.currencyChosen}>
-          <Header changeCurrency={this.changeCurrency}/>
+          <Header changeCurrency={()=>this.changeCurrency()}/>
           <Main />
         </CurrencyContext.Provider>
       </BrowserRouter>

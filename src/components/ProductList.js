@@ -23,13 +23,6 @@ class ProductList extends Component {
   /* static contextType = CurrencyContext; */
 
   render() {
-    /* console.log('context--------------------------------',contextType); */
-
-    console.log("en render PRODUCT LIST", this.state.products);
-    console.log(
-      "en render PRODUCT LIST PROPS---------------",
-      this.props.products
-    );
 
     let articles;
     if (this.props.products) {
