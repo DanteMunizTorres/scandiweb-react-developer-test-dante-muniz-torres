@@ -6,6 +6,7 @@ import CurrencyContext from './ContextCurrency';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import Cart from './Cart'
+import GetParamsId from './GetParamsId';
 
 
 import {
@@ -44,6 +45,7 @@ class Main extends Component {
       query {
         category {
           products {
+            id
             name
             brand
             inStock
@@ -92,7 +94,9 @@ render () {
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.state.productList}/>}/>
         <Route path='/' exact={true} element={ <Cart />}/>
-        <Route path='/detail/:id' exact={true} element={ <ProductDetail />}/>
+        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} id={this.path}/>}/>
+        {/* <Route path='/detail/:id' exact={true} component={ ()=> ProductDetail }/> */}
+        {/* <Route path='/detail/:id' exact={true}> <ProductDetail /></Route> */}
       </Routes>
       </main>
       
