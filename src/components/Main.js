@@ -57,6 +57,7 @@ class Main extends Component {
               amount
             }
             gallery
+            description
             attributes {
               id
               name
@@ -94,7 +95,7 @@ render () {
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.state.productList}/>}/>
         <Route path='/' exact={true} element={ <Cart />}/>
-        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} id={this.path}/>}/>
+        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} />}/>
         {/* <Route path='/detail/:id' exact={true} component={ ()=> ProductDetail }/> */}
         {/* <Route path='/detail/:id' exact={true}> <ProductDetail /></Route> */}
       </Routes>

@@ -6,7 +6,6 @@ import ProductDetail from './ProductDetail';
 function GetParamsId(props) {
 
     const { id } = useParams();
-    console.log(id);
 
     return (
         <div>
