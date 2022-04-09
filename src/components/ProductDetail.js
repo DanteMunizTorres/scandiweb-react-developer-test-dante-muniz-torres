@@ -24,10 +24,7 @@ class ProductDetail extends Component {
     const products = this.props.products;
     let productToShow = products.find((product) => product.id === id);
 
-    console.log(
-      "atrubites---------------------------",
-      productToShow.attributes
-    );
+
 
     let productDescriptionDiv = document.querySelector(".productDescription");
     productDescriptionDiv.innerHTML = productToShow.description;
@@ -42,7 +39,10 @@ class ProductDetail extends Component {
 
   render() {
     let productToShow = this.state.productToShow;
-
+    console.log(
+      "atrubites---------------------------",
+      productToShow.attributes
+    );
     return (
       <section>
         <article>
@@ -56,12 +56,8 @@ class ProductDetail extends Component {
           <h2>{productToShow.brand}</h2>
           <h2>{productToShow.name}</h2>
 
-          <ProductDetailAttributesBox atributes={productToShow.attributes} />
+          <ProductDetailAttributesBox attributes={productToShow.attributes} />
 
-          {/*           <div>
-            <h4>price:</h4>
-            <h3>{productToShow.prices[this.props.currency].currency.symbol}{productToShow.prices[this.props.currency].amount}</h3>
-          </div> */}
           {console.log(productToShow)}
           {<CurrencyContext.Consumer>
             {(currency) =>
