@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 
-import CurrencyContext from './ContextCurrency';
+
 
 import ProductList from './ProductList';
-import ProductDetail from './ProductDetail';
+/* import ProductDetail from './ProductDetail'; */
 import Cart from './Cart'
 import GetParamsId from './GetParamsId';
 

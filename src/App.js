@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import CurrencyContext from './components/ContextCurrency';
+import CartContext from './components/ContextCart';
 
 import Header from './components/header/Header'
 import Main from './components/Main';

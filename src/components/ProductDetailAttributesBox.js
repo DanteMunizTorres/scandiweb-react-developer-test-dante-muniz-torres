@@ -14,12 +14,13 @@ class ProductDetailAttributesBox extends Component {
     /* console.log('me actualice'); */
   }
 
+
   render() {
     const attributes = this.props.attributes;
-    console.log(
+/*     console.log(
       "props.attributes----------------------------------------",
       attributes
-    );
+    ); */
     let attributesBox;
     if (attributes) {
       attributesBox = (
@@ -27,14 +28,15 @@ class ProductDetailAttributesBox extends Component {
           attributes.map((attribute, i) => {
 
             return <>
-              <div key={i}>
+              <div key={attribute.name + i}>
                 <h4>{attribute.name}</h4>
               </div>
+              <div>
 
-              {attribute.items.map((item, i) => {
+              {attribute.items.map((item, indx) => {
                 if (attribute.id === "Color") {
-                  return <div>
-                    <input type="radio" name={attribute.id} id={item.id}/>
+                  return <div key={attribute.id + indx}>
+                    <input type="radio" name={attribute.id} id={item.id} value={item.value} onChange={this.props.inputHandler} />
                     <label
                       style={{color: item.value, backgroundColor: item.value, border: "1px solid black"}}
                       htmlFor={item.id}
@@ -43,12 +45,13 @@ class ProductDetailAttributesBox extends Component {
                     </label>
                   </div>;
                 } else {
-                  return <div>
-                    <input type="radio" name={attribute.id} id={item.id + attribute.id} />
+                  return <div key={attribute.id + indx}>
+                    <input type="radio" name={attribute.id} id={item.id + attribute.id} value={item.value} onChange={this.props.inputHandler} />
                     <label htmlFor={item.id + attribute.id} >{item.displayValue}</label>
                   </div>;
                 }
               })}
+              </div>
             </>;
           })
         

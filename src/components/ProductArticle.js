@@ -2,7 +2,7 @@
 import { Link, Route, Routes } from 'react-router-dom'
 
 function ProductArticle (props) {
-  console.log(props.product.id);
+  /* console.log(props.product.id); */
 
   return (
     <Link to={`/detail/${props.product.id}`}>

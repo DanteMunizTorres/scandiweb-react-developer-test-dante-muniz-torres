@@ -4,6 +4,9 @@ import CurrencyContext from "./ContextCurrency";
 
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 
+
+
+
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
@@ -15,34 +18,84 @@ class ProductDetail extends Component {
         brand: "loading...",
         prices: [{currency: {symbol: "loading..."}, amount: "loading..."}],
       },
+      inputsUsed1: {},
+      inputsUsed2: {},
+      inputsUsed3: {},
     };
+    this.addToCart = this.addToCart.bind(this)
+    this.inputHandler = this.inputHandler.bind(this)
   }
 
   componentDidMount() {
-    //llamado a api
+    
     const id = this.props.id;
     const products = this.props.products;
     let productToShow = products.find((product) => product.id === id);
 
-
-
     let productDescriptionDiv = document.querySelector(".productDescription");
     productDescriptionDiv.innerHTML = productToShow.description;
 
-    this.setState({ productToShow: productToShow });
     this.setState({ products: products });
+    this.setState({ productToShow: productToShow });
   }
 
   componentDidUpdate() {
     /* console.log('me actualice'); */
   }
 
+  addToCart(e) {
+    e.preventDefault()
+    /* console.log(e) */
+    let formData = new FormData()
+    /* console.log('------------------------------------',this.state.id); */
+    formData.append('productId', this.state.id)
+
+    /* formData.append('productId', productToShow.id) */
+
+/*     console.log('formData con id---------------------',formData);
+    console.log('e.target-----------',e.target.name) */
+  }
+
+
+
+  inputHandler(e) {
+    let target = e.target
+    let name = target.name
+    let value = target.value
+    //input 1
+    if (this.state.inputsUsed1.name === undefined) {
+      return this.setState({ inputsUsed1: {name: name, value: value} })
+    }
+    if (name === this.state.inputsUsed1.name) {
+      return this.setState({ inputsUsed1: {name: name, value: value} })
+    }
+    //input 2
+    if (name != this.state.inputsUsed1.name && this.state.inputsUsed2.name === undefined) {
+      return this.setState({ inputsUsed2: {name: name, value: value} })
+    } 
+    if (name === this.state.inputsUsed2.name) {
+      return this.setState({ inputsUsed2: {name: name, value: value} })
+    }
+    //input 3
+    if (name != this.state.inputsUsed2.name && this.state.inputsUsed3.name === undefined) {
+      return this.setState({ inputsUsed3: {name: name, value: value} })
+    } 
+    if (name === this.state.inputsUsed3.name) {
+      return this.setState({ inputsUsed3: {name: name, value: value} })
+    }
+  }
+
+  
+
+
   render() {
+
     let productToShow = this.state.productToShow;
-    console.log(
-      "atrubites---------------------------",
-      productToShow.attributes
-    );
+
+    console.log('input handler1---------------------', this.state.inputsUsed1);
+    console.log('input handler2---------------------', this.state.inputsUsed2);
+    console.log('input handler3---------------------', this.state.inputsUsed3);
+
     return (
       <section>
         <article>
@@ -52,13 +105,15 @@ class ProductDetail extends Component {
           </div>
         </article>
 
-        <form>
+        <form onSubmit={this.addToCart} value={productToShow.id}>
           <h2>{productToShow.brand}</h2>
-          <h2>{productToShow.name}</h2>
+          <h2 value={productToShow.id} name='productId'>{productToShow.name}</h2>
 
-          <ProductDetailAttributesBox attributes={productToShow.attributes} />
+        <div>
+          <ProductDetailAttributesBox attributes={productToShow.attributes} inputHandler={this.inputHandler} />
+        </div>
 
-          {console.log(productToShow)}
+          
           {<CurrencyContext.Consumer>
             {(currency) =>
                         <div>
@@ -67,9 +122,12 @@ class ProductDetail extends Component {
                       </div>
             }
           </CurrencyContext.Consumer>}
-          
+{/*           <input type={'radio'} name='test' value={1} onChange={this.inputHandler} />
+          <input type={'radio'} name='test' value={2} onChange={this.inputHandler} />
+          <input type={'radio'} name='test' value={3} onChange={this.inputHandler} />
+          <input type={'radio'} name='test' value={4} onChange={this.inputHandler} /> */}
 
-          <button>add to cart</button>
+          <button type="submit">add to cart</button>
           <div className="productDescription"></div>
         </form>
       </section>
@@ -79,14 +137,3 @@ class ProductDetail extends Component {
 
 export default ProductDetail;
 
-/* function onlyOne(checkbox) {
-  var checkboxes = document.getElementsByName('check')
-  checkboxes.forEach((item) => {
-      if (item !== checkbox) item.checked = false
-  })
-}
-
-<input type="checkbox" name="check" onclick="onlyOne(this)">
-<input type="checkbox" name="check" onclick="onlyOne(this)">
-<input type="checkbox" name="check" onclick="onlyOne(this)">
-<input type="checkbox" name="check" onclick="onlyOne(this)"></input> */
