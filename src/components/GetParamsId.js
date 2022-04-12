@@ -9,7 +9,7 @@ function GetParamsId(props) {
 
     return (
         <div>
-            <ProductDetail id={id} products={props.products}/>
+            <ProductDetail id={id} products={props.products} bringInfo={props.bringInfo} />
         </div>
     );
 }

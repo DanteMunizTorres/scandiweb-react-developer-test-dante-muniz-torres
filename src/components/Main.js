@@ -93,11 +93,10 @@ render () {
       
       <main>
       <Routes>
-        <Route path='/' exact={true} element={ <ProductList products={this.state.productList}/>}/>
-        <Route path='/' exact={true} element={ <Cart />}/>
-        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} />}/>
+        <Route path='/' exact={true} element={ <ProductList products={this.state.productList} />} />
+        <Route path='/cart' exact={true} element={ <Cart />} />
+        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} bringInfo={this.props.bringInfo} />} />
         {/* <Route path='/detail/:id' exact={true} component={ ()=> ProductDetail }/> */}
-        {/* <Route path='/detail/:id' exact={true}> <ProductDetail /></Route> */}
       </Routes>
       </main>
       

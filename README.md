@@ -19,7 +19,7 @@ First approach to tasks.
 Web structure and components definition.
 
 
-# STAGE 2: Functionality. Time: 1/2 week.
+# STAGE 2: Functionality. Time: 1 week.
 
 Bring information.
 

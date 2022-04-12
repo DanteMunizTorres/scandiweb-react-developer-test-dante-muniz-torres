@@ -15,13 +15,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencyChosen: 0
+      currencyChosen: 0,
+      product: undefined
     }
+    this.bringInfo = this.bringInfo.bind(this)
+    this.changeCurrency = this.changeCurrency.bind(this)
   }
 
   changeCurrency(){
     let select = document.querySelector('.selectCurrency')
-    this.setState({currencyChosen: select.value})
+    return this.setState({currencyChosen: select.value})
+  }
+
+  bringInfo(info) {
+    console.log('infooooo------------------',info)
+    return this.setState({product: info})
   }
 
   componentDidMount () {
@@ -36,15 +44,16 @@ class App extends Component {
 
   render () {
 
-
     return (
-
+      <CartContext.Provider value={this.state.product} >
         <CurrencyContext.Provider value={this.state.currencyChosen}>
-      <BrowserRouter>
-          <Header changeCurrency={()=>this.changeCurrency()}/>
-          <Main />
-      </BrowserRouter>
+          <BrowserRouter>
+            <Header changeCurrency={this.changeCurrency}/>
+            <Main bringInfo={this.bringInfo} />
+          </BrowserRouter>
         </CurrencyContext.Provider>
+      </CartContext.Provider>
+        
     );
 
   }
