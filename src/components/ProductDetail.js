@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Navigate } from 'react-router-dom'
 import CurrencyContext from "./ContextCurrency";
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 
@@ -12,6 +13,7 @@ class ProductDetail extends Component {
       inputsUsed1: undefined,
       inputsUsed2: undefined,
       inputsUsed3: undefined,
+      navigate: false
     }; 
     this.addToCart = this.addToCart.bind(this)
     this.inputHandler = this.inputHandler.bind(this)
@@ -45,11 +47,13 @@ class ProductDetail extends Component {
     let inputsToSend = inputsAll.filter(input => input != undefined)
     
     let sendToCart = {
-      productId: this.state.id,
-      productInfo: inputsToSend
+      id: this.state.id,
+      info: inputsToSend
     }    
     //lifting info to App.js
     this.props.bringInfo(sendToCart) 
+
+    return this.setState({navigate: true}) 
   }
 
   inputHandler(e) {
@@ -80,6 +84,10 @@ class ProductDetail extends Component {
   }
 
   render() {
+
+    if(this.state.navigate === true) {
+      return <Navigate to='/' replace={true} />
+    } 
 
     let productToShow = this.state.productToShow;
     
@@ -118,6 +126,7 @@ class ProductDetail extends Component {
         </form>
       </section>
     }
+
 
     return (
       <>

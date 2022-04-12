@@ -16,7 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       currencyChosen: 0,
-      product: undefined
+      product: []
     }
     this.bringInfo = this.bringInfo.bind(this)
     this.changeCurrency = this.changeCurrency.bind(this)
@@ -29,7 +29,7 @@ class App extends Component {
 
   bringInfo(info) {
     console.log('infooooo------------------',info)
-    return this.setState({product: info})
+    return this.setState({product: [...this.state.product, info]})
   }
 
   componentDidMount () {
@@ -43,6 +43,7 @@ class App extends Component {
 
 
   render () {
+    console.log('this.state.product---------------------',this.state.product)
 
     return (
       <CartContext.Provider value={this.state.product} >

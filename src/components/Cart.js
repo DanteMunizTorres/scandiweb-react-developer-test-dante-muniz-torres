@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom';
+import CartContext from './ContextCart';
 
 import CartArticle from './CartArticle'
 
@@ -26,7 +27,14 @@ class Cart extends Component {
     return (
       <section>
         <h2>Cart</h2>
-        <CartArticle />
+        <CartContext.Consumer>
+            {(products) =>
+                 
+                    products.map((product, i) => <CartArticle key={product.id + i} product={product} />)
+                
+            }
+          </CartContext.Consumer>
+        
       </section>
     );
 

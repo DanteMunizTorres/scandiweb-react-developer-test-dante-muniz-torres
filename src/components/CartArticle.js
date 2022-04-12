@@ -8,7 +8,7 @@ function CartArticle (props) {
     <article>
       <div>
         <h3>brand</h3>
-        <h4>product name</h4>
+        <h4>product name {props.product.id}</h4>
         <h3>price</h3>
         <div>
           <input type='checkbox' />

@@ -84,10 +84,12 @@ class Header extends Component {
         <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
           {this.state.currencies.map((currency, i) => {return <option key={i} value={i}>{currency.symbol}{currency.label}</option>})}
         </select>
-        <button>
-          <p>x</p>
-          <img src={cartSVG}></img>
-        </button>
+        <Link to='/cart'>
+          <button>
+            <p>x</p>
+            <img src={cartSVG}></img>
+          </button>
+        </Link>
         </div>
       </header>
     );
