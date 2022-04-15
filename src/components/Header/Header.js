@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 
+import CartContext from '../ContextCart'
+
 import cartSVG from '../../icons/cart.svg'
 import arrowDownSVG from '../../icons/arrowDown.svg'
 import arrowUpSVG from '../../icons/arrowUp.svg'
@@ -29,13 +31,14 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: []
+      currencies: [],
+      categories: []
     }
   }
 
 
   componentDidMount () {
-    //llamado a api 
+    //currencies 
     client
     .query({
       query: gql`
@@ -50,6 +53,20 @@ class Header extends Component {
   .then(result => {
     return this.setState({currencies: result.data.currencies})
   });
+  //categories
+  client
+  .query({
+    query: gql`
+    query {
+      categories {
+        name
+      }
+    }
+    `
+})
+.then(result => {
+  return this.setState({categories: result.data.categories})
+});
   }
 
   componentDidUpdate () {
@@ -58,15 +75,20 @@ class Header extends Component {
 
 
   render () {
-
+    let categoriesOptions
+    if (this.state.categories) {
+      categoriesOptions = 
+            this.state.categories.map( (category, i ) => {
+              return <li key={ category.name + i }><Link to='/' value={category.name} onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
+            })
+    }
 
     return (
       <header>
         <nav>
           <ul>
-            <li><Link to='/'>women</Link></li>
-            <li><Link to='/'>men</Link></li>
-            <li><Link to='/'>kid</Link></li>          
+            {categoriesOptions}
+        
           </ul>
         </nav>
         <div>
@@ -86,7 +108,15 @@ class Header extends Component {
         </select>
         <Link to='/cart'>
           <button>
-            <p>x</p>
+            <CartContext.Consumer>
+              {(productsInCart) => {
+                if (productsInCart.length > 0) {
+                  return <p>{productsInCart.length}</p>
+                }
+                }
+              }
+            </CartContext.Consumer>
+            
             <img src={cartSVG}></img>
           </button>
         </Link>

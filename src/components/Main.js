@@ -4,12 +4,12 @@ import { Link, Route, Routes } from 'react-router-dom'
 
 
 import ProductList from './ProductList';
-/* import ProductDetail from './ProductDetail'; */
+import CartTinyView from './CartTinyView'
 import Cart from './Cart'
 import GetParamsId from './GetParamsId';
 
 
-import {
+/* import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
@@ -21,7 +21,7 @@ import {
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache()
-});
+}); */
 
 
 
@@ -31,7 +31,7 @@ class Main extends Component {
     super(props);
     this.state = {
       productDetail: '',
-      productList: [],
+      /* productList: [], */
       productsInCart: []
     }
   }
@@ -39,7 +39,7 @@ class Main extends Component {
   componentDidMount () {
     //llamado a api 
     
-    client
+/*     client
     .query({
       query: gql`
       query {
@@ -74,7 +74,7 @@ class Main extends Component {
   })
   .then(result => {
     return this.setState({productList: result.data.category.products})
-  });
+  }); */
 }
 
 componentDidUpdate () {
@@ -92,11 +92,12 @@ render () {
     return (
       
       <main>
+        {/* <CartTinyView /> */}
       <Routes>
-        <Route path='/' exact={true} element={ <ProductList products={this.state.productList} />} />
-        <Route path='/cart' exact={true} element={ <Cart />} />
-        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.state.productList} bringInfo={this.props.bringInfo} />} />
-        {/* <Route path='/detail/:id' exact={true} component={ ()=> ProductDetail }/> */}
+        <Route path='/' exact={true} element={ <ProductList products={this.props.productList} bringInfo={this.props.bringInfo} />} />
+        <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productList} />} />
+        <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.props.productList} bringInfo={this.props.bringInfo} />} />
+        
       </Routes>
       </main>
       

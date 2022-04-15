@@ -7,8 +7,6 @@ class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.id,
-      products: this.props.products,
       productToShow: undefined,
       inputsUsed1: undefined,
       inputsUsed2: undefined,
@@ -24,10 +22,6 @@ class ProductDetail extends Component {
     const products = this.props.products;
     let productToShow = products.find((product) => product.id === id);
     this.setState({ productToShow: productToShow });   
-/*     if(document.querySelector(".productDescription")) {
-      let productDescriptionDiv = document.querySelector(".productDescription");
-      productDescriptionDiv.innerHTML = productToShow.description;
-    } */
   }
   
   componentDidUpdate() {
@@ -47,7 +41,7 @@ class ProductDetail extends Component {
     let inputsToSend = inputsAll.filter(input => input != undefined)
     
     let sendToCart = {
-      id: this.state.id,
+      id: this.props.id,
       info: inputsToSend
     }    
     //lifting info to App.js

@@ -8,12 +8,11 @@ class Cart extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {}
   }
 
   componentDidMount () {
-    //llamado a api 
+    let cartForm = document.querySelector('.cart')
   }
 
   componentDidUpdate () {
@@ -21,21 +20,22 @@ class Cart extends Component {
   }
 
 
+
   render () {
 
 
     return (
-      <section>
+      <form className='cart'>
         <h2>Cart</h2>
         <CartContext.Consumer>
             {(products) =>
-                 
-                    products.map((product, i) => <CartArticle key={product.id + i} product={product} />)
-                
+                    {console.log('products CART RETURN **********', products)
+                    return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} />)
+                }
             }
           </CartContext.Consumer>
         
-      </section>
+      </form>
     );
 
   }

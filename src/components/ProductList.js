@@ -7,9 +7,7 @@ import ProductArticle from "./ProductArticle";
 class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: this.props.products,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -30,24 +28,13 @@ class ProductList extends Component {
         <CurrencyContext.Consumer>
           {(currency) =>
             this.props.products.map((product, i) => (
-              <ProductArticle key={i} currency={currency} product={product} />
+              <ProductArticle key={i} currency={currency} product={product} bringInfo={this.props.bringInfo} />
             ))
           }
         </CurrencyContext.Consumer>
       );
 
       return (
-        /*<CurrencyContext.Consumer>
-        {
-          (currency) => (
-            <section>             
-              if (this.props.products) {
-                this.props.products.map((product, i) => <ProductArticle key={i} currency={currency}  product={product}/>)
-              }              
-            </section>
-          )
-        }
-      </CurrencyContext.Consumer> */
         <section>{articles}</section>
       );
     }
