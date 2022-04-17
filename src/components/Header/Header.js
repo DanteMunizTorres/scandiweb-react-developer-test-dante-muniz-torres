@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 
 import CartContext from '../ContextCart'
+import CurrencyContext from '../ContextCurrency'
 
 import cartSVG from '../../icons/cart.svg'
 import arrowDownSVG from '../../icons/arrowDown.svg'
 import arrowUpSVG from '../../icons/arrowUp.svg'
 import reloadSVG from '../../icons/reload.svg'
 
-
+import './Header.css'
 
 import {
   ApolloClient,
@@ -32,10 +33,24 @@ class Header extends Component {
     super(props);
     this.state = {
       currencies: [],
-      categories: []
+      categories: [],
+      currencyBoxVisible: false
     }
+    this.miniCartShowUp = this.miniCartShowUp.bind(this)
+    this.makeVisible = this.makeVisible.bind(this)
   }
 
+  miniCartShowUp() {
+    let modal = document.querySelector('.modal')
+      modal.style.display = 'block'
+  }
+
+  makeVisible(e) {
+    this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible})
+    let currencySwitcher = document.querySelector('.currency-switcher__container')
+    currencySwitcher.style.display = 'block'
+    /* document.querySelector('.currency-switcher__form').addClass('visible') */
+  }
 
   componentDidMount () {
     //currencies 
@@ -69,8 +84,11 @@ class Header extends Component {
 });
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (__prevProps, prevState) {
     /* console.log('me actualice'); */
+    if(prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
+
+    }
   }
 
 
@@ -79,35 +97,57 @@ class Header extends Component {
     if (this.state.categories) {
       categoriesOptions = 
             this.state.categories.map( (category, i ) => {
-              return <li key={ category.name + i }><Link to='/' value={category.name} onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
+              return <li className='category-li' key={ category.name + i }><Link to='/' onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
             })
+
+    }
+
+    let arrow
+    if (this.state.currencyBoxVisible) {
+      arrow =  <img src={arrowUpSVG}></img>
+    } else {
+      arrow = <img src={arrowDownSVG}></img>
     }
 
     return (
-      <header>
+      <header className='header'>
         <nav>
-          <ul>
+          <ul className='header__nav-categories'>
             {categoriesOptions}
         
           </ul>
         </nav>
-        <div>
-          <button>
+        
+        <button className='header__go-back-button'>
+          <Link to='/'>
             <img src={reloadSVG}></img>
-          </button>
-        </div>
-        <div>
-        <button>
-          $
-          <img src={arrowDownSVG}></img>
+          </Link>
         </button>
-
-
-        <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
+        
+        <div>
+          
+{/* {        <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
           {this.state.currencies.map((currency, i) => {return <option key={i} value={i}>{currency.symbol}{currency.label}</option>})}
-        </select>
-        <Link to='/cart'>
-          <button>
+        </select>} */}
+
+      <button className='currency-switcher__button' onClick={this.makeVisible}>
+        <CurrencyContext.Consumer>
+          {
+            (currency) => {
+              if (this.state.currencies.length > 0) {
+                return <span>{this.state.currencies[currency].symbol}</span> 
+              }
+            } 
+          }
+        </CurrencyContext.Consumer>
+        
+
+        
+
+        {/* {currency.symbol} */} {arrow}
+      </button>
+        
+          <button onClick={this.miniCartShowUp} className='header__mini-cart-button'>
             <CartContext.Consumer>
               {(productsInCart) => {
                 if (productsInCart.length > 0) {
@@ -119,7 +159,7 @@ class Header extends Component {
             
             <img src={cartSVG}></img>
           </button>
-        </Link>
+        
         </div>
       </header>
     );

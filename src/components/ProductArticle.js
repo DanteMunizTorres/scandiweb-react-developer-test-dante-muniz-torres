@@ -4,6 +4,8 @@ import { Link, Route, Routes } from "react-router-dom";
 import CartContext from "./ContextCart";
 import cartSVG from "../icons/cart.svg";
 
+import './ProductArticle.css'
+
 class ProductArticle extends Component {
   constructor(props) {
     super(props);
@@ -32,21 +34,16 @@ class ProductArticle extends Component {
 
     return (
       <>
-        <article>
+        <article className="product-article">
           <Link to={`/detail/${this.props.product.id}`}>
             <div>
-              {
+              
                 <img
                   src={this.props.product.gallery[0]}
-                  alt=""
-                  style={{ width: "250px" }}
+                  alt="product image"
+                  className='product-article__img'
                 ></img>
-              }
-              {/*                     <CartContext.Consumer>
-                      {(products) => 
-                        products.filter(product => product.id === this.props.product.id).length > 0? <div><img src={cartSVG}></img></div>: ''                     
-                      }
-                    </CartContext.Consumer> */}
+              
             </div>
           </Link>
                     {addToCartButton}

@@ -30,6 +30,7 @@ class App extends Component {
     this.state = {
       currencyChosen: 0,
       category: 'all',
+      currencies: [],
       productList: [],
       productListFilteredByCategory: [],
       product: []
@@ -40,9 +41,10 @@ class App extends Component {
     /* this.filterCategory = this.filterCategory.bind(this) */
   }
 
-  changeCurrency(){
-    let select = document.querySelector('.selectCurrency')
-    return this.setState({currencyChosen: select.value})
+  changeCurrency(e){
+    /* let select = document.querySelector('.selectCurrency') */
+    let value = e.target.value
+    return this.setState({currencyChosen: value})
   }
 
   bringInfo(info) {
@@ -50,6 +52,10 @@ class App extends Component {
     return this.setState({product: [...this.state.product, info]})
   }
 
+  pickCategory(e) {
+    let categoryChosen = e.target.innerText.toLowerCase()
+    return this.setState({category: categoryChosen})
+  } 
 
   componentDidMount () {
     //llamado a api 
@@ -90,19 +96,21 @@ class App extends Component {
   .then(result => {
     return this.setState({productList: result.data.category.products})
   });
-
-
-/*   let filteredCategory = this.state.productList.filter(product => product.category === this.state.category)
-
-  console.log('this.state.productList',this.state.productList)
-  console.log('filteredCategory',filteredCategory)
-
-  if (this.state.category !== 'all') {
-    this.setState({productListFilteredByCategory: filteredCategory})
-  } else {
-    this.setState({productListFilteredByCategory: this.state.productList})
-  } */
-  this.setState({productListFilteredByCategory: this.state.productList})
+      //currencies 
+      client
+      .query({
+        query: gql`
+        query {
+          currencies {
+            label
+            symbol
+          }
+        }
+        `
+    })
+    .then(result => {
+      return this.setState({currencies: result.data.currencies})
+    });
 
   }
 
@@ -125,13 +133,6 @@ class App extends Component {
 
 
 
-  pickCategory(e) {
-    let categoryChosen = e.target.innerText.toLowerCase()
-    return this.setState({category: categoryChosen})
-  } 
-
-
-
 
   render () {
     console.log('this.state.product---------------------',this.state.productListFilteredByCategory)
@@ -143,7 +144,13 @@ class App extends Component {
         <CurrencyContext.Provider value={this.state.currencyChosen}>
           <BrowserRouter>
             <Header changeCurrency={this.changeCurrency} pickCategory={this.pickCategory} />
-            <Main productList={this.state.productListFilteredByCategory} bringInfo={this.bringInfo} />
+            <Main 
+              category={this.state.category} 
+              productList={this.state.productListFilteredByCategory} 
+              currencies={this.state.currencies}
+              bringInfo={this.bringInfo} 
+              changeCurrency={this.changeCurrency}
+            />
           </BrowserRouter>
         </CurrencyContext.Provider>
       </CartContext.Provider>

@@ -12,7 +12,7 @@ class Cart extends Component {
   }
 
   componentDidMount () {
-    let cartForm = document.querySelector('.cart')
+
   }
 
   componentDidUpdate () {
@@ -29,7 +29,7 @@ class Cart extends Component {
         <h2>Cart</h2>
         <CartContext.Consumer>
             {(products) =>
-                    {console.log('products CART RETURN **********', products)
+                    {/* console.log('products CART RETURN **********', products) */
                     return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} />)
                 }
             }

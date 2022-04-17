@@ -4,6 +4,8 @@ import { Link, Route, Routes } from "react-router-dom";
 import CurrencyContext from "./ContextCurrency";
 import ProductArticle from "./ProductArticle";
 
+import './ProductList.css'
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ class ProductList extends Component {
       );
 
       return (
-        <section>{articles}</section>
+        <section className="product-list">{articles}</section>
       );
     }
   }

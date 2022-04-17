@@ -5,8 +5,11 @@ import { Link, Route, Routes } from 'react-router-dom'
 
 import ProductList from './ProductList';
 import CartTinyView from './CartTinyView'
+import CurrencySwitcher from './CurrencySwitcher'
 import Cart from './Cart'
 import GetParamsId from './GetParamsId';
+
+import './Main.css'
 
 
 /* import {
@@ -31,58 +34,9 @@ class Main extends Component {
     super(props);
     this.state = {
       productDetail: '',
-      /* productList: [], */
       productsInCart: []
     }
   }
-
-  componentDidMount () {
-    //llamado a api 
-    
-/*     client
-    .query({
-      query: gql`
-      query {
-        category {
-          products {
-            id
-            name
-            brand
-            inStock
-            prices {
-              currency {
-                label
-                symbol
-              }
-              amount
-            }
-            gallery
-            description
-            attributes {
-              id
-              name
-              items {
-                id
-                value
-                displayValue
-              }
-            }
-          }
-        }
-      }
-      `
-  })
-  .then(result => {
-    return this.setState({productList: result.data.category.products})
-  }); */
-}
-
-componentDidUpdate () {
-  /* console.log('me actualice'); */
-
-  
-}
-
 
 render () {
 
@@ -91,8 +45,10 @@ render () {
 
     return (
       
-      <main>
-        {/* <CartTinyView /> */}
+      <main className='main'>
+        <h2>{this.props.category.toUpperCase()}</h2>
+        <CartTinyView productsList={this.props.productList} />
+        <CurrencySwitcher changeCurrency={this.props.changeCurrency} currencies={this.props.currencies}/>
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.props.productList} bringInfo={this.props.bringInfo} />} />
         <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productList} />} />

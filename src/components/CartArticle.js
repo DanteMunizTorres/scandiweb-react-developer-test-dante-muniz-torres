@@ -16,8 +16,11 @@ class CartArticle extends Component {
   componentDidMount() {
     console.log('this.props.product +++++++++++', this.props.product);
     
-    let productInCart = this.props.productsList.find(product => product.id === this.props.product.id)
-    this.setState({productInCart: productInCart})
+    if(this.props.productsList){
+
+      let productInCart = this.props.productsList.find(product => product.id === this.props.product.id)
+      this.setState({productInCart: productInCart})
+    }
 
 
     /* console.log('productsList en carrt ARTICLE COMPONENTDIDMOUNT------------', this.state.productInCart) */
