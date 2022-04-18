@@ -65,15 +65,11 @@ class CurrencySwitcher extends Component {
     }
 
     return (
-      <div className='currency-switcher__container'>
-
       <form 
       className='currency-switcher__form' 
-      
       >
         {currencyOptions}
       </form>
-    </div>
     );
 
   }

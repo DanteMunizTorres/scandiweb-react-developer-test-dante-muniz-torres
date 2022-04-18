@@ -89,7 +89,7 @@ class CartTinyView extends Component {
       <div className='modal' onClick={this.disapear}>
         <div className='miniCart'>
 
-        <Cart productsList={this.props.productsList} />
+        <Cart productsList={this.props.productsList} manageQuantity={this.props.manageQuantity} />
 {/*       <form className='miniCart' id='miniCart'>
         <h2>My bag
         <CartContext.Consumer>

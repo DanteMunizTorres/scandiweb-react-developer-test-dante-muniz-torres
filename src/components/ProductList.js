@@ -14,10 +14,18 @@ class ProductList extends Component {
 
   componentDidMount() {
     //llamado a api
+/*     if (this.props.products < 3) {
+      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
+    } */
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     /* console.log('me actualice'); */
+    if (prevProps.products !== this.props.products && this.props.products.length < 3) {
+      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
+    } else if (prevProps.products !== this.props.products && this.props.products.length >= 3) {
+      document.querySelector('.product-list').style.justifyContent = 'space-between'
+    }
   }
 
   /* static contextType = CurrencyContext; */
@@ -35,6 +43,8 @@ class ProductList extends Component {
           }
         </CurrencyContext.Consumer>
       );
+
+
 
       return (
         <section className="product-list">{articles}</section>

@@ -42,7 +42,8 @@ class ProductDetail extends Component {
     
     let sendToCart = {
       id: this.props.id,
-      info: inputsToSend
+      quantity: 1,
+      info: inputsToSend,
     }    
     //lifting info to App.js
     this.props.bringInfo(sendToCart) 

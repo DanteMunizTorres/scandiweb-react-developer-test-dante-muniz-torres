@@ -46,12 +46,18 @@ render () {
     return (
       
       <main className='main'>
-        <h2>{this.props.category.toUpperCase()}</h2>
-        <CartTinyView productsList={this.props.productList} />
-        <CurrencySwitcher changeCurrency={this.props.changeCurrency} currencies={this.props.currencies}/>
+        <CurrencySwitcher 
+          changeCurrency={this.props.changeCurrency} 
+          currencies={this.props.currencies} 
+        />
+        <h2 className='main__title'>{this.props.category.toUpperCase()}</h2>
+        <CartTinyView 
+          productsList={this.props.productList} 
+          manageQuantity={this.props.manageQuantity} 
+        />
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.props.productList} bringInfo={this.props.bringInfo} />} />
-        <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productList} />} />
+        <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productList} manageQuantity={this.props.manageQuantity} />} />
         <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.props.productList} bringInfo={this.props.bringInfo} />} />
         
       </Routes>

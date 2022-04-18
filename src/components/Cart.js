@@ -30,7 +30,7 @@ class Cart extends Component {
         <CartContext.Consumer>
             {(products) =>
                     {/* console.log('products CART RETURN **********', products) */
-                    return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} />)
+                    return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} manageQuantity={this.props.manageQuantity} />)
                 }
             }
           </CartContext.Consumer>

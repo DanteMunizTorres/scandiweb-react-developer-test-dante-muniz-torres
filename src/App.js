@@ -38,6 +38,7 @@ class App extends Component {
     this.bringInfo = this.bringInfo.bind(this)
     this.changeCurrency = this.changeCurrency.bind(this)
     this.pickCategory = this.pickCategory.bind(this)
+    this.manageQuantity = this.manageQuantity.bind(this)
     /* this.filterCategory = this.filterCategory.bind(this) */
   }
 
@@ -50,6 +51,18 @@ class App extends Component {
   bringInfo(info) {
     console.log('infooooo------------------',info)
     return this.setState({product: [...this.state.product, info]})
+  }
+
+  manageQuantity(newQuantity) {
+    let modifiedProduct
+    modifiedProduct = this.state.product.map((prdct, index) => {
+      if (prdct.id === newQuantity.id && index === newQuantity.index ) {
+        prdct.quantity = newQuantity.number
+        console.log('prdct-----------------------------', prdct);
+      }
+      return prdct
+    })
+    return this.setState({product: modifiedProduct})
   }
 
   pickCategory(e) {
@@ -150,6 +163,7 @@ class App extends Component {
               currencies={this.state.currencies}
               bringInfo={this.bringInfo} 
               changeCurrency={this.changeCurrency}
+              manageQuantity={this.manageQuantity}
             />
           </BrowserRouter>
         </CurrencyContext.Provider>

@@ -1,5 +1,10 @@
 
 .main {
   position: relative;
-  padding: 32px;
+  padding: 0 68px 68px;
+  min-height: calc(100vh - 80px);
+}
+
+.main__title {
+  padding: 84px 0;
 }

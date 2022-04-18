@@ -7,7 +7,7 @@ class CartArticle extends Component {
     super(props);
     this.state={
       productInCart: undefined,
-      quantity: 1
+      /* quantity: {number: this.props.product.quantity} */
     }
     this.addQuantity = this.addQuantity.bind(this)
     this.substractQuantity = this.substractQuantity.bind(this)
@@ -28,16 +28,31 @@ class CartArticle extends Component {
 
   addQuantity (e) {
     e.preventDefault()
-    this.setState({quantity: this.state.quantity + 1})
+    let newQuantity = {
+      number: this.props.product.quantity + 1,
+      id: this.props.product.id,
+      index: this.props.id
+      }
+    /* this.setState({quantity: newQuantity}) */
+    return this.props.manageQuantity(newQuantity)
   }
   substractQuantity (e) {
     e.preventDefault()
-    if(this.state.quantity > 1) {
-      this.setState({quantity: this.state.quantity - 1})
+    if(this.props.product.quantity > 1) {
+      let newQuantity = {
+        number: this.props.product.quantity - 1,
+        id: this.props.product.id,
+        index: this.props.id
+        }
+      /* this.setState({quantity: newQuantity}) */
+      return this.props.manageQuantity(newQuantity)
     }
   }
 
   render() {
+
+    console.log('this.props.product.quantity------------------:::::::::::', this.props.product.quantity);
+    console.log('this.props.product-----<<<<<<<<<<>>>>', this.props.product);
 
     /* console.log('productsList en carrt ARTICLE',this.props.productsList)
     console.log('productsList en carrt ARTICLE RENDERRRRR', this.state.productInCart) */
@@ -60,7 +75,7 @@ class CartArticle extends Component {
           <div>
             <div>
               <button onClick={this.addQuantity}>+</button>
-              <input type='number' value={this.state.quantity} readOnly />
+              <input type='number' value={this.props.product.quantity} readOnly />
               <button onClick={this.substractQuantity}>-</button>
             </div>
             <img alt="product-image"></img>

@@ -34,22 +34,42 @@ class Header extends Component {
     this.state = {
       currencies: [],
       categories: [],
-      currencyBoxVisible: false
+      currencyBoxVisible: false,
+      miniCartVisible: false
     }
     this.miniCartShowUp = this.miniCartShowUp.bind(this)
-    this.makeVisible = this.makeVisible.bind(this)
+    this.currencySwitcherShowUp = this.currencySwitcherShowUp.bind(this)
+    this.disappear = this.disappear.bind(this)
   }
 
   miniCartShowUp() {
-    let modal = document.querySelector('.modal')
-      modal.style.display = 'block'
+    /* let modal = document.querySelector('.modal') */
+/*       if(this.state.miniCartVisible === false) {
+        this.setState({miniCartVisible: true})
+      } else if (this.state.miniCartVisible === true) {
+        this.setState({miniCartVisible: false})
+      } */
+
+      this.setState({ miniCartVisible: !this.state.miniCartVisible})
+        /* modal.style.display = 'block' */
   }
 
-  makeVisible(e) {
+  currencySwitcherShowUp(e) {
     this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible})
-    let currencySwitcher = document.querySelector('.currency-switcher__container')
-    currencySwitcher.style.display = 'block'
+
     /* document.querySelector('.currency-switcher__form').addClass('visible') */
+  }
+
+  disappear(e) {
+    
+    if(this.state.currencyBoxVisible) {
+      this.setState({ currencyBoxVisible: false})
+    }
+    if(this.state.miniCartVisible) {
+      this.setState({ miniCartVisible: false})
+    }
+    
+    
   }
 
   componentDidMount () {
@@ -86,8 +106,23 @@ class Header extends Component {
 
   componentDidUpdate (__prevProps, prevState) {
     /* console.log('me actualice'); */
-    if(prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
-
+    //currencybox
+    if (prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
+      let currencySwitcher = document.querySelector('.currency-switcher__form')
+      if (this.state.currencyBoxVisible) {
+        currencySwitcher.style.display = 'flex'
+      } else if (!this.state.currencyBoxVisible) {
+        currencySwitcher.style.display = 'none'
+      }
+    }
+    //minicart
+    if (prevState.miniCartVisible !== this.state.miniCartVisible) {
+      let modal = document.querySelector('.modal')
+      if (this.state.miniCartVisible) {
+        modal.style.display = 'block'
+      } else if (!this.state.miniCartVisible) {
+        modal.style.display = 'none'
+      }
     }
   }
 
@@ -102,6 +137,7 @@ class Header extends Component {
 
     }
 
+    //currency switcher button's arrow
     let arrow
     if (this.state.currencyBoxVisible) {
       arrow =  <img src={arrowUpSVG}></img>
@@ -109,8 +145,17 @@ class Header extends Component {
       arrow = <img src={arrowDownSVG}></img>
     }
 
+    //currency switcher disappear
+    if(this.state.currencyBoxVisible === true) {
+      let main = document.querySelector('.main')
+      main.addEventListener('click', ()=> {
+        /* console.log('click');  */               
+        this.setState({ currencyBoxVisible: false})
+      })
+    }
+
     return (
-      <header className='header'>
+      <header className='header' onClick={this.disappear}>
         <nav>
           <ul className='header__nav-categories'>
             {categoriesOptions}
@@ -118,19 +163,20 @@ class Header extends Component {
           </ul>
         </nav>
         
-        <button className='header__go-back-button'>
-          <Link to='/'>
-            <img src={reloadSVG}></img>
-          </Link>
-        </button>
-        
         <div>
+
+            <img src={reloadSVG}></img>
+
+
+        </div>
+        
+        <div className='header__buttons-section'>
           
 {/* {        <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
           {this.state.currencies.map((currency, i) => {return <option key={i} value={i}>{currency.symbol}{currency.label}</option>})}
         </select>} */}
 
-      <button className='currency-switcher__button' onClick={this.makeVisible}>
+      <button className='header__currency-switcher-button' onClick={this.currencySwitcherShowUp}>
         <CurrencyContext.Consumer>
           {
             (currency) => {
@@ -141,9 +187,6 @@ class Header extends Component {
           }
         </CurrencyContext.Consumer>
         
-
-        
-
         {/* {currency.symbol} */} {arrow}
       </button>
         

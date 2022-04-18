@@ -17,6 +17,7 @@ class ProductArticle extends Component {
   addToCart() {
     let sendToCart = {
       id: this.props.product.id,
+      quantity: 1,
       info: [],
     };
     //lifting info to App.js
