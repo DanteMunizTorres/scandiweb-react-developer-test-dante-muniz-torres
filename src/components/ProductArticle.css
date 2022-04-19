@@ -1,12 +1,13 @@
-
+@import '../Colors.css';
 
 .product-article {
   width: 386px;
   height: 444px;
   padding: 16px;
   margin: 12px 4px;
-
-  /* border: 1px solid black; */
+}
+.product-article h3, h4 {
+  color: var(--black);
 }
 
 .product-article:hover {

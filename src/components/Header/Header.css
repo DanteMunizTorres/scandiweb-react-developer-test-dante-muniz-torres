@@ -1,4 +1,4 @@
-
+@import '../../Colors.css';
 
 .header {
   display: flex;
@@ -30,7 +30,7 @@
 }
 
 .category-li a{
-  color: black;
+  color: var(--black);
   padding: 28px 0px;
   display: inline-block;
   width: 68px;
@@ -46,8 +46,8 @@
 
 .category-li a:focus {
   font-weight: bold;
-  color: rgb(0, 220, 70);
-  border-bottom: 3px solid rgb(0, 220, 70);
+  color: var(--green);
+  border-bottom: 3px solid var(--green);
 }
 
 
@@ -62,7 +62,7 @@
 
 .header__mini-cart-button, .header__currency-switcher-button {
   
-  background-color: white;
+  background-color: var(--white);
   border: none;
   padding: 8px;
 

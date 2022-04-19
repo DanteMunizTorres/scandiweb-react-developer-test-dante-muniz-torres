@@ -1,5 +1,10 @@
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
+/* import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers"; */
+
+
 import React, { Component } from "react";
+
+
+import './ProductDetailAttributesBox.css'
 
 class ProductDetailAttributesBox extends Component {
   constructor(props) {
@@ -28,85 +33,53 @@ class ProductDetailAttributesBox extends Component {
     const attributes = this.props.attributes;
     const attributesChosen = this.state.attributesChosen;
 
-/*     let crux
-    if (attributes && attributesChosen) {
-      crux = attributes.find(atr => attributesChosen.find(chosen => chosen.name === atr.name))
-    }
-
-    console.log('crux------------------------------', crux); */
-
-
-
-  
-
-    /* let checked
-    if(attributes.id === a) {
-
-    } */
-
-    /* console.log(
-      "this.state.attributes----------------------------------------",
-      this.state.attributes
-    );
-
-    console.log(
-      "this.state.attributesChosen----------------------------------------",
-      this.state.attributesChosen
-    ); */
-
-
-
     let attributesBox;
       //if it's called inside Cart or Mini cart component
     if (attributes && this.state.isInCart === true){
-      /* console.log('isincart_________________________',this.state.isInCart) */
       attributesBox = (      
         attributes.map((attribute, i) => {
-
           return <>
             <div key={attribute.name + i}>
               <h4>{attribute.name}</h4>
             </div>
-            <div>
+
+            <div className="attributes-boxes-wrapper">
 
             {attribute.items.map((item, indx) => {
-
+              //find checked input and swatch attributes (color)
               let match = attributesChosen.find(atrb => atrb.value === item.value)
-              /* console.log('match_____----------______', match) */
               if (attribute.id === "Color" && match !== undefined && item.value === match.value) {
-                /* console.log('match_____-----IN FI-----______', match) */
-
                 return <div key={attribute.id + indx}>
-                  <input type="radio" name={attribute.id + this.props.id} id={item.id} value={match.value}  checked disabled />
+                  <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id} value={match.value}  checked disabled />
                   <label
+                    className="minicart-attributes__input-label color-input__checked"
                     style={{color: item.value, backgroundColor: item.value, border: "1px solid black"}}
                     htmlFor={item.id}
-                  >
-                    {item.displayValue}
-                  </label>
+                  ></label>
                 </div>;
               }
+              //attributes with color value
               else if (attribute.id === "Color") {
-               /*  console.log('if else************************', item.value) */
                 return <div key={attribute.id + indx}>
-                  <input type="radio" name={attribute.id + this.props.id} id={item.id} value={item.value} disabled />
+                  <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id} value={item.value} disabled />
                   <label
-                    style={{color: item.value, backgroundColor: item.value, border: "1px solid black"}}
+                    className="minicart-attributes__input-label color-input-not__checked"
+                    style={{color: item.value, backgroundColor: item.value}}
                     htmlFor={item.id}
-                  >
-                    {item.displayValue}
-                  </label>
+                  ></label>
                 </div>;
               } else {
+                // Not swatch attributes, find checked input
                 if ( match !== undefined && item.value === match.value) {
                   return <div key={attribute.id + indx}>
-                  <input type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} checked disabled />
-                  <label htmlFor={item.id + attribute.id} >{item.displayValue}</label>
+                  <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} checked disabled />
+                  <label className="minicart-attributes__input-label" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
                 </div>;
                 } else {
+                  // all other inputs
                   return <div key={attribute.id + indx}>
-                    <input type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} disabled />
-                    <label htmlFor={item.id + attribute.id} >{item.displayValue}</label>
+                    <input className="display-none"  type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} disabled />
+                    <label className="minicart-attributes__input-label" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
                   </div>;
                 }
               }
@@ -118,31 +91,37 @@ class ProductDetailAttributesBox extends Component {
     );
     //if it's called inside Product detail component
     } else if ( attributes ) {
-      /* console.log('isincart_________________________',this.state.isInCart) */
       attributesBox = (      
           attributes.map((attribute, i) => {
 
             return <>
               <div key={attribute.name + i}>
-                <h4>{attribute.name}</h4>
+                <h4 className="attributes-title">{attribute.name.toUpperCase()}</h4>
               </div>
-              <div>
 
+              <div className="attributes-boxes-wrapper">
               {attribute.items.map((item, indx) => {
                 if (attribute.id === "Color") {
                   return <div key={attribute.id + indx}>
-                    <input type="radio" name={attribute.id} id={item.id} value={item.value} onChange={this.props.inputHandler} />
                     <label
-                      style={{color: item.value, backgroundColor: item.value, border: "1px solid black"}}
+                      className="product-detail__input-label"
+                      style={{color: item.value, backgroundColor: item.value}}
                       htmlFor={item.id}
+                      /* value={item.value}
+                      name={attribute.id} */
                     >
-                      {item.displayValue}
+                      <input className="display-none" type="radio" name={attribute.id} id={item.id} value={item.value} onChange={this.props.inputHandler} />
                     </label>
                   </div>;
                 } else {
                   return <div key={attribute.id + indx}>
-                    <input type="radio" name={attribute.id} id={item.id + attribute.id} value={item.value} onChange={this.props.inputHandler} />
-                    <label htmlFor={item.id + attribute.id} >{item.displayValue}</label>
+                    <label 
+                      htmlFor={item.id + attribute.id} 
+                      className="product-detail__input-label"
+                    >
+                        {item.displayValue}
+                        <input className="display-none" type="radio" name={attribute.id} id={item.id + attribute.id} value={item.value} onChange={this.props.inputHandler} />
+                    </label>
                   </div>;
                 }
               })}
@@ -152,8 +131,6 @@ class ProductDetailAttributesBox extends Component {
         
       );
     } 
-    
-
     return <>{attributesBox}</>;
   }
 }

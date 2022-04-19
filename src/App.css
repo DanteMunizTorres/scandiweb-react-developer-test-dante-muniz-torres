@@ -1,3 +1,5 @@
+@import './Colors.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +8,22 @@
 
 html {
   font-size: 62.5%;
-  color: black;
+  color: var(--black);
 }
+
+html::-webkit-scrollbar {
+  width: 8px;
+  background-color: var(--white);
+  border-radius: 5px;
+  border: 1px solid var(--black);
+}
+html::-webkit-scrollbar-thumb {
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background-color: var(--black)/*  opacity(0.5) */;
+} 
+
+
 
 body {
   font-size: 1.6rem;

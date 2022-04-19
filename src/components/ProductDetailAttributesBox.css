@@ -1,0 +1,93 @@
+@import '../Colors.css';
+
+/* general to cart and product detail */
+.attributes-boxes-wrapper {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.display-none {
+  display: none;
+}
+
+
+
+
+
+
+
+/* in cart */
+
+
+
+
+
+
+
+
+
+.color-input__checked {
+  border: 3px solid black;
+}
+.color-input-not__checked {
+  opacity: 0.3;
+}
+
+
+.minicart-attributes__input-label {
+  display: inline-block;
+  width: 35px;
+  height: 30px;
+  margin-right: 4px;
+  border: 1px solid var(--black);
+
+  line-height: 30px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* in product detail component*/
+
+
+.attributes-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+
+
+
+
+
+
+
+.product-detail__input-label {
+  display: inline-block;
+  width: 50px;
+  height: 40px;
+  margin-right: 8px;
+  border: 1px solid black;
+
+  line-height: 40px;
+  text-align: center;
+
+  
+}
+
+
+

@@ -1,4 +1,4 @@
-
+@import '../Colors.css';
 
 
 
@@ -19,7 +19,7 @@
 }
 
 .miniCart {
-  background-color: white;
+  background-color: var(--white);
   width: 300px;
   position:absolute;
   right: 68px;

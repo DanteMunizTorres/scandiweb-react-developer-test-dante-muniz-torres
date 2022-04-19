@@ -1,5 +1,6 @@
+@import '../Colors.css';
 
-.currency-switcher__container {
+/* .currency-switcher__container {
   background: rgba(0, 0, 0, 0);
   position: absolute;
   top: 0;
@@ -9,25 +10,25 @@
 
   display: none;
   
-}
+} */
 
 .currency-switcher__form {
 
   position: absolute;
   right: 68px;
 
-  /* width: 114px; */
+  width: 84px;
+  padding: 4px;
 
-  background-color: white;
+  background-color: var(--white);
   box-shadow: 0px 5px 30px -18px rgba(0,0,0,0.50);
 
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   flex-wrap: wrap;
+
   display: none;
 }
 .visible {
@@ -35,7 +36,9 @@
 }
 
 
-
+.currency-switcher__option {
+  width: 100%;
+}
 
 
 
@@ -47,6 +50,11 @@
 .currency-switcher__option-label {
   display: block;
   padding: 8px 16px;
-
+  width: 100%;
   cursor: pointer;
+}
+.currency-switcher__option-label:hover {
+  border-radius: 4px;
+  background-color: var(--green);
+  color: var(--white);
 }

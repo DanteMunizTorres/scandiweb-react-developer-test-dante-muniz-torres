@@ -47,7 +47,12 @@ class ProductList extends Component {
 
 
       return (
-        <section className="product-list">{articles}</section>
+        <>
+          <h2 className='main__title'>{this.props.category.toUpperCase()}</h2>
+          <section className="product-list">
+            {articles}
+          </section>
+        </>
       );
     }
   }
