@@ -194,7 +194,7 @@ class Header extends Component {
             <CartContext.Consumer>
               {(productsInCart) => {
                 if (productsInCart.length > 0) {
-                  return <p>{productsInCart.length}</p>
+                  return <p className='header__mini-cart-button-counter'>{productsInCart.length}</p>
                 }
                 }
               }

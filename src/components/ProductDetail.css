@@ -42,9 +42,36 @@
   background-color: var(--black)/*  opacity(0.5) */;
 } 
 
+
+.mini-img-wrapper {
+  max-width: 124px;
+  max-height: 124px;
+  overflow: hidden;
+
+  position: relative;
+  margin-bottom: 16px;
+
+}
+
 .imgs-gallery__mini-img {
   width: 100%;
+  object-position: center center;
+
+  overflow: hidden;
+
   /* margin-right: 8px; */
+  
+  /* object-fit: fill; */
+
+/*   position:absolute;
+  left: -100%;
+  right: -100%;
+  top: -100%;
+  bottom: -100%;
+  margin: auto;
+  min-height: 100%;
+  min-width: 100%; */
+
 }
 
 

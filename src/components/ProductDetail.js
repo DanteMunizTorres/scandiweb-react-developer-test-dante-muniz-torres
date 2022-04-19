@@ -115,7 +115,7 @@ class ProductDetail extends Component {
         <article className="imgs-gallery">
           <div className="imgs-gallery__mini-img-container">
             {productToShow.gallery.map((img, i) => {
-               return <img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img>
+               return <div className="mini-img-wrapper"><img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
             })}
           </div>
           <div className="imgs-gallery__big-img-container">
