@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import ProductDetailAttributesBox from './ProductDetailAttributesBox';
 
+import './CartArticle.css'
+
 class CartArticle extends Component {
   constructor(props) {
     super(props);
@@ -51,8 +53,8 @@ class CartArticle extends Component {
 
   render() {
 
-    console.log('this.props.product.quantity------------------:::::::::::', this.props.product.quantity);
-    console.log('this.props.product-----<<<<<<<<<<>>>>', this.props.product);
+    /* console.log('this.props.product.quantity------------------:::::::::::', this.props.product.quantity);
+    console.log('this.props.product-----<<<<<<<<<<>>>>', this.props.product); */
 
     /* console.log('productsList en carrt ARTICLE',this.props.productsList)
     console.log('productsList en carrt ARTICLE RENDERRRRR', this.state.productInCart) */
@@ -60,25 +62,25 @@ class CartArticle extends Component {
     let cartArticle
     if (this.state.productInCart) {
       cartArticle = 
-        <article>
-          <div>
-            <h3>brand</h3>
-            <h4>product name {this.props.product.id}</h4>
+        <article className='cart-article'>
+          <div className='cart-article__info'>
+            <h3>{this.state.productInCart.brand}</h3>
+            <h4>{this.state.productInCart.name}</h4>
 
             <div>
               <ProductDetailAttributesBox attributes={this.state.productInCart.attributes} attributesChosen={this.props.product.info} isInCart={true} id={this.props.id} />
-              {/* {console.log('this.state.productInCart.attributes----------', this.state.productInCart)} */}
             </div>
-
           </div>
     
-          <div>
-            <div>
-              <button onClick={this.addQuantity}>+</button>
-              <input type='number' value={this.props.product.quantity} readOnly />
-              <button onClick={this.substractQuantity}>-</button>
+          <div className='cart-article__quantity'>
+            <div className='cart-article__quantity-buttons-container'>
+              <button className='cart-article__quantity--button' onClick={this.addQuantity}>+</button>
+              <input className='cart-article__quantity--number' type='number' value={this.props.product.quantity} readOnly />
+              <button className='cart-article__quantity--button' onClick={this.substractQuantity}>-</button>
             </div>
-            <img alt="product-image"></img>
+            <div className='cart-article__img-wrapper'>
+              <img className='cart-article__img' src={this.state.productInCart.gallery[0]} alt="product-image"></img>
+            </div>
           </div>
         </article>
     } else {

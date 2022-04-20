@@ -113,11 +113,14 @@ class ProductDetail extends Component {
       productDetail =
       <section className="product-detail-main-section">
         <article className="imgs-gallery">
-          <div className="imgs-gallery__mini-img-container">
-            {productToShow.gallery.map((img, i) => {
-               return <div className="mini-img-wrapper"><img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
-            })}
-          </div>
+          
+            <div className="imgs-gallery__mini-img-container">
+              {productToShow.gallery.map((img, i) => {
+                return <div className="mini-img-wrapper"><img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
+              })}
+            </div>
+
+          
           <div className="imgs-gallery__big-img-container">
             <img src={productToShow.gallery[0]} className='imgs-gallery__big-img' alt="product big image"></img>
           </div>
