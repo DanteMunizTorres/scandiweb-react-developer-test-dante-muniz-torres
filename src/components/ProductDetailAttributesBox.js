@@ -22,6 +22,8 @@ class ProductDetailAttributesBox extends Component {
     if (this.props.isInCart) {
       this.setState({isInCart: true})
     }
+
+    
   }
 
   componentDidUpdate() {
@@ -40,7 +42,7 @@ class ProductDetailAttributesBox extends Component {
         attributes.map((attribute, i) => {
           return <>
             <div key={attribute.name + i}>
-              <h4>{attribute.name}</h4>
+              <h4 className="in-cart-attributes-title">{attribute.name}</h4>
             </div>
 
             <div className="attributes-boxes-wrapper">
@@ -63,7 +65,7 @@ class ProductDetailAttributesBox extends Component {
                 return <div key={attribute.id + indx}>
                   <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id} value={item.value} disabled />
                   <label
-                    className="minicart-attributes__input-label color-input-not__checked"
+                    className="minicart-attributes__input-label color-input__not-checked"
                     style={{color: item.value, backgroundColor: item.value}}
                     htmlFor={item.id}
                   ></label>
@@ -73,13 +75,13 @@ class ProductDetailAttributesBox extends Component {
                 if ( match !== undefined && item.value === match.value) {
                   return <div key={attribute.id + indx}>
                   <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} checked disabled />
-                  <label className="minicart-attributes__input-label" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
+                  <label className="minicart-attributes__input-label input__checked" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
                 </div>;
                 } else {
                   // all other inputs
                   return <div key={attribute.id + indx}>
                     <input className="display-none"  type="radio" name={attribute.id + this.props.id} id={item.id + attribute.id} value={item.value} disabled />
-                    <label className="minicart-attributes__input-label" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
+                    <label className="minicart-attributes__input-label input__not-checked" htmlFor={item.id + attribute.id} >{item.displayValue}</label>
                   </div>;
                 }
               }
@@ -104,28 +106,41 @@ class ProductDetailAttributesBox extends Component {
                 if (attribute.id === "Color") {
                   return <div key={attribute.id + indx}>
                     <label
+                      /* htmlFor={item.id + attribute.id} */
                       className="product-detail__input-label"
                       style={{color: item.value, backgroundColor: item.value}}
-                      htmlFor={item.id}
-                      /* value={item.value}
-                      name={attribute.id} */
                     >
-                      <input className="display-none" type="radio" name={attribute.id} id={item.id} value={item.value} onChange={this.props.inputHandler} />
+                      <input 
+                        id={item.id + attribute.id} 
+                        className="display-none product-detail__input input-color" 
+                        type="radio" 
+                        name={attribute.id} 
+                        value={item.value} 
+                        onChange={this.props.inputHandler} 
+                      />
                     </label>
                   </div>;
                 } else {
                   return <div key={attribute.id + indx}>
                     <label 
-                      htmlFor={item.id + attribute.id} 
-                      className="product-detail__input-label"
+                      /* htmlFor={item.id + attribute.id}  */
+                      className='product-detail__input-label'
                     >
-                        {item.displayValue}
-                        <input className="display-none" type="radio" name={attribute.id} id={item.id + attribute.id} value={item.value} onChange={this.props.inputHandler} />
+                      {item.displayValue}
+                      <input 
+                        id={item.id + attribute.id} 
+                        className="display-none product-detail__input input-not-color" 
+                        type="radio" 
+                        name={attribute.id} 
+                        value={item.value} 
+                        onChange={this.props.inputHandler} 
+                      />
                     </label>
                   </div>;
                 }
               })}
               </div>
+
             </>;
           })
         

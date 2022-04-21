@@ -59,6 +59,7 @@ class ProductDetail extends Component {
       id: this.props.id,
       quantity: 1,
       info: inputsToSend,
+      prices: this.state.productToShow.prices
     }    
     //lifting info to App.js
     this.props.bringInfo(sendToCart) 
@@ -71,28 +72,71 @@ class ProductDetail extends Component {
     let name = target.name
     let value = target.value
 
-    console.log('value: ', value, '   name:   ', name);
-    //input 1
-    if (this.state.inputsUsed1 === undefined) {
-      return this.setState({ inputsUsed1: {name: name, value: value} })
+    console.log('target-----------------------',target.parentElement.parentElement.parentElement)
+    console.log('checked----------------------',target.checked)
+    console.log('classname----------------------',target.className)
+    
+    console.log('get element by class name-----------------------------', document.getElementsByClassName('input-not-color'));
+
+    
+    if (target.classList.contains('input-not-color') ) {
+      let inputNotColor = document.getElementsByClassName('input-not-color')
+      for (let i = 0; inputNotColor.length > i; i++) {
+        if (inputNotColor[i].checked) {
+          inputNotColor[i].parentElement.classList.add('check__input-not-color')
+        } else if (!inputNotColor[i].checked && inputNotColor[i].parentElement.classList.contains('check__input-not-color')) {
+          inputNotColor[i].parentElement.classList.remove('check__input-not-color')
+        }
+      }
     }
-    if (name === this.state.inputsUsed1.name) {
-      return this.setState({ inputsUsed1: {name: name, value: value} })
+    if (target.classList.contains('input-color') ) {
+      let inputColor = document.getElementsByClassName('input-color')
+      for (let i = 0; inputColor.length > i; i++) {
+        if (inputColor[i].checked) {
+          inputColor[i].parentElement.classList.add('check__input-color')
+          if (value === '#000000') {
+            inputColor[i].parentElement.classList.add('check__input-color-green')
+          }
+        } else if (!inputColor[i].checked && inputColor[i].parentElement.classList.contains('check__input-color', 'check__input-color-green')) {
+          inputColor[i].parentElement.classList.remove('check__input-color', 'check__input-color-green')
+        }
+      }
     }
-    //input 2
-    if (name != this.state.inputsUsed1.name && this.state.inputsUsed2 === undefined) {
-      return this.setState({ inputsUsed2: {name: name, value: value} })
-    } 
-    if (name === this.state.inputsUsed2.name) {
-      return this.setState({ inputsUsed2: {name: name, value: value} })
-    }
-    //input 3
-    if (name != this.state.inputsUsed2.name && this.state.inputsUsed3 === undefined) {
-      return this.setState({ inputsUsed3: {name: name, value: value} })
-    } 
-    if (name === this.state.inputsUsed3.name) {
-      return this.setState({ inputsUsed3: {name: name, value: value} })
-    }
+
+    
+      /* allInputs.style.backgroundColor = 'white'
+      allInputs.style.color = 'black'  */
+
+      /* let inputsChecked = document.querySelectorAll('input:checked')
+      inputsChecked.map(input => input.parentElement.style.backgroundColor = 'red') */
+
+      /* target.parentElement.style.backgroundColor = 'black'
+      target.parentElement.style.color = 'white' */
+
+
+      console.log('value: ', value, '   name:   ', name);
+      //input 1
+      if (this.state.inputsUsed1 === undefined) {
+        return this.setState({ inputsUsed1: {name: name, value: value} })
+      }
+      if (name === this.state.inputsUsed1.name) {
+        return this.setState({ inputsUsed1: {name: name, value: value} })
+      }
+      //input 2
+      if (name != this.state.inputsUsed1.name && this.state.inputsUsed2 === undefined) {
+        return this.setState({ inputsUsed2: {name: name, value: value} })
+      } 
+      if (name === this.state.inputsUsed2.name) {
+        return this.setState({ inputsUsed2: {name: name, value: value} })
+      }
+      //input 3
+      if (name != this.state.inputsUsed2.name && this.state.inputsUsed3 === undefined) {
+        return this.setState({ inputsUsed3: {name: name, value: value} })
+      } 
+      if (name === this.state.inputsUsed3.name) {
+        return this.setState({ inputsUsed3: {name: name, value: value} })
+      }
+      
   }
 
   render() {

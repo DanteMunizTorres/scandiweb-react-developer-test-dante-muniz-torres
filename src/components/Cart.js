@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom';
 import CartContext from './ContextCart';
+import CurrencyContext from './ContextCurrency';
 
 import CartArticle from './CartArticle'
+
+import './Cart.css'
 
 class Cart extends Component {
 
@@ -26,12 +29,17 @@ class Cart extends Component {
 
     return (
       <form className='cart'>
-        <h2>Cart</h2>
+        <h2 className='cart__title'>Cart</h2>
         <CartContext.Consumer>
             {(products) =>
-                    {/* console.log('products CART RETURN **********', products) */
-                    return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} manageQuantity={this.props.manageQuantity} />)
-                }
+                        <CurrencyContext.Consumer>
+                        {(currency) => { 
+                          
+                            return products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} manageQuantity={this.props.manageQuantity} currency={currency} />)
+                         
+                          }
+                        }
+                      </CurrencyContext.Consumer>                  
             }
           </CartContext.Consumer>
         

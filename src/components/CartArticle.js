@@ -64,8 +64,14 @@ class CartArticle extends Component {
       cartArticle = 
         <article className='cart-article'>
           <div className='cart-article__info'>
-            <h3>{this.state.productInCart.brand}</h3>
-            <h4>{this.state.productInCart.name}</h4>
+            <div>
+              <h3 className='cart-article__info-brand'>{this.state.productInCart.brand}</h3>
+              <h3 className='cart-article__info-name'>{this.state.productInCart.name}</h3>
+            </div>
+            <h4 className='cart-article__info-price'>
+              {this.state.productInCart.prices[this.props.currency].currency.symbol}
+              {this.state.productInCart.prices[this.props.currency].amount}
+            </h4>
 
             <div>
               <ProductDetailAttributesBox attributes={this.state.productInCart.attributes} attributesChosen={this.props.product.info} isInCart={true} id={this.props.id} />
@@ -74,9 +80,9 @@ class CartArticle extends Component {
     
           <div className='cart-article__quantity'>
             <div className='cart-article__quantity-buttons-container'>
-              <button className='cart-article__quantity--button' onClick={this.addQuantity}>+</button>
+              <button className='cart-article__quantity--button' onClick={this.addQuantity}><span className='add'>+</span></button>
               <input className='cart-article__quantity--number' type='number' value={this.props.product.quantity} readOnly />
-              <button className='cart-article__quantity--button' onClick={this.substractQuantity}>-</button>
+              <button className='cart-article__quantity--button substract' onClick={this.substractQuantity}><span className='vector'></span></button>
             </div>
             <div className='cart-article__img-wrapper'>
               <img className='cart-article__img' src={this.state.productInCart.gallery[0]} alt="product-image"></img>

@@ -3,7 +3,7 @@
 /* general to cart and product detail */
 .attributes-boxes-wrapper {
   display: flex;
-  margin-bottom: 24px;
+  /* margin-bottom: 2.4em; */
 }
 
 .display-none {
@@ -12,36 +12,39 @@
 
 
 
-
-
-
-
 /* in cart */
 
-
-
-
-
-
-
+.in-cart-attributes-title {
+  font-size: 2.5em;
+  display: none;
+}
 
 
 .color-input__checked {
-  border: 3px solid black;
+  border: 0.4em solid black;
 }
-.color-input-not__checked {
-  opacity: 0.3;
+.color-input__not-checked {
+  opacity: 0.1;
 }
 
+.input__checked {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.input__not-checked {
+  opacity: 0.1;
+}
 
 .minicart-attributes__input-label {
+  font-size: 1.6em;
   display: inline-block;
-  width: 35px;
-  height: 30px;
+  min-width: 3.5em;
+  height: 3.0em;
   margin-right: 4px;
   border: 1px solid var(--black);
 
-  line-height: 30px;
+  line-height: 3em;
   text-align: center;
 }
 
@@ -49,32 +52,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* in product detail component*/
-
 
 .attributes-title {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 8px;
 }
-
-
-
-
-
-
-
 
 .product-detail__input-label {
   display: inline-block;
@@ -86,8 +70,19 @@
   line-height: 40px;
   text-align: center;
 
-  
+  cursor: pointer;
 }
 
 
+.check__input-not-color {
+  background-color: var(--black);
+  color: var(--white);
+}
 
+.check__input-color {
+  border: 4px solid var(--black);
+}
+
+.check__input-color-green {
+  border: 4px solid var(--green);
+}

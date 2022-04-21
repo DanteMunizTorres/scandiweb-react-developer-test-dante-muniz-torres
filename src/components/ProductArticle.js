@@ -20,6 +20,7 @@ class ProductArticle extends Component {
       id: this.props.product.id,
       quantity: 1,
       info: [],
+      prices: this.props.product.prices
     };
     //lifting info to App.js
     this.props.bringInfo(sendToCart);
