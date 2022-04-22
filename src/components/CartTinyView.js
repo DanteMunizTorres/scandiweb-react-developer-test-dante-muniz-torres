@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import CartContext from './ContextCart';
@@ -16,8 +14,8 @@ class CartTinyView extends Component {
     }
     this.disapear = this.disapear.bind(this)
     this.miniCartDesapear = this.miniCartDesapear.bind(this)
+    this.checkOutCart = this.checkOutCart.bind(this)
   }
-
 
   disapear(e) {
     let modal = document.querySelector('.modal')
@@ -31,8 +29,20 @@ class CartTinyView extends Component {
     modal.style.display = 'none'
     }
 
+  checkOutCart(e) {
+      e.preventDefault()
+      let modal = document.querySelector('.modal')
+      modal.style.display = 'none'
+
+      this.props.resetCartInfo()
+
+      let checkOutMessage = 'Thank you, come again!'
+      this.props.showModal(e, checkOutMessage)
+  }
+
   render () {
-    let checkOutMessage = 'Thank you, come again!'
+
+    /* let checkOutMessage = 'Thank you, come again!' */
     return (
       <div className='modal' onClick={this.disapear}>
         <CartContext.Consumer>
@@ -41,7 +51,6 @@ class CartTinyView extends Component {
 
           <CurrencyContext.Consumer>
             {(currency) => { 
-              console.log('products en context',products)
               let total = products.map((product, i) => product.prices[currency].amount*product.quantity).reduce((a,b)=> a+b, 0)
 
               return <>
@@ -57,11 +66,11 @@ class CartTinyView extends Component {
                 <div className='mini-cart__buttons-container'>
                   <button className='mini-cart__button viewbag' onClick={this.miniCartDesapear}><Link to='/cart'>view bag</Link></button>
                   <button 
+                  type='reset'
                   className='mini-cart__button checkout' 
-                  onClick={(e)=> this.props.showModal(e, checkOutMessage) && this.miniCartDesapear} 
+                  onClick={this.checkOutCart} 
                   >check out</button>
                 </div>
-
               </>
               }
             }

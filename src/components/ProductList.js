@@ -8,17 +8,16 @@ import './ProductList.css'
 class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {productsLength: ''};
   }
 
-  render() {
-    if (document.querySelector('.product-list')) {
-      if(this.props.products.length < 3) {
-      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
-    } else {
-      document.querySelector('.product-list').style.justifyContent = 'space-between'
-    }
+  componentDidMount() {
+    this.setState({productsLength: this.props.products.length})
   }
+
+
+  render() {
+
 
     let articles;
     if (this.props.products) {
@@ -28,9 +27,22 @@ class ProductList extends Component {
             this.props.products.map((product, i) => (
               <ProductArticle key={i} currency={currency} product={product} bringInfo={this.props.bringInfo} />
             ))
+            
           }
         </CurrencyContext.Consumer>
       );
+
+      if (document.querySelector('.product-list')) {
+        if(this.state.productsLength < 3 || this.props.products.length < 3) {
+        document.querySelector('.product-list').style.justifyContent = 'space-evenly'
+      } else {
+        document.querySelector('.product-list').style.justifyContent = 'space-between'
+      }
+    }
+      
+      }
+
+
 
       return (
         <>
@@ -40,7 +52,7 @@ class ProductList extends Component {
           </section>
         </>
       );
-    }
+   
   }
 }
 

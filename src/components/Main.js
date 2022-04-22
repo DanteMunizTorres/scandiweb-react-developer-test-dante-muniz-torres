@@ -39,13 +39,14 @@ render () {
           currencies={this.props.currencies} 
         />
         <CartTinyView 
-          productsList={this.props.productList} 
+          productsList={this.props.productListAll} 
           manageQuantity={this.props.manageQuantity} 
           showModal={this.showModal}
+          resetCartInfo={this.props.resetCartInfo}
         />
       <Routes>
         <Route path='/' exact={true} element={ <ProductList products={this.props.productList} bringInfo={this.props.bringInfo} category={this.props.category} />} />
-        <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productList} manageQuantity={this.props.manageQuantity} />} />
+        <Route path='/cart' exact={true} element={ <Cart productsList={this.props.productListAll} manageQuantity={this.props.manageQuantity} />} />
         <Route path='/detail/:id' exact={true} element={ <GetParamsId products={this.props.productList} bringInfo={this.props.bringInfo} showModal={this.showModal} />} />    
       </Routes>
       </main>  

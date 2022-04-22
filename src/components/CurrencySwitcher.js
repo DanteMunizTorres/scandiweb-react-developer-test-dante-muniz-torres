@@ -8,9 +8,7 @@ class CurrencySwitcher extends Component {
     super(props);
     this.state = {
     }
-    /* this.disapear = this.disapear.bind(this) */
     this.miniCartDesapear = this.miniCartDesapear.bind(this)
-    
   }
 
   miniCartDesapear() {
@@ -22,7 +20,6 @@ class CurrencySwitcher extends Component {
 
     let currencyOptions
     if (this.props.currencies.length > 0) {
-      console.log('this.props.currencies***********',this.props.currencies);
       currencyOptions =
       this.props.currencies.map((currency, i) => {
         return  <div 

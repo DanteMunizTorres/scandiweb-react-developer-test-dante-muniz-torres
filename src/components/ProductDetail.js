@@ -61,7 +61,7 @@ class ProductDetail extends Component {
       info: inputsToSend,
       prices: this.state.productToShow.prices
     }    
-    //  show modal if no attribute is selected
+    //show modal if no attribute is selected
     if (this.state.productToShow.attributes.length !== sendToCart.info.length) {
       let message = 'You need to choose the product attributes before adding it to the cart'
       return this.props.showModal(e, message) 
@@ -138,7 +138,7 @@ class ProductDetail extends Component {
           
             <div className="imgs-gallery__mini-img-container">
               {productToShow.gallery.map((img, i) => {
-                return <div className="mini-img-wrapper"><img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
+                return <div key={i} className="mini-img-wrapper"><img  src={img} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
               })}
             </div>
           
@@ -161,12 +161,12 @@ class ProductDetail extends Component {
           <CurrencyContext.Consumer>
             {(value) =>
                         <div>
-                          <h4 className="attributes-price-title">PRICE:</h4>
+                          <h4 className="attributes-price-title">price:</h4>
                           <h3 className="attributes-price-number">{productToShow.prices[value].currency.symbol}{productToShow.prices[value].amount}</h3>
                       </div>
             }
           </CurrencyContext.Consumer>
-          <button className="addToCartButton" type="submit">ADD TO CART</button>
+          <button className="addToCartButton" type="submit">add to cart</button>
           <div className="productDescription attributes-product-detail__description"></div>
         </form>
       </section>

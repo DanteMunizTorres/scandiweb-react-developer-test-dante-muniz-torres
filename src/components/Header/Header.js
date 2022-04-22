@@ -14,8 +14,6 @@ import './Header.css'
 import {
   ApolloClient,
   InMemoryCache,
-
-  useQuery, //I'm not going to use this hook because the assigment says hooks can't be used: 
   gql
 } from "@apollo/client";
 
@@ -92,7 +90,6 @@ class Header extends Component {
   }
 
   componentDidUpdate (__prevProps, prevState) {
-    /* console.log('me actualice'); */
     //currencybox
     if (prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
       let currencySwitcher = document.querySelector('.currency-switcher__form')

@@ -1,3 +1,6 @@
+.main__title {
+  padding: 84px 0;
+}
 
 .product-list {
   display: flex;

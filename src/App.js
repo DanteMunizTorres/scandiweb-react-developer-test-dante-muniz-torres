@@ -35,6 +35,7 @@ class App extends Component {
       product: []
     }
     this.bringInfo = this.bringInfo.bind(this)
+    this.resetCartInfo = this.resetCartInfo.bind(this)
     this.changeCurrency = this.changeCurrency.bind(this)
     this.pickCategory = this.pickCategory.bind(this)
     this.manageQuantity = this.manageQuantity.bind(this)
@@ -46,16 +47,18 @@ class App extends Component {
   }
 
   bringInfo(info) {
-    console.log('infooooo------------------',info)
     return this.setState({product: [...this.state.product, info]})
   }
+  resetCartInfo(){
+    return this.setState({product: []})
+  }
+
 
   manageQuantity(newQuantity) {
     let modifiedProduct
     modifiedProduct = this.state.product.map((prdct, index) => {
       if (prdct.id === newQuantity.id && index === newQuantity.index ) {
         prdct.quantity = newQuantity.number
-        console.log('prdct-----------------------------', prdct);
       }
       return prdct
     })
@@ -68,7 +71,6 @@ class App extends Component {
   } 
 
   componentDidMount () {
-    //llamado a api 
     client
     .query({
       query: gql`
@@ -139,14 +141,11 @@ class App extends Component {
   }
 
   render () {
-    console.log('this.state.product---------------------',this.state.productListFilteredByCategory)
 
+    // category nav style
     if (document.querySelector(`.${this.state.category}`)) {
-
         let categoryNav = document.getElementsByClassName('category-li__link')
-        console.log('categoryNav------------------------------------', categoryNav);
         for (let i = 0; categoryNav.length > i; i++) {
-          console.log('categoryNav[i]WWWWWWWWWWWWWWWWWWWWWWWWW', categoryNav[i])
           if (categoryNav[i].classList.contains(`category-active__${categoryNav[i].name}`)) {
             categoryNav[i].classList.remove(`category-active__${categoryNav[i].name}`)
           }
@@ -163,9 +162,11 @@ class App extends Component {
             <Header changeCurrency={this.changeCurrency} pickCategory={this.pickCategory} />
             <Main 
               category={this.state.category} 
+              productListAll={this.state.productList}
               productList={this.state.productListFilteredByCategory} 
               currencies={this.state.currencies}
               bringInfo={this.bringInfo} 
+              resetCartInfo={this.resetCartInfo}
               changeCurrency={this.changeCurrency}
               manageQuantity={this.manageQuantity}
             />
