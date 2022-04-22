@@ -1,19 +1,6 @@
 @import '../Colors.css';
 
-/* .currency-switcher__container {
-  background: rgba(0, 0, 0, 0);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-
-  display: none;
-  
-} */
-
 .currency-switcher__form {
-
   position: absolute;
   right: 68px;
 
@@ -35,12 +22,9 @@
   display: block;
 }
 
-
 .currency-switcher__option {
   width: 100%;
 }
-
-
 
 .currency-switcher__option-input {
   display: none;

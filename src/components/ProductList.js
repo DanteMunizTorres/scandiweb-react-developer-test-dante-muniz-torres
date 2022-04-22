@@ -21,16 +21,22 @@ class ProductList extends Component {
 
   componentDidUpdate(prevProps) {
     /* console.log('me actualice'); */
-    if (prevProps.products !== this.props.products && this.props.products.length < 3) {
+    /* if (prevProps.products !== this.props.products && this.props.products.length < 3) {
       document.querySelector('.product-list').style.justifyContent = 'space-evenly'
     } else if (prevProps.products !== this.props.products && this.props.products.length >= 3) {
       document.querySelector('.product-list').style.justifyContent = 'space-between'
-    }
+    } */
   }
 
   /* static contextType = CurrencyContext; */
 
   render() {
+
+    if (document.querySelector('.product-list') && this.props.products.length < 3) {
+      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
+    } else if (document.querySelector('.product-list') && this.props.products.length >= 3) {
+      document.querySelector('.product-list').style.justifyContent = 'space-between'
+    }
 
     let articles;
     if (this.props.products) {

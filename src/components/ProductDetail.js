@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from 'react-router-dom'
 import CurrencyContext from "./ContextCurrency";
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
+import Modal from "./Modal";
 
 import './ProductDetail.css'
 
@@ -13,11 +14,13 @@ class ProductDetail extends Component {
       inputsUsed1: undefined,
       inputsUsed2: undefined,
       inputsUsed3: undefined,
-      navigate: false
+      navigate: false,
+      message: 'Ups, somthing is wrong...'
     }; 
     this.addToCart = this.addToCart.bind(this)
     this.inputHandler = this.inputHandler.bind(this)
     this.showBig = this.showBig.bind(this)
+    this.showModal = this.showModal.bind(this)
   }
 
   componentDidMount() {    
@@ -41,14 +44,23 @@ class ProductDetail extends Component {
     }
   }
 
+  showModal(e) {
+    e.preventDefault()
+
+    let checkOutModal = document.querySelector('.modal-container')
+    checkOutModal.style.display = 'flex'
+
+    this.props.showModal(e, 'mensaje re loco')
+  }
+
   showBig(e) {
     let bigImg = document.querySelector('.imgs-gallery__big-img')
     bigImg.src = e.target.src
   }
 
   addToCart(e) {
-    e.preventDefault()
     let input1 = this.state.inputsUsed1
+    e.preventDefault()
     let input2 = this.state.inputsUsed2
     let input3 = this.state.inputsUsed3
 
@@ -61,6 +73,14 @@ class ProductDetail extends Component {
       info: inputsToSend,
       prices: this.state.productToShow.prices
     }    
+
+    if (this.state.productToShow.attributes.length !== sendToCart.info.length) {
+      let message = 'You need to choose the product attributes before adding it to the cart'
+      return this.props.showModal(e, message)
+      
+    }
+
+
     //lifting info to App.js
     this.props.bringInfo(sendToCart) 
 
@@ -94,11 +114,8 @@ class ProductDetail extends Component {
       for (let i = 0; inputColor.length > i; i++) {
         if (inputColor[i].checked) {
           inputColor[i].parentElement.classList.add('check__input-color')
-          if (value === '#000000') {
-            inputColor[i].parentElement.classList.add('check__input-color-green')
-          }
         } else if (!inputColor[i].checked && inputColor[i].parentElement.classList.contains('check__input-color', 'check__input-color-green')) {
-          inputColor[i].parentElement.classList.remove('check__input-color', 'check__input-color-green')
+          inputColor[i].parentElement.classList.remove('check__input-color')
         }
       }
     }
@@ -195,7 +212,7 @@ class ProductDetail extends Component {
       </section>
     }
 
-
+    let notOkMessage = 'You need to choose the product attributes before adding it to de cart'
 
     return (
       <>

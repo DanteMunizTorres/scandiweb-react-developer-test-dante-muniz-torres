@@ -43,33 +43,20 @@ class Header extends Component {
   }
 
   miniCartShowUp() {
-    /* let modal = document.querySelector('.modal') */
-/*       if(this.state.miniCartVisible === false) {
-        this.setState({miniCartVisible: true})
-      } else if (this.state.miniCartVisible === true) {
-        this.setState({miniCartVisible: false})
-      } */
-
       this.setState({ miniCartVisible: !this.state.miniCartVisible})
-        /* modal.style.display = 'block' */
   }
 
   currencySwitcherShowUp(e) {
     this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible})
-
-    /* document.querySelector('.currency-switcher__form').addClass('visible') */
   }
 
-  disappear(e) {
-    
+  disappear(e) {   
     if(this.state.currencyBoxVisible) {
       this.setState({ currencyBoxVisible: false})
     }
     if(this.state.miniCartVisible) {
       this.setState({ miniCartVisible: false})
-    }
-    
-    
+    } 
   }
 
   componentDidMount () {
@@ -132,7 +119,7 @@ class Header extends Component {
     if (this.state.categories) {
       categoriesOptions = 
             this.state.categories.map( (category, i ) => {
-              return <li className='category-li' key={ category.name + i }><Link to='/' onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
+              return <li className='category-li' key={ category.name + i }><Link className={`${category.name} category-li__link`} name={category.name} to='/' onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
             })
 
     }

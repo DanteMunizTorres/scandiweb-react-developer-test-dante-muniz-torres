@@ -67,6 +67,7 @@ class App extends Component {
 
   pickCategory(e) {
     let categoryChosen = e.target.innerText.toLowerCase()
+
     return this.setState({category: categoryChosen})
   } 
 
@@ -81,6 +82,7 @@ class App extends Component {
             id
             name
             brand
+            inStock
             category
             inStock
             prices {
@@ -150,7 +152,22 @@ class App extends Component {
   render () {
     console.log('this.state.product---------------------',this.state.productListFilteredByCategory)
 
+    if (document.querySelector(`.${this.state.category}`)) {
 
+        let categoryNav = document.getElementsByClassName('category-li__link')
+        console.log('categoryNav------------------------------------', categoryNav);
+        for (let i = 0; categoryNav.length > i; i++) {
+          console.log('categoryNav[i]WWWWWWWWWWWWWWWWWWWWWWWWW', categoryNav[i])
+          if (categoryNav[i].classList.contains(`category-active__${categoryNav[i].name}`)) {
+            categoryNav[i].classList.remove(`category-active__${categoryNav[i].name}`)
+          }
+          if (categoryNav[i].name === this.state.category) {
+            categoryNav[i].classList.add(`category-active__${categoryNav[i].name}`)
+          }
+        }
+      
+      /* document.querySelector(`.${this.state.category}`).classList.add(`category-active__${this.state.category}`) */
+    }
 
     return (
       <CartContext.Provider value={this.state.product} >

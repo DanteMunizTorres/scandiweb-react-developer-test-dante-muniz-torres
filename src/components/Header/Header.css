@@ -8,10 +8,6 @@
   height: 80px;
 }
 
-/* .header nav {
-  margin-left: 25px;
-} */
-
 .header__nav-categories {
   width: 260px;
   display: flex;
@@ -26,41 +22,30 @@
   list-style: none;
 
   text-align: center;
-
 }
 
-.category-li a{
+.category-li__link{
   color: var(--black);
   font-size: 1.6rem;
   font-weight: 400;
   padding: 28px 0px;
   display: inline-block;
-  width: 68px;
-  
-  /* box-sizing: content-box; */
-  
+  width: 68px; 
 }
 
-
-/* .category-li a:hover{
-  border-bottom: 3px solid rgb(0, 220, 70);
-} */
-
-.category-li a:focus {
+.category-active__all,
+.category-active__tech,
+.category-active__clothes {
   font-weight: 600;
   color: var(--green);
   border-bottom: 2px solid var(--green);
 }
-
-
 
 .header__buttons-section {
   width: 260px;
   display: flex;
   justify-content: flex-end;
 }
-
-
 
 .header__mini-cart-button, .header__currency-switcher-button {
   
@@ -73,7 +58,6 @@
 
   font-size: 1.8rem;
 }
-
 
 .header__mini-cart-button-counter {
   position: absolute;

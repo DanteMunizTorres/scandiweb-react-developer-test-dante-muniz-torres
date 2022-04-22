@@ -9,7 +9,7 @@ class CartArticle extends Component {
     super(props);
     this.state={
       productInCart: undefined,
-      /* quantity: {number: this.props.product.quantity} */
+      
     }
     this.addQuantity = this.addQuantity.bind(this)
     this.substractQuantity = this.substractQuantity.bind(this)
@@ -35,7 +35,7 @@ class CartArticle extends Component {
       id: this.props.product.id,
       index: this.props.id
       }
-    /* this.setState({quantity: newQuantity}) */
+    /* lifting quantity to App.js */
     return this.props.manageQuantity(newQuantity)
   }
   substractQuantity (e) {
@@ -46,7 +46,7 @@ class CartArticle extends Component {
         id: this.props.product.id,
         index: this.props.id
         }
-      /* this.setState({quantity: newQuantity}) */
+      /* lifting quantity to App.js */
       return this.props.manageQuantity(newQuantity)
     }
   }

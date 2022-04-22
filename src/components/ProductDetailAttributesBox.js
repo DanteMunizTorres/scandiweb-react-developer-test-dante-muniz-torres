@@ -40,7 +40,8 @@ class ProductDetailAttributesBox extends Component {
     if (attributes && this.state.isInCart === true){
       attributesBox = (      
         attributes.map((attribute, i) => {
-          return <>
+          return (
+          <div className="in-cart-attributes-main-box">
             <div key={attribute.name + i}>
               <h4 className="in-cart-attributes-title">{attribute.name}</h4>
             </div>
@@ -48,14 +49,15 @@ class ProductDetailAttributesBox extends Component {
             <div className="attributes-boxes-wrapper">
 
             {attribute.items.map((item, indx) => {
-              //find checked input and swatch attributes (color)
-              let match = attributesChosen.find(atrb => atrb.value === item.value)
+              // find checked input
+              let match = attributesChosen.find(atrb => atrb.value === item.value && atrb.name === attribute.id)
+              // swatch attributes (color)
               if (attribute.id === "Color" && match !== undefined && item.value === match.value) {
                 return <div key={attribute.id + indx}>
                   <input className="display-none" type="radio" name={attribute.id + this.props.id} id={item.id} value={match.value}  checked disabled />
                   <label
                     className="minicart-attributes__input-label color-input__checked"
-                    style={{color: item.value, backgroundColor: item.value, border: "1px solid black"}}
+                    style={{color: item.value, backgroundColor: item.value}}
                     htmlFor={item.id}
                   ></label>
                 </div>;
@@ -87,7 +89,8 @@ class ProductDetailAttributesBox extends Component {
               }
             })}
             </div>
-          </>;
+          </div>
+          )
         })
       
     );
