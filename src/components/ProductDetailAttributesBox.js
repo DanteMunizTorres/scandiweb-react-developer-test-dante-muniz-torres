@@ -1,8 +1,4 @@
-/* import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers"; */
-
-
 import React, { Component } from "react";
-
 
 import './ProductDetailAttributesBox.css'
 
@@ -21,15 +17,8 @@ class ProductDetailAttributesBox extends Component {
     this.setState({attributesChosen: this.props.attributesChosen})
     if (this.props.isInCart) {
       this.setState({isInCart: true})
-    }
-
-    
+    } 
   }
-
-  componentDidUpdate() {
-    /* console.log('me actualice'); */
-  }
-
 
   render() {
     const attributes = this.props.attributes;
@@ -92,7 +81,6 @@ class ProductDetailAttributesBox extends Component {
           </div>
           )
         })
-      
     );
     //if it's called inside Product detail component
     } else if ( attributes ) {
@@ -143,7 +131,6 @@ class ProductDetailAttributesBox extends Component {
                 }
               })}
               </div>
-
             </>;
           })
         

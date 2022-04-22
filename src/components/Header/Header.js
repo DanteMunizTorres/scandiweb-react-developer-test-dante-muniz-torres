@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import CartContext from '../ContextCart'
 import CurrencyContext from '../ContextCurrency'
@@ -14,7 +14,7 @@ import './Header.css'
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
+
   useQuery, //I'm not going to use this hook because the assigment says hooks can't be used: 
   gql
 } from "@apollo/client";
@@ -113,7 +113,6 @@ class Header extends Component {
     }
   }
 
-
   render () {
     let categoriesOptions
     if (this.state.categories) {
@@ -121,7 +120,6 @@ class Header extends Component {
             this.state.categories.map( (category, i ) => {
               return <li className='category-li' key={ category.name + i }><Link className={`${category.name} category-li__link`} name={category.name} to='/' onClick={this.props.pickCategory}>{category.name.toUpperCase()}</Link></li>
             })
-
     }
 
     //currency switcher button's arrow
@@ -135,8 +133,7 @@ class Header extends Component {
     //currency switcher disappear
     if(this.state.currencyBoxVisible === true) {
       let main = document.querySelector('.main')
-      main.addEventListener('click', ()=> {
-        /* console.log('click');  */               
+      main.addEventListener('click', ()=> {            
         this.setState({ currencyBoxVisible: false})
       })
     }
@@ -145,24 +142,15 @@ class Header extends Component {
       <header className='header' onClick={this.disappear}>
         <nav>
           <ul className='header__nav-categories'>
-            {categoriesOptions}
-        
+            {categoriesOptions}      
           </ul>
-        </nav>
-        
+        </nav>    
+
         <div>
-
             <img src={reloadSVG}></img>
-
-
         </div>
         
-        <div className='header__buttons-section'>
-          
-{/* {        <select className='selectCurrency' onChange={()=>this.props.changeCurrency()}>
-          {this.state.currencies.map((currency, i) => {return <option key={i} value={i}>{currency.symbol}{currency.label}</option>})}
-        </select>} */}
-
+        <div className='header__buttons-section'>     
       <button className='header__currency-switcher-button' onClick={this.currencySwitcherShowUp}>
         <CurrencyContext.Consumer>
           {
@@ -173,8 +161,7 @@ class Header extends Component {
             } 
           }
         </CurrencyContext.Consumer>
-        
-        {/* {currency.symbol} */} {arrow}
+        {arrow}
       </button>
         
           <button onClick={this.miniCartShowUp} className='header__mini-cart-button'>

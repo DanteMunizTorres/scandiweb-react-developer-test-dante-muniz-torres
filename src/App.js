@@ -11,7 +11,6 @@ import Main from './components/Main';
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
   useQuery, //I'm not going to use this hook because the assigment says hooks can't be used: 
   gql
 } from "@apollo/client";
@@ -39,11 +38,9 @@ class App extends Component {
     this.changeCurrency = this.changeCurrency.bind(this)
     this.pickCategory = this.pickCategory.bind(this)
     this.manageQuantity = this.manageQuantity.bind(this)
-    /* this.filterCategory = this.filterCategory.bind(this) */
   }
 
   changeCurrency(e){
-    /* let select = document.querySelector('.selectCurrency') */
     let value = e.target.value
     return this.setState({currencyChosen: value})
   }
@@ -67,7 +64,6 @@ class App extends Component {
 
   pickCategory(e) {
     let categoryChosen = e.target.innerText.toLowerCase()
-
     return this.setState({category: categoryChosen})
   } 
 
@@ -126,11 +122,9 @@ class App extends Component {
     .then(result => {
       return this.setState({currencies: result.data.currencies})
     });
-
   }
 
   componentDidUpdate (__prevProps, prevState) {
-
     if(prevState.category !== this.state.category) {
       let filteredCategory = this.state.productList.filter(product => product.category === this.state.category)
       if (this.state.category !== 'all') {
@@ -138,16 +132,11 @@ class App extends Component {
       } else {
         this.setState({productListFilteredByCategory: this.state.productList})
       }
-    }
-    
+    }   
     if (prevState.productList !== this.state.productList) {
       this.setState({productListFilteredByCategory: this.state.productList})
     }
-
   }
-
-
-
 
   render () {
     console.log('this.state.product---------------------',this.state.productListFilteredByCategory)
@@ -165,8 +154,6 @@ class App extends Component {
             categoryNav[i].classList.add(`category-active__${categoryNav[i].name}`)
           }
         }
-      
-      /* document.querySelector(`.${this.state.category}`).classList.add(`category-active__${this.state.category}`) */
     }
 
     return (
@@ -185,7 +172,6 @@ class App extends Component {
           </BrowserRouter>
         </CurrencyContext.Provider>
       </CartContext.Provider>
-        
     );
 
   }

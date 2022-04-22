@@ -1,6 +1,5 @@
 @import '../Colors.css';
 
-
 .product-detail-main-section {
   display: flex;
   height: calc(100vh - 148px);
@@ -9,7 +8,6 @@
 
 }
 
-
 /* imges section */
 
 .imgs-gallery {
@@ -17,26 +15,16 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
-  
-
 }
 
 /* mini images */
-
-
 
 .imgs-gallery__mini-img-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex-wrap: nowrap; */
-  
-  /* width: 20%; */
   width: 160px;
-  /* max-height: min-content; */
-
   overflow: auto;
-  
 }
 
 .imgs-gallery__mini-img-container::-webkit-scrollbar {
@@ -51,11 +39,9 @@
   background-color: var(--black)/*  opacity(0.5) */;
 } 
 
-
 .mini-img-wrapper {
   width: 124px;
   height: 124px;
-  
   margin-bottom: 16px;
 }
 
@@ -65,38 +51,20 @@
   cursor: pointer;
 }
 
-
 /* big image */
 
 .imgs-gallery__big-img-container {
-  /* overflow: hidden; */
   object-position: center center;
   max-width: 80%;
-
-  /* align-self: center; */
-
   margin: 0 auto;
 }
 
 .imgs-gallery__big-img {
-  /* object-fit: contain;
-  object-position: center center; */
   max-height: 500px;
   max-width: 500px;
-/*   display: block;
-  position: relative;
-  margin: 0 auto; */
-
-  
-
   width: 100%;
   max-height: 100%;
-  
 }
-
-
-
-
 
 /* info section */
 
@@ -104,13 +72,11 @@
   width: 40%;
   display: flex;  
   flex-direction: column;
-  /* padding-right: 120px; */
   padding-right: 30px;
   margin-right: 90px;
   overflow: auto;
 }
 .product-detail__info::-webkit-scrollbar {
-  
   width: 8px;
   background-color: var(--white);
   border-radius: 5px;
@@ -121,7 +87,6 @@
   border-radius: 5px;
   background-color: var(--black)/*  opacity(0.5) */;
 } 
-
 
 .product-detail__brand {
   font-size: 3rem;
@@ -145,16 +110,13 @@
   margin-bottom: 24px;
 }
 
-
 .addToCartButton {
   padding:20px;
   margin-bottom: 32px;
   color: var(--white);
   background-color: var(--green);
   width: 100%;
-
   font-weight: 600;
-
   cursor: pointer;
   border: none;
 }
@@ -172,11 +134,7 @@
   line-height: 3rem;
   font-weight: 500;
 }
-/* .attributes-product-detail__description h3 {
-  font-size: 2.4rem;
-  line-height: 3rem;
-  font-weight: 500;
-} */
+
 .attributes-product-detail__description p {
   margin-top: 4px;
   margin-bottom: 8px;

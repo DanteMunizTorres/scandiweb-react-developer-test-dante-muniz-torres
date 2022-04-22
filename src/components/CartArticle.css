@@ -1,7 +1,6 @@
 @import '../Colors.css';
 
 .cart-article {
-  /* font-size: 10px; */
   margin-top: 1.6em;
   padding-top: 1.6em;
   border-top: 1px solid #E5E5E5;
@@ -35,12 +34,6 @@
 }
 
 
-
-
-
-
-
-
 .cart-article__quantity{
   display: flex;
   justify-content: space-between;
@@ -52,15 +45,12 @@
 
 .cart-article__quantity-buttons-container {
   position: relative;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-right: 0.8em;
-
   height: 100%;
-
 }
 
 .cart-article__quantity--button {
@@ -70,8 +60,6 @@
   height: 1.125em;
   
   position: relative;
-  /* margin: 0.8em; */
-
   background-color: var(--white);
   border: 1px solid var(--black);
 }
@@ -102,15 +90,11 @@
   border: 0.25px solid var(--black);
 }
 
-
-
 .cart-article__quantity--number {
   width: 2.4em;
   font-size: 2.4em;
   text-align: center;
-
   padding: 0;
-  
   border: none;
 }
 
@@ -126,11 +110,9 @@
   height: 18.5em;
   justify-content: right;
   align-items: center;
-
 }
 
 .cart-article__img {
-  
   max-height: 100%;
   max-width: 100%;
 }

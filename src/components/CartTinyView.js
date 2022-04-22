@@ -32,9 +32,7 @@ class CartTinyView extends Component {
     }
 
   render () {
-
     let checkOutMessage = 'Thank you, come again!'
-
     return (
       <div className='modal' onClick={this.disapear}>
         <CartContext.Consumer>
@@ -60,7 +58,7 @@ class CartTinyView extends Component {
                   <button className='mini-cart__button viewbag' onClick={this.miniCartDesapear}><Link to='/cart'>view bag</Link></button>
                   <button 
                   className='mini-cart__button checkout' 
-                  onClick={(e)=>this.props.showModal(e, checkOutMessage)} 
+                  onClick={(e)=> this.props.showModal(e, checkOutMessage) && this.miniCartDesapear} 
                   >check out</button>
                 </div>
 

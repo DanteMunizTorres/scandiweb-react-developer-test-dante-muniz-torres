@@ -13,21 +13,7 @@ class CurrencySwitcher extends Component {
     
   }
 
-  componentDidMount () {
-    
-  }
-
-  componentDidUpdate () {
-    /* console.log('me actualice'); */
-  }
-
-/*   disapear(e) {
-    let modal = document.querySelector('.modal')
-    if(e.target === modal) {
-      modal.style.display = 'none'
-    }
-  } */
-  miniCartDesapear(e) {
+  miniCartDesapear() {
     let modal = document.querySelector('.modal')
     modal.style.display = 'none'
     }
@@ -61,7 +47,6 @@ class CurrencySwitcher extends Component {
                 </div>
               }
       )
-
     }
 
     return (

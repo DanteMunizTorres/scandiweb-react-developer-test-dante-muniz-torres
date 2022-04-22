@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, Route, Routes } from "react-router-dom";
 
 import CurrencyContext from "./ContextCurrency";
 import ProductArticle from "./ProductArticle";
@@ -12,31 +11,14 @@ class ProductList extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    //llamado a api
-/*     if (this.props.products < 3) {
-      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
-    } */
-  }
-
-  componentDidUpdate(prevProps) {
-    /* console.log('me actualice'); */
-    /* if (prevProps.products !== this.props.products && this.props.products.length < 3) {
-      document.querySelector('.product-list').style.justifyContent = 'space-evenly'
-    } else if (prevProps.products !== this.props.products && this.props.products.length >= 3) {
-      document.querySelector('.product-list').style.justifyContent = 'space-between'
-    } */
-  }
-
-  /* static contextType = CurrencyContext; */
-
   render() {
-
-    if (document.querySelector('.product-list') && this.props.products.length < 3) {
+    if (document.querySelector('.product-list')) {
+      if(this.props.products.length < 3) {
       document.querySelector('.product-list').style.justifyContent = 'space-evenly'
-    } else if (document.querySelector('.product-list') && this.props.products.length >= 3) {
+    } else {
       document.querySelector('.product-list').style.justifyContent = 'space-between'
     }
+  }
 
     let articles;
     if (this.props.products) {
@@ -50,8 +32,6 @@ class ProductList extends Component {
         </CurrencyContext.Consumer>
       );
 
-
-
       return (
         <>
           <h2 className='main__title'>{this.props.category.toUpperCase()}</h2>
@@ -63,6 +43,5 @@ class ProductList extends Component {
     }
   }
 }
-/* ProductArticle.contextType = CurrencyContext */
 
 export default ProductList;

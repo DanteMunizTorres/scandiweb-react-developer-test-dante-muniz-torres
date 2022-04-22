@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import ProductDetailAttributesBox from './ProductDetailAttributesBox';
 
@@ -15,17 +15,11 @@ class CartArticle extends Component {
     this.substractQuantity = this.substractQuantity.bind(this)
   }
 
-  componentDidMount() {
-    console.log('this.props.product +++++++++++', this.props.product);
-    
+  componentDidMount() {  
     if(this.props.productsList){
-
       let productInCart = this.props.productsList.find(product => product.id === this.props.product.id)
       this.setState({productInCart: productInCart})
     }
-
-
-    /* console.log('productsList en carrt ARTICLE COMPONENTDIDMOUNT------------', this.state.productInCart) */
   }
 
   addQuantity (e) {
@@ -52,12 +46,6 @@ class CartArticle extends Component {
   }
 
   render() {
-
-    /* console.log('this.props.product.quantity------------------:::::::::::', this.props.product.quantity);
-    console.log('this.props.product-----<<<<<<<<<<>>>>', this.props.product); */
-
-    /* console.log('productsList en carrt ARTICLE',this.props.productsList)
-    console.log('productsList en carrt ARTICLE RENDERRRRR', this.state.productInCart) */
 
     let cartArticle
     if (this.state.productInCart) {

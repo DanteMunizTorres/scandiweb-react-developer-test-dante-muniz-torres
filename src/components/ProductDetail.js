@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Navigate } from 'react-router-dom'
 import CurrencyContext from "./ContextCurrency";
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
-import Modal from "./Modal";
 
 import './ProductDetail.css'
 
@@ -20,7 +19,6 @@ class ProductDetail extends Component {
     this.addToCart = this.addToCart.bind(this)
     this.inputHandler = this.inputHandler.bind(this)
     this.showBig = this.showBig.bind(this)
-    this.showModal = this.showModal.bind(this)
   }
 
   componentDidMount() {    
@@ -40,17 +38,7 @@ class ProductDetail extends Component {
       if (this.state.productToShow.gallery.length < 2) {
         document.querySelector('.imgs-gallery__mini-img-container').style.display = 'none'
       }
-
     }
-  }
-
-  showModal(e) {
-    e.preventDefault()
-
-    let checkOutModal = document.querySelector('.modal-container')
-    checkOutModal.style.display = 'flex'
-
-    this.props.showModal(e, 'mensaje re loco')
   }
 
   showBig(e) {
@@ -59,8 +47,8 @@ class ProductDetail extends Component {
   }
 
   addToCart(e) {
-    let input1 = this.state.inputsUsed1
     e.preventDefault()
+    let input1 = this.state.inputsUsed1
     let input2 = this.state.inputsUsed2
     let input3 = this.state.inputsUsed3
 
@@ -73,17 +61,14 @@ class ProductDetail extends Component {
       info: inputsToSend,
       prices: this.state.productToShow.prices
     }    
-
+    //  show modal if no attribute is selected
     if (this.state.productToShow.attributes.length !== sendToCart.info.length) {
       let message = 'You need to choose the product attributes before adding it to the cart'
-      return this.props.showModal(e, message)
-      
+      return this.props.showModal(e, message) 
     }
-
-
     //lifting info to App.js
     this.props.bringInfo(sendToCart) 
-
+    //go to product list
     return this.setState({navigate: true}) 
   }
 
@@ -91,14 +76,8 @@ class ProductDetail extends Component {
     let target = e.target
     let name = target.name
     let value = target.value
-
-    console.log('target-----------------------',target.parentElement.parentElement.parentElement)
-    console.log('checked----------------------',target.checked)
-    console.log('classname----------------------',target.className)
-    
-    console.log('get element by class name-----------------------------', document.getElementsByClassName('input-not-color'));
-
-    
+   
+    //modify inputs-labels styles
     if (target.classList.contains('input-not-color') ) {
       let inputNotColor = document.getElementsByClassName('input-not-color')
       for (let i = 0; inputNotColor.length > i; i++) {
@@ -120,18 +99,6 @@ class ProductDetail extends Component {
       }
     }
 
-    
-      /* allInputs.style.backgroundColor = 'white'
-      allInputs.style.color = 'black'  */
-
-      /* let inputsChecked = document.querySelectorAll('input:checked')
-      inputsChecked.map(input => input.parentElement.style.backgroundColor = 'red') */
-
-      /* target.parentElement.style.backgroundColor = 'black'
-      target.parentElement.style.color = 'white' */
-
-
-      console.log('value: ', value, '   name:   ', name);
       //input 1
       if (this.state.inputsUsed1 === undefined) {
         return this.setState({ inputsUsed1: {name: name, value: value} })
@@ -153,7 +120,6 @@ class ProductDetail extends Component {
       if (name === this.state.inputsUsed3.name) {
         return this.setState({ inputsUsed3: {name: name, value: value} })
       }
-      
   }
 
   render() {
@@ -161,12 +127,7 @@ class ProductDetail extends Component {
     if(this.state.navigate === true) {
       return <Navigate to='/' replace={true} />
     } 
-
     let productToShow = this.state.productToShow;
-    
-
-
-
     let productDetail
     if (this.state.productToShow === undefined) {
       productDetail = <div><h3>Loading...</h3></div>
@@ -180,7 +141,6 @@ class ProductDetail extends Component {
                 return <div className="mini-img-wrapper"><img  src={img} key={img + i} className='imgs-gallery__mini-img' alt="product little image" onClick={this.showBig} ></img></div>
               })}
             </div>
-
           
           <div className="imgs-gallery__big-img-container">
             <img src={productToShow.gallery[0]} className='imgs-gallery__big-img' alt="product big image"></img>
@@ -211,8 +171,6 @@ class ProductDetail extends Component {
         </form>
       </section>
     }
-
-    let notOkMessage = 'You need to choose the product attributes before adding it to de cart'
 
     return (
       <>

@@ -1,8 +1,6 @@
 import { Component } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import CartContext from "./ContextCart";
-import cartSVG from "../icons/cart.svg";
 import cartSVGWhite from "../icons/cart-white.svg"
 
 import './ProductArticle.css'
@@ -11,9 +9,7 @@ class ProductArticle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /* inStock: true */
     };
-
     this.addToCart = this.addToCart.bind(this);
   }
 
@@ -27,19 +23,6 @@ class ProductArticle extends Component {
     //lifting info to App.js
     this.props.bringInfo(sendToCart);
   }
-
-/*   componentDidMount() {
-    this.setState({inStock: this.props.product.inStock})
-    console.log('ins tock--------------------------', this.state.inStock)
-    if (this.state.inStock === false) {
-      console.log('ins tock IN IFFFFFFFFFFFFFFFF--------------------------', this.state.inStock)
-      document.querySelector('.sign__out-of-stock').style.display = 'flex'
-    }
-
-  }
-  componentDidUpdate(__prevProps, prevState) {
-
-  } */
 
   render() {
     let addToCartButton
@@ -74,13 +57,10 @@ class ProductArticle extends Component {
                   src={this.props.product.gallery[0]}
                   alt="product image"
                   className='product-article__img'
-                ></img>
-              
+                ></img>            
             </Link>
                     {addToCartButton}
           </div>
-          
-
           <Link to={linkUrl}>
             <h4>{this.props.product.name}</h4>
             <h3>
@@ -88,7 +68,6 @@ class ProductArticle extends Component {
               {this.props.product.prices[this.props.currency].amount}
             </h3>
           </Link>
-          
         </article>
       </>
     );
@@ -96,19 +75,3 @@ class ProductArticle extends Component {
 }
 
 export default ProductArticle;
-
-/* function ProductArticle (props) {
-
-  return (
-    <Link to={`/detail/${props.product.id}`}>
-    
-    <article>
-      {<img src={props.product.gallery[0]} alt=''></img>}
-      <h4>{props.product.name}</h4>
-      <h3>{props.product.prices[props.currency].currency.symbol}{props.product.prices[props.currency].amount}</h3>
-    </article>    
-    </Link>
-  )
-}
-
-export default ProductArticle */

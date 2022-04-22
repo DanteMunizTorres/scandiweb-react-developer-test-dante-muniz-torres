@@ -59,6 +59,10 @@
   font-size: 1.8rem;
 }
 
+.header__currency-switcher-button span {
+  margin-right: 8px;
+}
+
 .header__mini-cart-button-counter {
   position: absolute;
   line-height: 20px;

@@ -1,7 +1,6 @@
 @import '../Colors.css';
 
 .modal {
-
   background: rgba(57, 55, 72, 0.22);
   position: absolute;
   top: 0;
@@ -36,14 +35,13 @@
 .miniCart::-webkit-scrollbar-thumb {
   border: 1px solid var(--black);
   border-radius: 5px;
-  background-color: var(--black)/*  opacity(0.5) */;
+  background-color: var(--black);
 } 
 
 .mini-cart__title {
   font-size: 1.6rem;
   margin-bottom: 32px;
 }
-
 
 .mini-cart__total-container {
   margin-top: 24px;

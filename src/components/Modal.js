@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-
 import './Modal.css'
 
 class Modal extends Component {
@@ -10,15 +9,6 @@ class Modal extends Component {
     this.state = {}
     this.disappear = this.disappear.bind(this)
     this.modalDesapear = this.modalDesapear.bind(this)
-    
-  }
-
-  componentDidMount () {
-    let cartForm = document.querySelector('.cart')
-  }
-
-  componentDidUpdate () {
-    /* console.log('me actualice'); */
   }
 
   disappear(e) {
@@ -35,18 +25,6 @@ class Modal extends Component {
     }
 
   render () {
-
-/*     const openEls = document.querySelectorAll("[data-open]");
-    const isVisible = "is-visible";
- 
-    for(const el of openEls) {
-      el.addEventListener("click", function() {
-        const modalId = this.dataset.open;
-        document.getElementById(modalId).classList.add(isVisible);
-      });
-    }
- */
-
     return (
       <section 
         className='modal-container'
@@ -58,7 +36,6 @@ class Modal extends Component {
         </article>
       </section>
     );
-
   }
 }
 
