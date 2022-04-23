@@ -15,6 +15,15 @@ class ProductList extends Component {
     this.setState({productsLength: this.props.products.length})
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.products !== this.props.products) {
+        if( this.props.products.length < 3) {
+        document.querySelector('.product-list').style.justifyContent = 'space-evenly'
+      } else {
+        document.querySelector('.product-list').style.justifyContent = 'space-between'
+      }
+    }
+  }
 
   render() {
 
@@ -31,19 +40,7 @@ class ProductList extends Component {
           }
         </CurrencyContext.Consumer>
       );
-
-      if (document.querySelector('.product-list')) {
-        if(this.state.productsLength < 3 || this.props.products.length < 3) {
-        document.querySelector('.product-list').style.justifyContent = 'space-evenly'
-      } else {
-        document.querySelector('.product-list').style.justifyContent = 'space-between'
-      }
     }
-      
-      }
-
-
-
       return (
         <>
           <h2 className='main__title'>{this.props.category.toUpperCase()}</h2>
