@@ -1,15 +1,14 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-import cartSVGWhite from "../icons/cart-white.svg"
+import cartSVGWhite from "../icons/cart-white.svg";
 
-import './ProductArticle.css'
+import "./ProductArticle.css";
 
 class ProductArticle extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
     this.addToCart = this.addToCart.bind(this);
   }
 
@@ -18,48 +17,56 @@ class ProductArticle extends Component {
       id: this.props.product.id,
       quantity: 1,
       info: [],
-      prices: this.props.product.prices
+      prices: this.props.product.prices,
     };
     //lifting info to App.js
     this.props.bringInfo(sendToCart);
   }
 
   render() {
-    let addToCartButton
-    if(this.props.product.attributes.length === 0 && this.props.product.inStock === true) {
-      addToCartButton =
-      <button className="product-article__add-to-cart-button" onClick={this.addToCart}>
-      <img src={cartSVGWhite}></img>
-    </button>
+    let addToCartButton;
+    if (
+      this.props.product.attributes.length === 0 &&
+      this.props.product.inStock === true
+    ) {
+      addToCartButton = (
+        <button
+          className="product-article__add-to-cart-button"
+          onClick={this.addToCart}
+        >
+          <img src={cartSVGWhite}></img>
+        </button>
+      );
     }
 
-    let outOfStock
-    let linkUrl
-    let display
-    if(!this.props.product.inStock) {
-      outOfStock = 'out-of-stock'
-      linkUrl = '/'
-      display = 'display-flex'
+    let outOfStock;
+    let linkUrl;
+    let display;
+    if (!this.props.product.inStock) {
+      outOfStock = "out-of-stock";
+      linkUrl = "/";
+      display = "display-flex";
     } else {
-      outOfStock = ''
-      linkUrl = `/detail/${this.props.product.id}`
-      display = ''
+      outOfStock = "";
+      linkUrl = `/detail/${this.props.product.id}`;
+      display = "";
     }
 
     return (
       <>
-        <article className={`product-article ${outOfStock}`} >
+        <article className={`product-article ${outOfStock}`}>
           <div className="product-article__img-wrapper">
-            <div className={`sign__out-of-stock ${display}`}><p className="sign__out-of-stock--p">out of stock</p></div>
+            <div className={`sign__out-of-stock ${display}`}>
+              <p className="sign__out-of-stock--p">out of stock</p>
+            </div>
             <Link to={linkUrl}>
-              
-                <img
-                  src={this.props.product.gallery[0]}
-                  alt="product image"
-                  className='product-article__img'
-                ></img>            
+              <img
+                src={this.props.product.gallery[0]}
+                alt="product image"
+                className="product-article__img"
+              ></img>
             </Link>
-                    {addToCartButton}
+            {addToCartButton}
           </div>
           <Link to={linkUrl}>
             <h4>{this.props.product.name}</h4>

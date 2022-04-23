@@ -17,9 +17,25 @@
   flex-wrap: wrap;
 
   display: none;
+  animation: appears 0.2s;
 }
 .visible {
   display: block;
+}
+
+@keyframes appears {
+  0% {
+      top: -100%;
+      opacity: 0;
+      
+  }
+  80% {
+    opacity: 0;
+}
+  100% {
+      top: 0;
+      opacity: 1;
+  }
 }
 
 .currency-switcher__option {
@@ -36,6 +52,7 @@
   padding: 8px 16px;
   width: 100%;
   cursor: pointer;
+  transition: all 0.1s;
 }
 .currency-switcher__option-label:hover {
   border-radius: 4px;

@@ -12,6 +12,7 @@
   display: none;
 
   z-index: 1;
+  animation: opacity 0.2s;
 }
 
 .miniCart {
@@ -25,7 +26,34 @@
 
   font-size: 5px;
   overflow: auto;
+
+  animation: appears 0.2s;
 }
+
+@keyframes appears {
+  0% {
+      top: -100%;
+      opacity: 0;
+      
+  }
+  80% {
+    opacity: 0;
+}
+  100% {
+      top: 0;
+      opacity: 1;
+  }
+}
+@keyframes opacity {
+  0% {
+      opacity: 0;
+      
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
 .miniCart::-webkit-scrollbar {
   width: 8px;
   background-color: var(--white);

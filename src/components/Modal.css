@@ -15,6 +15,8 @@
   display: none;
   align-items: center;
   justify-content: center;
+
+  animation: opacity 0.2s;
 }
 .modal__message-container {
   
@@ -49,4 +51,14 @@
 }
 .modal__ok-button:active {
   box-shadow: inset 1px 1px 4px 0.5px rgba(0,0,0,0.5);
+}
+
+@keyframes opacity {
+  0% {
+      opacity: 0;
+      
+  }
+  100% {
+      opacity: 1;
+  }
 }

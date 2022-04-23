@@ -40,11 +40,7 @@ class ProductDetailAttributesBox extends Component {
                     atrb.value === item.value && atrb.name === attribute.id
                 );
                 // swatch attributes (color)
-                if (
-                  attribute.id === "Color" &&
-                  match !== undefined &&
-                  item.value === match.value
-                ) {
+                if ( attribute.id === "Color" && match !== undefined && item.value === match.value) {
                   return (
                     <div key={attribute.id + indx}>
                       <input
@@ -143,7 +139,7 @@ class ProductDetailAttributesBox extends Component {
       attributesBox = attributes.map((attribute, i) => {
         return (
           <div key={attribute.name + i}>
-            <div >
+            <div>
               <h4 className="attributes-title">
                 {attribute.name.toUpperCase()}
               </h4>
