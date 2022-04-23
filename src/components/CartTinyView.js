@@ -54,7 +54,7 @@ class CartTinyView extends Component {
               let total = products.map((product, i) => product.prices[currency].amount*product.quantity).reduce((a,b)=> a+b, 0)
 
               return <>
-                <h2 className='mini-cart__title'>My bag {products.length > 0? <span>, {products.length} items</span>: ''}</h2>
+                <h2 className='mini-cart__title'>My bag {products.length > 1? <span>, {products.length} items</span>: products.length === 1? <span>, {products.length} item</span>: ''}</h2>
 
                             {products.map((product, i) => <CartArticle key={product.id + i} product={product} id={i} productsList={this.props.productsList} manageQuantity={this.props.manageQuantity} currency={currency} />)}
               
