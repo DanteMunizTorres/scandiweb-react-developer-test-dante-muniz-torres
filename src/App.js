@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
@@ -8,19 +8,25 @@ import CartContext from "./components/ContextCart";
 import Header from "./components/header/Header";
 import Main from "./components/Main";
 
-import {
+/* import {
   ApolloClient,
   InMemoryCache,
   useQuery, //I'm not going to use this hook because the assigment says hooks can't be used:
   gql,
-} from "@apollo/client";
+} from "@apollo/client"; */
 
-const client = new ApolloClient({
+
+import client from './grapgql/client'
+import productsQuery from './grapgql/queryProducts'
+import currenciesQuery from "./grapgql/queryCurrencies";
+
+
+/* const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache(),
-});
+}); */
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,56 +73,15 @@ class App extends Component {
   }
 
   componentDidMount() {
+    //products
     client
-      .query({
-        query: gql`
-          query {
-            category {
-              products {
-                id
-                name
-                brand
-                inStock
-                category
-                inStock
-                prices {
-                  currency {
-                    label
-                    symbol
-                  }
-                  amount
-                }
-                gallery
-                description
-                attributes {
-                  id
-                  name
-                  items {
-                    id
-                    value
-                    displayValue
-                  }
-                }
-              }
-            }
-          }
-        `,
-      })
+      .query(productsQuery)
       .then((result) => {
         return this.setState({ productList: result.data.category.products });
       });
     //currencies
     client
-      .query({
-        query: gql`
-          query {
-            currencies {
-              label
-              symbol
-            }
-          }
-        `,
-      })
+      .query(currenciesQuery)
       .then((result) => {
         return this.setState({ currencies: result.data.currencies });
       });

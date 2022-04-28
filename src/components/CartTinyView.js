@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "./ContextCart";
 import CurrencyContext from "./ContextCurrency";
@@ -6,7 +6,7 @@ import CurrencyContext from "./ContextCurrency";
 import CartArticle from "./CartArticle";
 import "./CartTinyView.css";
 
-class CartTinyView extends Component {
+class CartTinyView extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

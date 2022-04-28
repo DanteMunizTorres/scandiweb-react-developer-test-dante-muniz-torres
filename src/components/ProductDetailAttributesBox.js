@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 import "./ProductDetailAttributesBox.css";
 
-class ProductDetailAttributesBox extends Component {
+class ProductDetailAttributesBox extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

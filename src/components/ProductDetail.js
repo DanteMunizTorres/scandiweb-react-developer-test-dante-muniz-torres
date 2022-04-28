@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Navigate } from "react-router-dom";
 import CurrencyContext from "./ContextCurrency";
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 
 import "./ProductDetail.css";
 
-class ProductDetail extends Component {
+class ProductDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

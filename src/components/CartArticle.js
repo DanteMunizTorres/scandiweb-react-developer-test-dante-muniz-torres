@@ -21,10 +21,24 @@ class CartArticle extends Component {
       );
       this.setState({ productInCart: productInCart });
     }
+
+    if (this.props.product.quantity) {
+      console.log('componenet didmount');
+      this.setState({ productQuantity: this.props.product.quantity });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log('component did update');
+    if (prevProps.product.quantity !== this.props.product.quantity) {
+      console.log('COMPONENTE UPDATE');
+      this.setState({productQuantity: this.state.productQuantity-1})
+    }
   }
 
   addQuantity(e) {
     e.preventDefault();
+
     let newQuantity = {
       number: this.props.product.quantity + 1,
       id: this.props.product.id,
@@ -35,6 +49,7 @@ class CartArticle extends Component {
   }
   substractQuantity(e) {
     e.preventDefault();
+
     if (this.props.product.quantity > 1) {
       let newQuantity = {
         number: this.props.product.quantity - 1,
@@ -100,7 +115,7 @@ class CartArticle extends Component {
               <img
                 className="cart-article__img"
                 src={this.state.productInCart.gallery[0]}
-                alt="product-image"
+                alt="product"
               ></img>
             </div>
           </div>

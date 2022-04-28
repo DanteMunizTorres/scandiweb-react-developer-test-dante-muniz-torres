@@ -1,11 +1,11 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
 import cartSVGWhite from "../icons/cart-white.svg";
 
 import "./ProductArticle.css";
 
-class ProductArticle extends Component {
+class ProductArticle extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -44,7 +44,7 @@ class ProductArticle extends Component {
     let display;
     if (!this.props.product.inStock) {
       outOfStock = "out-of-stock";
-      linkUrl = "/";
+      linkUrl = `/detail/${this.props.product.id}`;
       display = "display-flex";
     } else {
       outOfStock = "";
@@ -56,10 +56,10 @@ class ProductArticle extends Component {
       <>
         <article className={`product-article ${outOfStock}`}>
           <div className="product-article__img-wrapper">
+            <Link to={linkUrl}>
             <div className={`sign__out-of-stock ${display}`}>
               <p className="sign__out-of-stock--p">out of stock</p>
             </div>
-            <Link to={linkUrl}>
               <img
                 src={this.props.product.gallery[0]}
                 alt="product image"

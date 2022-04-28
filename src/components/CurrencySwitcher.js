@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 import "./CurrencySwitcher.css";
 
-class CurrencySwitcher extends Component {
+class CurrencySwitcher extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

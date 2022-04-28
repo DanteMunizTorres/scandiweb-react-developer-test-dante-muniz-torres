@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 import CurrencyContext from "./ContextCurrency";
 import ProductArticle from "./ProductArticle";
 
 import "./ProductList.css";
 
-class ProductList extends Component {
+class ProductList extends PureComponent {
   constructor(props) {
     super(props);
   }

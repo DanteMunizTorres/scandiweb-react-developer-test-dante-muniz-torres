@@ -57,9 +57,9 @@
 .out-of-stock {
   opacity: 0.6;
 }
-.out-of-stock:hover {
+/* .out-of-stock:hover {
   box-shadow: none;
-}
+} */
 
 .sign__out-of-stock {
   position: absolute;
@@ -84,9 +84,9 @@
 .display-flex {
   display: flex;
 }
-.out-of-stock a {
+/* .out-of-stock a {
   cursor: auto;
-}
+} */
 
 @media (max-width: 946px) {
   .product-article {

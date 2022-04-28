@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
 import CartContext from "../ContextCart";
@@ -11,14 +11,17 @@ import reloadSVG from "../../icons/reload.svg";
 
 import "./Header.css";
 
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+/* import { ApolloClient, InMemoryCache, gql } from "@apollo/client"; */
+import client from '../../grapgql/client'
+import categoriesQuery from "../../grapgql/queryCategories";
+import currenciesQuery from "../../grapgql/queryCurrencies";
 
-const client = new ApolloClient({
+/* const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache(),
-});
+}); */
 
-class Header extends Component {
+class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,30 +55,13 @@ class Header extends Component {
   componentDidMount() {
     //currencies
     client
-      .query({
-        query: gql`
-          query {
-            currencies {
-              label
-              symbol
-            }
-          }
-        `,
-      })
+      .query(currenciesQuery)
       .then((result) => {
         return this.setState({ currencies: result.data.currencies });
       });
     //categories
     client
-      .query({
-        query: gql`
-          query {
-            categories {
-              name
-            }
-          }
-        `,
-      })
+      .query(categoriesQuery)
       .then((result) => {
         return this.setState({ categories: result.data.categories });
       });
@@ -124,9 +110,9 @@ class Header extends Component {
     //currency switcher button's arrow
     let arrow;
     if (this.state.currencyBoxVisible) {
-      arrow = <img src={arrowUpSVG}></img>;
+      arrow = <img src={arrowUpSVG} alt='arrow up icon'></img>;
     } else {
-      arrow = <img src={arrowDownSVG}></img>;
+      arrow = <img src={arrowDownSVG} alt='arrow down icon'></img>;
     }
 
     //currency switcher disappear
@@ -144,7 +130,7 @@ class Header extends Component {
         </nav>
 
         <div>
-          <img src={reloadSVG}></img>
+          <img alt='just an icon' src={reloadSVG}></img>
         </div>
 
         <div className="header__buttons-section">
@@ -178,7 +164,7 @@ class Header extends Component {
               }}
             </CartContext.Consumer>
 
-            <img src={cartSVG}></img>
+            <img alt='cart icon' src={cartSVG}></img>
           </button>
         </div>
       </header>
