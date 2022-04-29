@@ -1,4 +1,5 @@
-import { Component } from "react";
+import  React, { Component } from "react";
+import PropTypes from 'prop-types';
 
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 
@@ -16,30 +17,18 @@ class CartArticle extends Component {
 
   componentDidMount() {
     if (this.props.productsList) {
-      let productInCart = this.props.productsList.find(
+      const productInCart = this.props.productsList.find(
         (product) => product.id === this.props.product.id
       );
       this.setState({ productInCart: productInCart });
     }
-
-    if (this.props.product.quantity) {
-      console.log('componenet didmount');
-      this.setState({ productQuantity: this.props.product.quantity });
-    }
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('component did update');
-    if (prevProps.product.quantity !== this.props.product.quantity) {
-      console.log('COMPONENTE UPDATE');
-      this.setState({productQuantity: this.state.productQuantity-1})
-    }
-  }
 
   addQuantity(e) {
     e.preventDefault();
 
-    let newQuantity = {
+    const newQuantity = {
       number: this.props.product.quantity + 1,
       id: this.props.product.id,
       index: this.props.id,
@@ -51,7 +40,7 @@ class CartArticle extends Component {
     e.preventDefault();
 
     if (this.props.product.quantity > 1) {
-      let newQuantity = {
+      const newQuantity = {
         number: this.props.product.quantity - 1,
         id: this.props.product.id,
         index: this.props.id,
@@ -77,7 +66,7 @@ class CartArticle extends Component {
             </div>
             <h4 className="cart-article__info-price">
               {this.state.productInCart.prices[this.props.currency].currency.symbol}
-              {this.state.productInCart.prices[this.props.currency].amount}
+              {this.state.productInCart.prices[this.props.currency].amount.toFixed(2)}
             </h4>
 
             <div>
@@ -132,5 +121,14 @@ class CartArticle extends Component {
     return <>{cartArticle}</>;
   }
 }
+
+CartArticle.propTypes = {
+  productsList: PropTypes.array,
+  manageQuantity: PropTypes.func,
+  product: PropTypes.object,
+  currency: PropTypes.number,
+  id: PropTypes.number,
+};
+
 
 export default CartArticle;

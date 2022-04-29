@@ -1,6 +1,4 @@
-import {
-  gql,
-} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 const categoriesQuery = {
   query: gql`
@@ -10,6 +8,6 @@ const categoriesQuery = {
       }
     }
   `,
-}
+};
 
-export default categoriesQuery
+export default categoriesQuery;

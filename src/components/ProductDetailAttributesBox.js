@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
 
 import "./ProductDetailAttributesBox.css";
 
@@ -35,7 +36,7 @@ class ProductDetailAttributesBox extends PureComponent {
             <div className="attributes-boxes-wrapper">
               {attribute.items.map((item, indx) => {
                 // find checked input
-                let match = attributesChosen.find(
+                const match = attributesChosen.find(
                   (atrb) =>
                     atrb.value === item.value && atrb.name === attribute.id
                 );
@@ -198,5 +199,13 @@ class ProductDetailAttributesBox extends PureComponent {
     return <>{attributesBox}</>;
   }
 }
+
+ProductDetailAttributesBox.propTypes = {
+  id: PropTypes.number,
+  isInCart: PropTypes.bool,
+  attributes: PropTypes.array,
+  attributesChosen: PropTypes.array,
+  inputHandler: PropTypes.func,
+};
 
 export default ProductDetailAttributesBox;

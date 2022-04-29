@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
 
 import ProductDetail from "./ProductDetail";
@@ -17,5 +18,11 @@ function GetParamsId(props) {
     </div>
   );
 }
+
+GetParamsId.propTypes = {
+  products: PropTypes.array,
+  bringInfo: PropTypes.func,
+  showModal: PropTypes.func,
+};
 
 export default GetParamsId;

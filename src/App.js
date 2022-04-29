@@ -8,23 +8,9 @@ import CartContext from "./components/ContextCart";
 import Header from "./components/header/Header";
 import Main from "./components/Main";
 
-/* import {
-  ApolloClient,
-  InMemoryCache,
-  useQuery, //I'm not going to use this hook because the assigment says hooks can't be used:
-  gql,
-} from "@apollo/client"; */
-
-
 import client from './grapgql/client'
 import productsQuery from './grapgql/queryProducts'
 import currenciesQuery from "./grapgql/queryCurrencies";
-
-
-/* const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-}); */
 
 class App extends PureComponent {
   constructor(props) {
@@ -45,7 +31,7 @@ class App extends PureComponent {
   }
 
   changeCurrency(e) {
-    let value = e.target.value;
+    const value = e.target.value;
     return this.setState({ currencyChosen: value });
   }
 
@@ -57,8 +43,7 @@ class App extends PureComponent {
   }
 
   manageQuantity(newQuantity) {
-    let modifiedProduct;
-    modifiedProduct = this.state.product.map((prdct, index) => {
+    const modifiedProduct = this.state.product.map((prdct, index) => {
       if (prdct.id === newQuantity.id && index === newQuantity.index) {
         prdct.quantity = newQuantity.number;
       }
@@ -68,7 +53,7 @@ class App extends PureComponent {
   }
 
   pickCategory(e) {
-    let categoryChosen = e.target.innerText.toLowerCase();
+    const categoryChosen = e.target.innerText.toLowerCase();
     return this.setState({ category: categoryChosen });
   }
 
@@ -89,7 +74,7 @@ class App extends PureComponent {
 
   componentDidUpdate(__prevProps, prevState) {
     if (prevState.category !== this.state.category) {
-      let filteredCategory = this.state.productList.filter((product) => product.category === this.state.category);
+      const filteredCategory = this.state.productList.filter((product) => product.category === this.state.category);
       if (this.state.category !== "all") {
         this.setState({ productListFilteredByCategory: filteredCategory });
       } else {
@@ -106,7 +91,7 @@ class App extends PureComponent {
   render() {
     // category nav style
     if (document.querySelector(`.${this.state.category}`)) {
-      let categoryNav = document.getElementsByClassName("category-li__link");
+      const categoryNav = document.getElementsByClassName("category-li__link");
       for (let i = 0; categoryNav.length > i; i++) {
         if (
           categoryNav[i].classList.contains(

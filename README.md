@@ -39,12 +39,20 @@ Put styles to each component.
 Checked: now products "out of stock" can be added to cart.
 
 ## Please install eslint and fix all eslint issues
+Checked: eslint issues fixed
+
 ## Prices should have two numbers after dot always
+Checked
+
 ## Prefer to use PureComponent instead of Component
 Checked. Cart article was kept as a Component to allow the quantity product number actualize in both cart and mini cart
 
 ## Please use variable destructuring
+Checked
+
 ## Prefer to use const instead of var and let
+Checked
+
 ## Please structure your gql queries in separate file and import in needed places
 Checked. Apollo client and queries placed in separate files.
 

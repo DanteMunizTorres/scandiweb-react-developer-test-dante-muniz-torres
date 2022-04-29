@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
 
 import CartContext from "../ContextCart";
 import CurrencyContext from "../ContextCurrency";
@@ -11,15 +12,9 @@ import reloadSVG from "../../icons/reload.svg";
 
 import "./Header.css";
 
-/* import { ApolloClient, InMemoryCache, gql } from "@apollo/client"; */
 import client from '../../grapgql/client'
 import categoriesQuery from "../../grapgql/queryCategories";
 import currenciesQuery from "../../grapgql/queryCurrencies";
-
-/* const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-}); */
 
 class Header extends PureComponent {
   constructor(props) {
@@ -39,11 +34,11 @@ class Header extends PureComponent {
     this.setState({ miniCartVisible: !this.state.miniCartVisible });
   }
 
-  currencySwitcherShowUp(e) {
+  currencySwitcherShowUp() {
     this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible });
   }
 
-  disappear(e) {
+  disappear() {
     if (this.state.currencyBoxVisible) {
       this.setState({ currencyBoxVisible: false });
     }
@@ -70,7 +65,7 @@ class Header extends PureComponent {
   componentDidUpdate(__prevProps, prevState) {
     //currencybox
     if (prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
-      let currencySwitcher = document.querySelector(".currency-switcher__form");
+      const currencySwitcher = document.querySelector(".currency-switcher__form");
       if (this.state.currencyBoxVisible) {
         currencySwitcher.style.display = "flex";
       } else if (!this.state.currencyBoxVisible) {
@@ -79,7 +74,7 @@ class Header extends PureComponent {
     }
     //minicart
     if (prevState.miniCartVisible !== this.state.miniCartVisible) {
-      let modal = document.querySelector(".modal");
+      const modal = document.querySelector(".modal");
       if (this.state.miniCartVisible) {
         modal.style.display = "block";
       } else if (!this.state.miniCartVisible) {
@@ -117,7 +112,7 @@ class Header extends PureComponent {
 
     //currency switcher disappear
     if (this.state.currencyBoxVisible === true) {
-      let main = document.querySelector(".main");
+      const main = document.querySelector(".main");
       main.addEventListener("click", () => {
         this.setState({ currencyBoxVisible: false });
       });
@@ -171,5 +166,10 @@ class Header extends PureComponent {
     );
   }
 }
+
+Header.propTypes = {
+  pickCategory: PropTypes.func,
+
+};
 
 export default Header;

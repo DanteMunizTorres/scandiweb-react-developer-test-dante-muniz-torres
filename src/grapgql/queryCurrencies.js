@@ -1,6 +1,4 @@
-import {
-  gql,
-} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 const currenciesQuery = {
   query: gql`
@@ -11,6 +9,6 @@ const currenciesQuery = {
       }
     }
   `,
-}
+};
 
-export default currenciesQuery
+export default currenciesQuery;

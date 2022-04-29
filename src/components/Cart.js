@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
 import CartContext from "./ContextCart";
 import CurrencyContext from "./ContextCurrency";
 
@@ -27,7 +28,7 @@ class Cart extends PureComponent {
                     id={i}
                     productsList={this.props.productsList}
                     manageQuantity={this.props.manageQuantity}
-                    currency={currency}
+                    currency={parseInt(currency)}
                   />
                 ));
               }}
@@ -38,5 +39,10 @@ class Cart extends PureComponent {
     );
   }
 }
+
+Cart.propTypes = {
+  productsList: PropTypes.array,
+  manageQuantity: PropTypes.func
+};
 
 export default Cart;

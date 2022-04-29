@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
 
 import "./CurrencySwitcher.css";
 
@@ -10,7 +11,7 @@ class CurrencySwitcher extends PureComponent {
   }
 
   miniCartDesapear() {
-    let modal = document.querySelector(".modal");
+    const modal = document.querySelector(".modal");
     modal.style.display = "none";
   }
 
@@ -44,5 +45,10 @@ class CurrencySwitcher extends PureComponent {
     return <form className="currency-switcher__form">{currencyOptions}</form>;
   }
 }
+
+CurrencySwitcher.propTypes = {
+  changeCurrency: PropTypes.func,
+  currencies: PropTypes.array,
+};
 
 export default CurrencySwitcher;

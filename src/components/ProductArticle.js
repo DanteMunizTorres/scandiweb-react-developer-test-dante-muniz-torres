@@ -1,5 +1,6 @@
-import { PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import cartSVGWhite from "../icons/cart-white.svg";
 
@@ -13,7 +14,7 @@ class ProductArticle extends PureComponent {
   }
 
   addToCart() {
-    let sendToCart = {
+    const sendToCart = {
       id: this.props.product.id,
       quantity: 1,
       info: [],
@@ -39,25 +40,22 @@ class ProductArticle extends PureComponent {
       );
     }
 
-    let outOfStock;
-    let linkUrl;
-    let display;
+    const outOfStock = {
+      outOfStock: '',
+      linkUrl: `/detail/${this.props.product.id}`,
+      display: '',
+    }
     if (!this.props.product.inStock) {
-      outOfStock = "out-of-stock";
-      linkUrl = `/detail/${this.props.product.id}`;
-      display = "display-flex";
-    } else {
-      outOfStock = "";
-      linkUrl = `/detail/${this.props.product.id}`;
-      display = "";
+      outOfStock.outOfStock = "out-of-stock";
+      outOfStock.display = "display-flex";
     }
 
     return (
       <>
-        <article className={`product-article ${outOfStock}`}>
+        <article className={`product-article ${outOfStock.outOfStock}`}>
           <div className="product-article__img-wrapper">
-            <Link to={linkUrl}>
-            <div className={`sign__out-of-stock ${display}`}>
+            <Link to={outOfStock.linkUrl}>
+            <div className={`sign__out-of-stock ${outOfStock.display}`}>
               <p className="sign__out-of-stock--p">out of stock</p>
             </div>
               <img
@@ -68,11 +66,11 @@ class ProductArticle extends PureComponent {
             </Link>
             {addToCartButton}
           </div>
-          <Link to={linkUrl}>
+          <Link to={outOfStock.linkUrl}>
             <h4>{this.props.product.name}</h4>
             <h3>
               {this.props.product.prices[this.props.currency].currency.symbol}
-              {this.props.product.prices[this.props.currency].amount}
+              {this.props.product.prices[this.props.currency].amount.toFixed(2)}
             </h3>
           </Link>
         </article>
@@ -80,5 +78,11 @@ class ProductArticle extends PureComponent {
     );
   }
 }
+
+ProductArticle.propTypes = {
+  product: PropTypes.object,
+  currency: PropTypes.number,
+  bringInfo: PropTypes.func,
+};
 
 export default ProductArticle;

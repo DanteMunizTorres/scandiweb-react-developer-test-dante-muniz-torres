@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Navigate } from "react-router-dom";
+import PropTypes from 'prop-types';
 import CurrencyContext from "./ContextCurrency";
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 
@@ -14,7 +15,6 @@ class ProductDetail extends PureComponent {
       inputsUsed2: undefined,
       inputsUsed3: undefined,
       navigate: false,
-      message: "Ups, somthing is wrong...",
     };
     this.addToCart = this.addToCart.bind(this);
     this.inputHandler = this.inputHandler.bind(this);
@@ -24,13 +24,13 @@ class ProductDetail extends PureComponent {
   componentDidMount() {
     const id = this.props.id;
     const products = this.props.products;
-    let productToShow = products.find((product) => product.id === id);
+    const productToShow = products.find((product) => product.id === id);
     this.setState({ productToShow: productToShow });
   }
 
   componentDidUpdate() {
     if (document.querySelector(".productDescription")) {
-      let productDescriptionDiv = document.querySelector(".productDescription");
+      const productDescriptionDiv = document.querySelector(".productDescription");
       productDescriptionDiv.innerHTML = this.state.productToShow.description;
     }
 
@@ -44,20 +44,16 @@ class ProductDetail extends PureComponent {
   }
 
   showBig(e) {
-    let bigImg = document.querySelector(".imgs-gallery__big-img");
+    const bigImg = document.querySelector(".imgs-gallery__big-img");
     bigImg.src = e.target.src;
   }
 
   addToCart(e) {
     e.preventDefault();
-    let input1 = this.state.inputsUsed1;
-    let input2 = this.state.inputsUsed2;
-    let input3 = this.state.inputsUsed3;
+    const inputsAll = [this.state.inputsUsed1, this.state.inputsUsed2, this.state.inputsUsed3];
+    const inputsToSend = inputsAll.filter((input) => input != undefined);
 
-    let inputsAll = [input1, input2, input3];
-    let inputsToSend = inputsAll.filter((input) => input != undefined);
-
-    let sendToCart = {
+    const sendToCart = {
       id: this.props.id,
       quantity: 1,
       info: inputsToSend,
@@ -65,7 +61,7 @@ class ProductDetail extends PureComponent {
     };
     //show modal if no attribute is selected
     if (this.state.productToShow.attributes.length !== sendToCart.info.length) {
-      let message =
+      const message =
         "You need to choose the product attributes before adding it to the cart";
       return this.props.showModal(e, message);
     }
@@ -76,13 +72,11 @@ class ProductDetail extends PureComponent {
   }
 
   inputHandler(e) {
-    let target = e.target;
-    let name = target.name;
-    let value = target.value;
+    const [target, name, value] = [e.target, e.target.name, e.target.value]
 
     //modify inputs-labels styles
     if (target.classList.contains("input-not-color")) {
-      let inputNotColor = document.getElementsByClassName("input-not-color");
+      const inputNotColor = document.getElementsByClassName("input-not-color");
       for (let i = 0; inputNotColor.length > i; i++) {
         if (inputNotColor[i].checked) {
           inputNotColor[i].parentElement.classList.add(
@@ -101,7 +95,7 @@ class ProductDetail extends PureComponent {
       }
     }
     if (target.classList.contains("input-color")) {
-      let inputColor = document.getElementsByClassName("input-color");
+      const inputColor = document.getElementsByClassName("input-color");
       for (let i = 0; inputColor.length > i; i++) {
         if (inputColor[i].checked) {
           inputColor[i].parentElement.classList.add("check__input-color");
@@ -150,7 +144,7 @@ class ProductDetail extends PureComponent {
     if (this.state.navigate === true) {
       return <Navigate to="/" replace={true} />;
     }
-    let productToShow = this.state.productToShow;
+    const productToShow = this.state.productToShow;
     let productDetail;
     if (this.state.productToShow === undefined) {
       productDetail = (
@@ -206,7 +200,7 @@ class ProductDetail extends PureComponent {
                   <h4 className="attributes-price-title">price:</h4>
                   <h3 className="attributes-price-number">
                     {productToShow.prices[value].currency.symbol}
-                    {productToShow.prices[value].amount}
+                    {productToShow.prices[value].amount.toFixed(2)}
                   </h3>
                 </div>
               )}
@@ -223,5 +217,12 @@ class ProductDetail extends PureComponent {
     return <>{productDetail}</>;
   }
 }
+
+ProductDetail.propTypes = {
+  id: PropTypes.string,
+  products: PropTypes.array,
+  showModal: PropTypes.func,
+  bringInfo: PropTypes.func,
+};
 
 export default ProductDetail;

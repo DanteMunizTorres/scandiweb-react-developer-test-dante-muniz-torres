@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Route, Routes } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import ProductList from "./ProductList";
 import CartTinyView from "./CartTinyView";
@@ -23,7 +24,7 @@ class Main extends PureComponent {
 
   showModal(e, message) {
     e.preventDefault();
-    let checkOutModal = document.querySelector(".modal-container");
+    const checkOutModal = document.querySelector(".modal-container");
     checkOutModal.style.display = "flex";
     return this.setState({ message: message });
   }
@@ -79,5 +80,16 @@ class Main extends PureComponent {
     );
   }
 }
+
+Main.propTypes = {
+  productList: PropTypes.array,
+  productListAll: PropTypes.array,
+  currencies: PropTypes.array,
+  category: PropTypes.string,
+  manageQuantity: PropTypes.func,
+  changeCurrency: PropTypes.func,
+  resetCartInfo: PropTypes.func,
+  bringInfo: PropTypes.func,
+};
 
 export default Main;

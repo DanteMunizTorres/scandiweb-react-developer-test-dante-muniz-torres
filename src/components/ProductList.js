@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-
+import PropTypes from 'prop-types';
 import CurrencyContext from "./ContextCurrency";
 import ProductArticle from "./ProductArticle";
 
@@ -26,7 +26,7 @@ class ProductList extends PureComponent {
             this.props.products.map((product, i) => (
               <ProductArticle
                 key={i}
-                currency={currency}
+                currency={parseInt(currency)}
                 product={product}
                 bringInfo={this.props.bringInfo}
               />
@@ -43,5 +43,11 @@ class ProductList extends PureComponent {
     );
   }
 }
+
+ProductList.propTypes = {
+  products: PropTypes.array,
+  category: PropTypes.string,
+  bringInfo: PropTypes.func,
+};
 
 export default ProductList;

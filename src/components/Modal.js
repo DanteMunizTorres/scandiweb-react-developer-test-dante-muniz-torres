@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
 
 import "./Modal.css";
 
@@ -12,14 +13,14 @@ class Modal extends PureComponent {
 
   disappear(e) {
     e.preventDefault();
-    let modal = document.querySelector(".modal-container");
+    const modal = document.querySelector(".modal-container");
     if (e.target === modal) {
       modal.style.display = "none";
     }
   }
   modalDesapear(e) {
     e.preventDefault();
-    let modal = document.querySelector(".modal-container");
+    const modal = document.querySelector(".modal-container");
     modal.style.display = "none";
   }
 
@@ -36,5 +37,9 @@ class Modal extends PureComponent {
     );
   }
 }
+
+Modal.propTypes = {
+  message: PropTypes.string
+};
 
 export default Modal;

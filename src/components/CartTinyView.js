@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import CartContext from "./ContextCart";
 import CurrencyContext from "./ContextCurrency";
@@ -16,25 +17,25 @@ class CartTinyView extends PureComponent {
   }
 
   disapear(e) {
-    let modal = document.querySelector(".modal");
+    const modal = document.querySelector(".modal");
     if (e.target === modal) {
       modal.style.display = "none";
     }
   }
   miniCartDesapear(e) {
     e.preventDefault();
-    let modal = document.querySelector(".modal");
+    const modal = document.querySelector(".modal");
     modal.style.display = "none";
   }
 
   checkOutCart(e) {
     e.preventDefault();
-    let modal = document.querySelector(".modal");
+    const modal = document.querySelector(".modal");
     modal.style.display = "none";
 
     this.props.resetCartInfo();
 
-    let checkOutMessage = "Thank you, come again!";
+    const checkOutMessage = "Thank you, come again!";
     this.props.showModal(e, checkOutMessage);
   }
 
@@ -47,8 +48,8 @@ class CartTinyView extends PureComponent {
               <form className="miniCart" id="miniCart">
                 <CurrencyContext.Consumer>
                   {(currency) => {
-                    let total = products
-                      .map((product, i) => product.prices[currency].amount * product.quantity)
+                    const total = products
+                      .map(product => product.prices[currency].amount * product.quantity)
                       .reduce((a, b) => a + b, 0);
                     return (
                       <>
@@ -63,7 +64,7 @@ class CartTinyView extends PureComponent {
                             id={i}
                             productsList={this.props.productsList}
                             manageQuantity={this.props.manageQuantity}
-                            currency={currency}
+                            currency={parseInt(currency)}
                           />
                         ))}
 
@@ -101,5 +102,12 @@ class CartTinyView extends PureComponent {
     );
   }
 }
+
+CartTinyView.propTypes = {
+  productsList: PropTypes.array,
+  manageQuantity: PropTypes.func,
+  showModal: PropTypes.func,
+  resetCartInfo: PropTypes.func,
+};
 
 export default CartTinyView;
