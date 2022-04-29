@@ -6,7 +6,7 @@ DANTE MUNIZ TORRES
 April 2022
 
 Libraries used:
-- react (of course)
+- React
 - apollo/client.
 - react-router-dom.
 
@@ -28,7 +28,7 @@ Show information.
 
 ## STAGE 3: Styles. Time: 1 week.
 
-Put styles to each component.
+Apply styles to each component.
 
 
 # AFTER FEEDBACK
