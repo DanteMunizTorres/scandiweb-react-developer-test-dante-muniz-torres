@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from 'prop-types';
-import CartContext from "./ContextCart";
-import CurrencyContext from "./ContextCurrency";
+import CartContext from "../contexts/ContextCart";
+import CurrencyContext from "../contexts/ContextCurrency";
 
-import CartArticle from "./CartArticle";
+import CartArticle from "./components/CartArticle";
 
 import "./Cart.css";
 

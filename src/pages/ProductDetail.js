@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import { Navigate } from "react-router-dom";
 import PropTypes from 'prop-types';
-import CurrencyContext from "./ContextCurrency";
-import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
+import CurrencyContext from "../contexts/ContextCurrency";
+import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox";
 
 import "./ProductDetail.css";
 

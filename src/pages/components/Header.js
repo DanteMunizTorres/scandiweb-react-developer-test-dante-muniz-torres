@@ -2,8 +2,8 @@ import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
-import CartContext from "../ContextCart";
-import CurrencyContext from "../ContextCurrency";
+import CartContext from "../../contexts/ContextCart";
+import CurrencyContext from "../../contexts/ContextCurrency";
 
 import cartSVG from "../../icons/cart.svg";
 import arrowDownSVG from "../../icons/arrowDown.svg";

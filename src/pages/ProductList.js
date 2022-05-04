@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from 'prop-types';
-import CurrencyContext from "./ContextCurrency";
-import ProductArticle from "./ProductArticle";
+import CurrencyContext from "../contexts/ContextCurrency";
+import ProductArticle from "./components/ProductArticle";
 
 import "./ProductList.css";
 

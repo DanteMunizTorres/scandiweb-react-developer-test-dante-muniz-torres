@@ -1,10 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import CartContext from "./ContextCart";
-import CurrencyContext from "./ContextCurrency";
+import CartContext from "../contexts/ContextCart";
+import CurrencyContext from "../contexts/ContextCurrency";
 
-import CartArticle from "./CartArticle";
+import CartArticle from "./components/CartArticle";
 import "./CartTinyView.css";
 
 class CartTinyView extends PureComponent {

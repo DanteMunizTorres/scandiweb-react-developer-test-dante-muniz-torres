@@ -2,11 +2,11 @@ import React, { PureComponent } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
-import CurrencyContext from "./components/ContextCurrency";
-import CartContext from "./components/ContextCart";
+import CurrencyContext from "./contexts/ContextCurrency";
+import CartContext from "./contexts/ContextCart";
 
-import Header from "./components/header/Header";
-import Main from "./components/Main";
+import Header from "./pages/components/Header";
+import Main from "./pages/Main";
 
 import client from './grapgql/client'
 import productsQuery from './grapgql/queryProducts'

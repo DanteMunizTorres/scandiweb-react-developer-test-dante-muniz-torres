@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import cartSVGWhite from "../icons/cart-white.svg";
+import cartSVGWhite from "../../icons/cart-white.svg";
 
 import "./ProductArticle.css";
 
