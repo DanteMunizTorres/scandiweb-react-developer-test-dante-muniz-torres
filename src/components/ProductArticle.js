@@ -25,10 +25,12 @@ class ProductArticle extends PureComponent {
   }
 
   render() {
+    const { currency, product: { attributes, inStock, id, name, prices, gallery } } = this.props
+
     let addToCartButton;
     if (
-      this.props.product.attributes.length === 0 &&
-      this.props.product.inStock === true
+      attributes.length === 0 &&
+      inStock === true
     ) {
       addToCartButton = (
         <button
@@ -42,10 +44,10 @@ class ProductArticle extends PureComponent {
 
     const outOfStock = {
       outOfStock: '',
-      linkUrl: `/detail/${this.props.product.id}`,
+      linkUrl: `/detail/${id}`,
       display: '',
     }
-    if (!this.props.product.inStock) {
+    if (!inStock) {
       outOfStock.outOfStock = "out-of-stock";
       outOfStock.display = "display-flex";
     }
@@ -59,7 +61,7 @@ class ProductArticle extends PureComponent {
               <p className="sign__out-of-stock--p">out of stock</p>
             </div>
               <img
-                src={this.props.product.gallery[0]}
+                src={gallery[0]}
                 alt="product image"
                 className="product-article__img"
               ></img>
@@ -67,10 +69,10 @@ class ProductArticle extends PureComponent {
             {addToCartButton}
           </div>
           <Link to={outOfStock.linkUrl}>
-            <h4>{this.props.product.name}</h4>
+            <h4>{name}</h4>
             <h3>
-              {this.props.product.prices[this.props.currency].currency.symbol}
-              {this.props.product.prices[this.props.currency].amount.toFixed(2)}
+              {prices[currency].currency.symbol}
+              {prices[currency].amount.toFixed(2)}
             </h3>
           </Link>
         </article>

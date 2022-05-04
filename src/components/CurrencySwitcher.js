@@ -16,9 +16,11 @@ class CurrencySwitcher extends PureComponent {
   }
 
   render() {
+    const {changeCurrency, currencies} = this.props
+
     let currencyOptions;
-    if (this.props.currencies.length > 0) {
-      currencyOptions = this.props.currencies.map((currency, i) => {
+    if (currencies.length > 0) {
+      currencyOptions = currencies.map((currency, i) => {
         return (
           <div className="currency-switcher__option" key={i + currency.label}>
             <input
@@ -28,7 +30,7 @@ class CurrencySwitcher extends PureComponent {
               name="currency"
               key={i}
               value={i}
-              onChange={(e) => this.props.changeCurrency(e)}
+              onChange={(e) => changeCurrency(e)}
             />
             <label
               htmlFor={currency.label}

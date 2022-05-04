@@ -20,35 +20,35 @@ class ProductDetailAttributesBox extends PureComponent {
   }
 
   render() {
-    const attributes = this.props.attributes;
     const attributesChosen = this.state.attributesChosen;
+    const { attributes } = this.props
 
     let attributesBox;
     //if it's called inside Cart or Mini cart component
     if (attributes && this.state.isInCart === true) {
-      attributesBox = attributes.map((attribute, i) => {
+      attributesBox = attributes.map(( {name, items, id}, i ) => {
         return (
-          <div key={attribute.name + i} className="in-cart-attributes-main-box">
+          <div key={name + i} className="in-cart-attributes-main-box">
             <div>
-              <h4 className="in-cart-attributes-title">{attribute.name}</h4>
+              <h4 className="in-cart-attributes-title">{name}</h4>
             </div>
 
             <div className="attributes-boxes-wrapper">
-              {attribute.items.map((item, indx) => {
+              {items.map(({ value, id: itemId, displayValue}, indx) => {
                 // find checked input
                 const match = attributesChosen.find(
                   (atrb) =>
-                    atrb.value === item.value && atrb.name === attribute.id
+                    atrb.value === value && atrb.name === id
                 );
                 // swatch attributes (color)
-                if ( attribute.id === "Color" && match !== undefined && item.value === match.value) {
+                if ( id === "Color" && match !== undefined && value === match.value) {
                   return (
-                    <div key={attribute.id + indx}>
+                    <div key={id + indx}>
                       <input
                         className="display-none"
                         type="radio"
-                        name={attribute.id + this.props.id}
-                        id={item.id}
+                        name={id + this.props.id}
+                        id={itemId}
                         value={match.value}
                         checked
                         disabled
@@ -56,75 +56,75 @@ class ProductDetailAttributesBox extends PureComponent {
                       <label
                         className="minicart-attributes__input-label color-input__checked"
                         style={{
-                          color: item.value,
-                          backgroundColor: item.value,
+                          color: value,
+                          backgroundColor: value,
                         }}
-                        htmlFor={item.id}
+                        htmlFor={itemId}
                       ></label>
                     </div>
                   );
                 }
                 //attributes with color value
-                else if (attribute.id === "Color") {
+                else if (id === "Color") {
                   return (
-                    <div key={attribute.id + indx}>
+                    <div key={id + indx}>
                       <input
                         className="display-none"
                         type="radio"
-                        name={attribute.id + this.props.id}
-                        id={item.id}
-                        value={item.value}
+                        name={id + this.props.id}
+                        id={itemId}
+                        value={value}
                         disabled
                       />
                       <label
                         className="minicart-attributes__input-label color-input__not-checked"
                         style={{
-                          color: item.value,
-                          backgroundColor: item.value,
+                          color: value,
+                          backgroundColor: value,
                         }}
-                        htmlFor={item.id}
+                        htmlFor={itemId}
                       ></label>
                     </div>
                   );
                 } else {
                   // Not swatch attributes, find checked input
-                  if (match !== undefined && item.value === match.value) {
+                  if (match !== undefined && value === match.value) {
                     return (
-                      <div key={attribute.id + indx}>
+                      <div key={id + indx}>
                         <input
                           className="display-none"
                           type="radio"
-                          name={attribute.id + this.props.id}
-                          id={item.id + attribute.id}
-                          value={item.value}
+                          name={id + this.props.id}
+                          id={itemId + id}
+                          value={value}
                           checked
                           disabled
                         />
                         <label
                           className="minicart-attributes__input-label input__checked"
-                          htmlFor={item.id + attribute.id}
+                          htmlFor={itemId + id}
                         >
-                          {item.displayValue}
+                          {displayValue}
                         </label>
                       </div>
                     );
                   } else {
                     // all other inputs
                     return (
-                      <div key={attribute.id + indx}>
+                      <div key={id + indx}>
                         <input
                           className="display-none"
                           type="radio"
-                          name={attribute.id + this.props.id}
-                          id={item.id + attribute.id}
-                          value={item.value}
+                          name={id + this.props.id}
+                          id={itemId + id}
+                          value={value}
                           disabled
                         />
                         <label
                           className="minicart-attributes__input-label input__not-checked"
-                          htmlFor={item.id + attribute.id}
+                          htmlFor={itemId + id}
                         >
-                          {item.displayValue}
+                          {displayValue}
                         </label>
                       </div>
                     );
@@ -137,54 +137,55 @@ class ProductDetailAttributesBox extends PureComponent {
       });
       //if it's called inside Product detail component
     } else if (attributes) {
-      attributesBox = attributes.map((attribute, i) => {
+      const inputHandler = this.props.inputHandler
+      attributesBox = attributes.map(( {name, items, id}, i ) => {
         return (
-          <div key={attribute.name + i}>
+          <div key={name + i}>
             <div>
               <h4 className="attributes-title">
-                {attribute.name.toUpperCase()}
+                {name.toUpperCase()}
               </h4>
             </div>
 
             <div className="attributes-boxes-wrapper">
-              {attribute.items.map((item, indx) => {
-                if (attribute.id === "Color") {
+              {items.map(( { value, id: itemId, displayValue}, indx) => {
+                if (id === "Color") {
                   return (
-                    <div key={attribute.id + indx}>
+                    <div key={id + indx}>
                       <label
-                        /* htmlFor={item.id + attribute.id} */
+                        /* htmlFor={itemId + attribute.id} */
                         className="product-detail__input-label"
                         style={{
-                          color: item.value,
-                          backgroundColor: item.value,
+                          color: value,
+                          backgroundColor: value,
                         }}
                       >
                         <input
-                          id={item.id + attribute.id}
+                          id={itemId + id}
                           className="display-none product-detail__input input-color"
                           type="radio"
-                          name={attribute.id}
-                          value={item.value}
-                          onChange={this.props.inputHandler}
+                          name={id}
+                          value={value}
+                          onChange={inputHandler}
                         />
                       </label>
                     </div>
                   );
                 } else {
                   return (
-                    <div key={attribute.id + indx}>
+                    <div key={id + indx}>
                       <label
-                        /* htmlFor={item.id + attribute.id}  */
+                        /* htmlFor={itemId + attribute.id}  */
                         className="product-detail__input-label"
                       >
-                        {item.displayValue}
+                        {displayValue}
                         <input
-                          id={item.id + attribute.id}
+                          id={itemId + id}
                           className="display-none product-detail__input input-not-color"
                           type="radio"
-                          name={attribute.id}
-                          value={item.value}
-                          onChange={this.props.inputHandler}
+                          name={id}
+                          value={value}
+                          onChange={inputHandler}
                         />
                       </label>
                     </div>

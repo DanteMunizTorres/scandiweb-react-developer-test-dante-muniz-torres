@@ -6,14 +6,14 @@ import ProductDetail from "./ProductDetail";
 
 function GetParamsId(props) {
   const { id } = useParams();
-
+  const { products, bringInfo, showModal} = props
   return (
     <div>
       <ProductDetail
         id={id}
-        products={props.products}
-        bringInfo={props.bringInfo}
-        showModal={props.showModal}
+        products={products}
+        bringInfo={bringInfo}
+        showModal={showModal}
       />
     </div>
   );

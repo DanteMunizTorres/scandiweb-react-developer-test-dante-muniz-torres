@@ -16,8 +16,9 @@ class CartArticle extends Component {
   }
 
   componentDidMount() {
-    if (this.props.productsList) {
-      const productInCart = this.props.productsList.find(
+    const productsList = this.props.productsList
+    if (productsList) {
+      const productInCart = productsList.find(
         (product) => product.id === this.props.product.id
       );
       this.setState({ productInCart: productInCart });
@@ -27,10 +28,10 @@ class CartArticle extends Component {
 
   addQuantity(e) {
     e.preventDefault();
-
+    const { id, quantity} = this.props.product;
     const newQuantity = {
-      number: this.props.product.quantity + 1,
-      id: this.props.product.id,
+      number: quantity + 1,
+      id: id,
       index: this.props.id,
     };
     /* lifting quantity to App.js */
@@ -38,11 +39,11 @@ class CartArticle extends Component {
   }
   substractQuantity(e) {
     e.preventDefault();
-
-    if (this.props.product.quantity > 1) {
+    const { id, quantity} = this.props.product;
+    if (quantity > 1) {
       const newQuantity = {
-        number: this.props.product.quantity - 1,
-        id: this.props.product.id,
+        number: quantity - 1,
+        id: id,
         index: this.props.id,
       };
       /* lifting quantity to App.js */
@@ -51,30 +52,32 @@ class CartArticle extends Component {
   }
 
   render() {
+    const { product, id, currency } = this.props
     let cartArticle;
     if (this.state.productInCart) {
+      const { brand, name, prices, attributes, gallery} = this.state.productInCart
       cartArticle = (
         <article className="cart-article">
           <div className="cart-article__info">
             <div>
               <h3 className="cart-article__info-brand">
-                {this.state.productInCart.brand}
+                {brand}
               </h3>
               <h3 className="cart-article__info-name">
-                {this.state.productInCart.name}
+                {name}
               </h3>
             </div>
             <h4 className="cart-article__info-price">
-              {this.state.productInCart.prices[this.props.currency].currency.symbol}
-              {this.state.productInCart.prices[this.props.currency].amount.toFixed(2)}
+              {prices[currency].currency.symbol}
+              {prices[currency].amount.toFixed(2)}
             </h4>
 
             <div>
               <ProductDetailAttributesBox
-                attributes={this.state.productInCart.attributes}
-                attributesChosen={this.props.product.info}
+                attributes={attributes}
+                attributesChosen={product.info}
                 isInCart={true}
-                id={this.props.id}
+                id={id}
               />
             </div>
           </div>
@@ -90,7 +93,7 @@ class CartArticle extends Component {
               <input
                 className="cart-article__quantity--number"
                 type="number"
-                value={this.props.product.quantity}
+                value={product.quantity}
                 readOnly
               />
               <button
@@ -103,7 +106,7 @@ class CartArticle extends Component {
             <div className="cart-article__img-wrapper">
               <img
                 className="cart-article__img"
-                src={this.state.productInCart.gallery[0]}
+                src={gallery[0]}
                 alt="product"
               ></img>
             </div>

@@ -84,18 +84,19 @@ class Header extends PureComponent {
   }
 
   render() {
+    
     let categoriesOptions;
     if (this.state.categories) {
-      categoriesOptions = this.state.categories.map((category, i) => {
+      categoriesOptions = this.state.categories.map(({name}, i) => {
         return (
-          <li className="category-li" key={category.name + i}>
+          <li className="category-li" key={name + i}>
             <Link
-              className={`${category.name} category-li__link`}
-              name={category.name}
+              className={`${name} category-li__link`}
+              name={name}
               to="/"
               onClick={this.props.pickCategory}
             >
-              {category.name.toUpperCase()}
+              {name.toUpperCase()}
             </Link>
           </li>
         );

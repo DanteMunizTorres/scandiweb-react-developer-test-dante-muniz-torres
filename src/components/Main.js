@@ -12,6 +12,7 @@ import Modal from "./Modal";
 import "./Main.css";
 
 class Main extends PureComponent {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,7 @@ class Main extends PureComponent {
     this.showModal = this.showModal.bind(this);
   }
 
+  
   showModal(e, message) {
     e.preventDefault();
     const checkOutModal = document.querySelector(".modal-container");
@@ -29,18 +31,19 @@ class Main extends PureComponent {
     return this.setState({ message: message });
   }
   render() {
+    const {productList, productListAll, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
     return (
       <main className="main">
         <Modal message={this.state.message} />
         <CurrencySwitcher
-          changeCurrency={this.props.changeCurrency}
-          currencies={this.props.currencies}
+          changeCurrency={changeCurrency}
+          currencies={currencies}
         />
         <CartTinyView
-          productsList={this.props.productListAll}
-          manageQuantity={this.props.manageQuantity}
+          productsList={productListAll}
+          manageQuantity={manageQuantity}
           showModal={this.showModal}
-          resetCartInfo={this.props.resetCartInfo}
+          resetCartInfo={resetCartInfo}
         />
         <Routes>
           <Route
@@ -48,9 +51,9 @@ class Main extends PureComponent {
             exact={true}
             element={
               <ProductList
-                products={this.props.productList}
-                bringInfo={this.props.bringInfo}
-                category={this.props.category}
+                products={productList}
+                bringInfo={bringInfo}
+                category={category}
               />
             }
           />
@@ -59,8 +62,8 @@ class Main extends PureComponent {
             exact={true}
             element={
               <Cart
-                productsList={this.props.productListAll}
-                manageQuantity={this.props.manageQuantity}
+                productsList={productListAll}
+                manageQuantity={manageQuantity}
               />
             }
           />
@@ -69,8 +72,8 @@ class Main extends PureComponent {
             exact={true}
             element={
               <GetParamsId
-                products={this.props.productList}
-                bringInfo={this.props.bringInfo}
+                products={productList}
+                bringInfo={bringInfo}
                 showModal={this.showModal}
               />
             }

@@ -50,17 +50,20 @@ class ProductDetail extends PureComponent {
 
   addToCart(e) {
     e.preventDefault();
-    const inputsAll = [this.state.inputsUsed1, this.state.inputsUsed2, this.state.inputsUsed3];
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
+    const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
     const inputsToSend = inputsAll.filter((input) => input != undefined);
 
+    const { prices, attributes } = this.state.productToShow
+    
     const sendToCart = {
       id: this.props.id,
       quantity: 1,
       info: inputsToSend,
-      prices: this.state.productToShow.prices,
+      prices: prices,
     };
     //show modal if no attribute is selected
-    if (this.state.productToShow.attributes.length !== sendToCart.info.length) {
+    if (attributes.length !== sendToCart.info.length) {
       const message =
         "You need to choose the product attributes before adding it to the cart";
       return this.props.showModal(e, message);
@@ -72,7 +75,8 @@ class ProductDetail extends PureComponent {
   }
 
   inputHandler(e) {
-    const [target, name, value] = [e.target, e.target.name, e.target.value]
+    const target = e.target
+    const {name, value} = target
 
     //modify inputs-labels styles
     if (target.classList.contains("input-not-color")) {
@@ -110,41 +114,41 @@ class ProductDetail extends PureComponent {
         }
       }
     }
-
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
     //input 1
-    if (this.state.inputsUsed1 === undefined) {
+    if (inputsUsed1 === undefined) {
       return this.setState({ inputsUsed1: { name: name, value: value } });
     }
-    if (name === this.state.inputsUsed1.name) {
+    if (name === inputsUsed1.name) {
       return this.setState({ inputsUsed1: { name: name, value: value } });
     }
     //input 2
     if (
-      name != this.state.inputsUsed1.name &&
-      this.state.inputsUsed2 === undefined
+      name != inputsUsed1.name &&
+      inputsUsed2 === undefined
     ) {
       return this.setState({ inputsUsed2: { name: name, value: value } });
     }
-    if (name === this.state.inputsUsed2.name) {
+    if (name === inputsUsed2.name) {
       return this.setState({ inputsUsed2: { name: name, value: value } });
     }
     //input 3
     if (
-      name != this.state.inputsUsed2.name &&
-      this.state.inputsUsed3 === undefined
+      name != inputsUsed2.name &&
+      inputsUsed3 === undefined
     ) {
       return this.setState({ inputsUsed3: { name: name, value: value } });
     }
-    if (name === this.state.inputsUsed3.name) {
+    if (name === inputsUsed3.name) {
       return this.setState({ inputsUsed3: { name: name, value: value } });
     }
   }
 
   render() {
+
     if (this.state.navigate === true) {
       return <Navigate to="/" replace={true} />;
     }
-    const productToShow = this.state.productToShow;
     let productDetail;
     if (this.state.productToShow === undefined) {
       productDetail = (
@@ -153,11 +157,12 @@ class ProductDetail extends PureComponent {
         </div>
       );
     } else {
+      const { gallery, id, brand, name, attributes, prices } = this.state.productToShow;
       productDetail = (
         <section className="product-detail-main-section">
           <article className="imgs-gallery">
             <div className="imgs-gallery__mini-img-container">
-              {productToShow.gallery.map((img, i) => {
+              {gallery.map((img, i) => {
                 return (
                   <div key={i} className="mini-img-wrapper">
                     <img
@@ -173,7 +178,7 @@ class ProductDetail extends PureComponent {
 
             <div className="imgs-gallery__big-img-container">
               <img
-                src={productToShow.gallery[0]}
+                src={gallery[0]}
                 className="imgs-gallery__big-img"
                 alt="product big image"
               ></img>
@@ -182,15 +187,15 @@ class ProductDetail extends PureComponent {
 
           <form
             onSubmit={this.addToCart}
-            value={productToShow.id}
+            value={id}
             className="product-detail__info"
           >
-            <h2 className="product-detail__brand">{productToShow.brand}</h2>
-            <h2 className="product-detail__name">{productToShow.name}</h2>
+            <h2 className="product-detail__brand">{brand}</h2>
+            <h2 className="product-detail__name">{name}</h2>
 
             <div className="attributes-container">
               <ProductDetailAttributesBox
-                attributes={productToShow.attributes}
+                attributes={attributes}
                 inputHandler={this.inputHandler}
               />
             </div>
@@ -199,8 +204,8 @@ class ProductDetail extends PureComponent {
                 <div>
                   <h4 className="attributes-price-title">price:</h4>
                   <h3 className="attributes-price-number">
-                    {productToShow.prices[value].currency.symbol}
-                    {productToShow.prices[value].amount.toFixed(2)}
+                    {prices[value].currency.symbol}
+                    {prices[value].amount.toFixed(2)}
                   </h3>
                 </div>
               )}

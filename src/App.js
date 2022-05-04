@@ -115,7 +115,6 @@ class App extends PureComponent {
         <CurrencyContext.Provider value={this.state.currencyChosen}>
           <BrowserRouter>
             <Header
-              changeCurrency={this.changeCurrency}
               pickCategory={this.pickCategory}
             />
             <Main

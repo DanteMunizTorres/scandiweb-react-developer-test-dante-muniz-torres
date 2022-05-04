@@ -40,10 +40,13 @@ class CartTinyView extends PureComponent {
   }
 
   render() {
+    const { productsList, manageQuantity } = this.props
+
     return (
       <div className="modal" onClick={this.disapear}>
         <CartContext.Consumer>
           {(products) => {
+            const productsAmount = products.length;
             return (
               <form className="miniCart" id="miniCart">
                 <CurrencyContext.Consumer>
@@ -54,7 +57,8 @@ class CartTinyView extends PureComponent {
                     return (
                       <>
                         <h2 className="mini-cart__title">
-                          My bag {products.length > 1 ? <span>, {products.length} items</span>: products.length === 1 ?  <span>, {products.length} item</span> : "" }
+                          
+                          My bag {productsAmount > 1 ? <span>, {productsAmount} items</span>: productsAmount === 1 ?  <span>, {productsAmount} item</span> : "" }
                         </h2>
 
                         {products.map((product, i) => (
@@ -62,8 +66,8 @@ class CartTinyView extends PureComponent {
                             key={product.id + i}
                             product={product}
                             id={i}
-                            productsList={this.props.productsList}
-                            manageQuantity={this.props.manageQuantity}
+                            productsList={productsList}
+                            manageQuantity={manageQuantity}
                             currency={parseInt(currency)}
                           />
                         ))}
@@ -71,7 +75,7 @@ class CartTinyView extends PureComponent {
                         <div className="mini-cart__total-container">
                           <p className="mini-cart__total-text">Total</p>
                           <p className="mini-cart__total-number">
-                            {products.length > 0 ? `${products[0].prices[currency].currency.symbol} ${total.toFixed(2)}` : 0}
+                            {productsAmount > 0 ? `${products[0].prices[currency].currency.symbol} ${total.toFixed(2)}` : 0}
                           </p>
                         </div>
 

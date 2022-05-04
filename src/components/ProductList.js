@@ -10,25 +10,26 @@ class ProductList extends PureComponent {
     super(props);
   }
 
-  render() { 
+  render() {
+    const {products, bringInfo, category } = this.props
     let justifyContent
-      if (this.props.products.length < 3) {
+      if (products.length < 3) {
         justifyContent = "space-evenly";
       } else {
         justifyContent = "space-between";
       }
 
     let articles;
-    if (this.props.products) {
+    if (products) {
       articles = (
         <CurrencyContext.Consumer>
           {(currency) =>
-            this.props.products.map((product, i) => (
+            products.map((product, i) => (
               <ProductArticle
                 key={i}
                 currency={parseInt(currency)}
                 product={product}
-                bringInfo={this.props.bringInfo}
+                bringInfo={bringInfo}
               />
             ))
           }
@@ -37,7 +38,7 @@ class ProductList extends PureComponent {
     }
     return (
       <>
-        <h2 className="main__title">{this.props.category.toUpperCase()}</h2>
+        <h2 className="main__title">{category.toUpperCase()}</h2>
         <section className={"product-list " + justifyContent}>{articles}</section>
       </>
     );
