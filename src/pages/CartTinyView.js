@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import CartContext from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
+import { productsCounter } from "../utils/utils";
 
 import CartArticle from "./components/CartArticle";
 import "./CartTinyView.css";
@@ -46,7 +47,7 @@ class CartTinyView extends PureComponent {
       <div className="modal" onClick={this.disapear}>
         <CartContext.Consumer>
           {(products) => {
-            const productsAmount = products.length;
+            const productsAmount = productsCounter(products)
             return (
               <form className="miniCart" id="miniCart">
                 <CurrencyContext.Consumer>
@@ -58,7 +59,7 @@ class CartTinyView extends PureComponent {
                       <>
                         <h2 className="mini-cart__title">
                           
-                          My bag {productsAmount > 1 ? <span>, {productsAmount} items</span>: productsAmount === 1 ?  <span>, {productsAmount} item</span> : "" }
+                          My bag {productsAmount > 0 ? <span>, {productsAmount} items</span>: productsAmount === 1 ?  <span>, {productsAmount} item</span> : "" }
                         </h2>
 
                         {products.map((product, i) => (

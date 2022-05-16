@@ -4,8 +4,8 @@
   position: absolute;
   right: 68px;
 
-  width: 84px;
-  padding: 4px;
+  width: 88px;
+  /* padding: 4px; */
 
   background-color: var(--white);
   box-shadow: 0px 5px 30px -18px rgba(0,0,0,0.50);
@@ -55,7 +55,7 @@
   transition: all 0.1s;
 }
 .currency-switcher__option-label:hover {
-  border-radius: 4px;
-  background-color: var(--green);
-  color: var(--white);
+  
+  background-color: #EEEEEE;
+  color: var(--black);
 }

@@ -43,12 +43,13 @@ class App extends PureComponent {
   }
 
   manageQuantity(newQuantity) {
-    const modifiedProduct = this.state.product.map((prdct, index) => {
+    let modifiedProduct = this.state.product.map((prdct, index) => {
       if (prdct.id === newQuantity.id && index === newQuantity.index) {
         prdct.quantity = newQuantity.number;
       }
-      return prdct;
+        return prdct;
     });
+    modifiedProduct = modifiedProduct.filter(prdct => prdct.quantity > 0 )
     return this.setState({ product: modifiedProduct });
   }
 

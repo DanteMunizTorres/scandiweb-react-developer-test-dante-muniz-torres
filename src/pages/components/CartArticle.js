@@ -40,7 +40,6 @@ class CartArticle extends Component {
   substractQuantity(e) {
     e.preventDefault();
     const { id, quantity} = this.props.product;
-    if (quantity > 1) {
       const newQuantity = {
         number: quantity - 1,
         id: id,
@@ -48,7 +47,6 @@ class CartArticle extends Component {
       };
       /* lifting quantity to App.js */
       return this.props.manageQuantity(newQuantity);
-    }
   }
 
   render() {

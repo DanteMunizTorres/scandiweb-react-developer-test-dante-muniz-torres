@@ -15,6 +15,7 @@ import "./Header.css";
 import client from '../../grapgql/client'
 import categoriesQuery from "../../grapgql/queryCategories";
 import currenciesQuery from "../../grapgql/queryCurrencies";
+import { productsCounter } from "../../utils/utils";
 
 class Header extends PureComponent {
   constructor(props) {
@@ -150,10 +151,11 @@ class Header extends PureComponent {
           >
             <CartContext.Consumer>
               {(productsInCart) => {
+                console.log(productsInCart);
                 if (productsInCart.length > 0) {
                   return (
                     <p className="header__mini-cart-button-counter">
-                      {productsInCart.length}
+                      {productsCounter(productsInCart)}
                     </p>
                   );
                 }
