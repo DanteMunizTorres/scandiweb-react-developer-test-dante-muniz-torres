@@ -27,21 +27,6 @@ class ProductArticle extends PureComponent {
   render() {
     const { currency, product: { attributes, inStock, id, name, prices, gallery } } = this.props
 
-    let addToCartButton;
-    if (
-      attributes.length === 0 &&
-      inStock === true
-    ) {
-      addToCartButton = (
-        <button
-          className="product-article__add-to-cart-button"
-          onClick={this.addToCart}
-        >
-          <img src={cartSVGWhite}></img>
-        </button>
-      );
-    }
-
     const outOfStock = {
       outOfStock: '',
       linkUrl: `/detail/${id}`,
@@ -51,6 +36,30 @@ class ProductArticle extends PureComponent {
       outOfStock.outOfStock = "out-of-stock";
       outOfStock.display = "display-flex";
     }
+
+    let addToCartButton;
+    if (attributes.length === 0 && inStock === true) {
+      addToCartButton = (
+        <button
+          className="product-article__add-to-cart-button"
+          onClick={this.addToCart}
+        >
+          <img src={cartSVGWhite}></img>
+        </button>
+      );
+    } else {
+      addToCartButton = (
+        <button
+          className="product-article__add-to-cart-button"
+        >
+          <Link to={outOfStock.linkUrl}>
+            <img src={cartSVGWhite}></img>
+          </Link>
+        </button>
+      );
+    }
+
+
 
     return (
       <>

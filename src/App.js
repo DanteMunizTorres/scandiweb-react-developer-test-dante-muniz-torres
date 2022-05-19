@@ -21,7 +21,7 @@ class App extends PureComponent {
       currencies: [],
       productList: [],
       productListFilteredByCategory: [],
-      product: [],
+      productsInCart: [],
     };
     this.bringInfo = this.bringInfo.bind(this);
     this.resetCartInfo = this.resetCartInfo.bind(this);
@@ -35,22 +35,36 @@ class App extends PureComponent {
     return this.setState({ currencyChosen: value });
   }
 
-  bringInfo(info) {
-    return this.setState({ product: [...this.state.product, info] });
+  bringInfo(productToAdd) {
+    const productsInCart = this.state.productsInCart
+    let newProductsInCart;
+    let checkProductsInCart = productsInCart.find(product => product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info))
+    if (checkProductsInCart !== undefined) {
+      newProductsInCart = productsInCart.map(product => {
+        if( product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info) ) {
+          return {...product, quantity: product.quantity + 1}
+        }
+        return product         
+      })
+    } else {
+      newProductsInCart = [...productsInCart, productToAdd]
+    }
+    return this.setState({ productsInCart: newProductsInCart });
   }
+
   resetCartInfo() {
-    return this.setState({ product: [] });
+    return this.setState({ productsInCart: [] });
   }
 
   manageQuantity(newQuantity) {
-    let modifiedProduct = this.state.product.map((prdct, index) => {
+    let modifiedProduct = this.state.productsInCart.map((prdct, index) => {
       if (prdct.id === newQuantity.id && index === newQuantity.index) {
         prdct.quantity = newQuantity.number;
       }
         return prdct;
     });
     modifiedProduct = modifiedProduct.filter(prdct => prdct.quantity > 0 )
-    return this.setState({ product: modifiedProduct });
+    return this.setState({ productsInCart: modifiedProduct });
   }
 
   pickCategory(e) {
@@ -112,7 +126,7 @@ class App extends PureComponent {
     }
 
     return (
-      <CartContext.Provider value={this.state.product}>
+      <CartContext.Provider value={this.state.productsInCart}>
         <CurrencyContext.Provider value={this.state.currencyChosen}>
           <BrowserRouter>
             <Header

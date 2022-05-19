@@ -2,6 +2,7 @@ import  React, { Component } from "react";
 import PropTypes from 'prop-types';
 
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
+import CartArticleImgSwitcher from "./CartArticleImgSwitcher";
 
 import "./CartArticle.css";
 
@@ -50,7 +51,7 @@ class CartArticle extends Component {
   }
 
   render() {
-    const { product, id, currency } = this.props
+    const { product, id, currency, isInCartPage } = this.props
     let cartArticle;
     if (this.state.productInCart) {
       const { brand, name, prices, attributes, gallery} = this.state.productInCart
@@ -101,13 +102,7 @@ class CartArticle extends Component {
                 <span className="vector"></span>
               </button>
             </div>
-            <div className="cart-article__img-wrapper">
-              <img
-                className="cart-article__img"
-                src={gallery[0]}
-                alt="product"
-              ></img>
-            </div>
+            <CartArticleImgSwitcher gallery={gallery} articleIsInCart={isInCartPage} />
           </div>
         </article>
       );
@@ -129,6 +124,7 @@ CartArticle.propTypes = {
   product: PropTypes.object,
   currency: PropTypes.number,
   id: PropTypes.number,
+  isInCartPage: PropTypes.bool
 };
 
 

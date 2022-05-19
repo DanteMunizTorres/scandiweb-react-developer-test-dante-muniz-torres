@@ -118,4 +118,5 @@
   border: none;
   background-color: var(--green);
   color: var(--white);
+  cursor: pointer;
 }

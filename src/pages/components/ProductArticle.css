@@ -10,6 +10,11 @@
 .product-article:hover {
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
+
+.product-article:hover .product-article__add-to-cart-button {
+  display: block;
+}
+
 .product-article__img-wrapper {
   position: relative;
 }
@@ -23,6 +28,7 @@
 
 .product-article__add-to-cart-button {
   position: absolute;
+  display: none;
   right: 30px;
   bottom: -26px;
 

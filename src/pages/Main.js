@@ -64,6 +64,8 @@ class Main extends PureComponent {
               <Cart
                 productsList={productListAll}
                 manageQuantity={manageQuantity}
+                showModal={this.showModal}
+                resetCartInfo={resetCartInfo}
               />
             }
           />

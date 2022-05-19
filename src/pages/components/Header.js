@@ -151,7 +151,6 @@ class Header extends PureComponent {
           >
             <CartContext.Consumer>
               {(productsInCart) => {
-                console.log(productsInCart);
                 if (productsInCart.length > 0) {
                   return (
                     <p className="header__mini-cart-button-counter">

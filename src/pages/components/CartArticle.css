@@ -14,7 +14,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .cart-article__info-brand, .cart-article__info-name {
@@ -106,15 +106,3 @@
   margin: 0;
 }
 
-.cart-article__img-wrapper {
-  display: flex;
-  width: 14.1em;
-  height: 18.5em;
-  justify-content: right;
-  align-items: center;
-}
-
-.cart-article__img {
-  max-height: 100%;
-  max-width: 100%;
-}

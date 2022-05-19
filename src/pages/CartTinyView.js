@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import CartContext from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
-import { productsCounter } from "../utils/utils";
+import { productsCounter, productsTotalPrice } from "../utils/utils";
 
 import CartArticle from "./components/CartArticle";
 import "./CartTinyView.css";
@@ -52,9 +52,7 @@ class CartTinyView extends PureComponent {
               <form className="miniCart" id="miniCart">
                 <CurrencyContext.Consumer>
                   {(currency) => {
-                    const total = products
-                      .map(product => product.prices[currency].amount * product.quantity)
-                      .reduce((a, b) => a + b, 0);
+                    const total = productsTotalPrice(products, currency)
                     return (
                       <>
                         <h2 className="mini-cart__title">
@@ -70,13 +68,14 @@ class CartTinyView extends PureComponent {
                             productsList={productsList}
                             manageQuantity={manageQuantity}
                             currency={parseInt(currency)}
+                            isInCartPage={false}
                           />
                         ))}
 
                         <div className="mini-cart__total-container">
                           <p className="mini-cart__total-text">Total</p>
                           <p className="mini-cart__total-number">
-                            {productsAmount > 0 ? `${products[0].prices[currency].currency.symbol} ${total.toFixed(2)}` : 0}
+                            {productsAmount > 0 ? `${products[0].prices[currency].currency.symbol} ${total}` : 0}
                           </p>
                         </div>
 

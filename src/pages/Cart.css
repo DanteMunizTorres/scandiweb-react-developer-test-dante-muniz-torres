@@ -7,3 +7,37 @@
   font-size: 3.2rem;
   text-transform: uppercase;
 }
+
+.order-box {
+  justify-content: flex-start;
+  padding-top: 32px;
+}
+
+.order-box__titles-container {
+  margin-right: 4px;
+}
+
+
+
+.order-box__title, .order-box__value {
+  display: block;
+  font-size: 2.4em;
+}
+
+.order-box__title {
+  font-weight: 400;
+}
+
+.order-box__total {
+  font-weight: 500;
+}
+
+
+.order-box__value {
+  font-weight: 700;
+}
+
+.orderButton__container {
+  margin-top: 1.6em;
+  width: 40%;
+}
