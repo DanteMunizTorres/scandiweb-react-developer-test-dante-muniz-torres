@@ -76,30 +76,42 @@ Checked.
 Checked.
 
 ##Quick shop icon should be displayed for all in stock products on PLP and only on product card hover, if product have options to select quickshop should redirect to PDP
-Checked
+Checked.
 
 ##Product with same product options should stack in cart
-Checked
+Checked.
 
 ##After add to cart user should stay on PDP no need to redirect
+Checked.
+
 ##On PLP products should have brand that should be concatenated with product name
+Checked.
+
 ##Out of stock products have wrong design
+Checked.
+
 ##Out of stock products should have out of stock label on PDP too
+Checked.
+
 ##Out of stock products shouldn’t be possible to add to cart, only view info
+Checked.
+
 ##Product description is not rendered as html, please use parser
-
-
+(The description is rendered as html in the browser)
 
 ##Cart page should have total, qty and tax data as in design
 Checked
+
 ##Product images on cart page should be possible to switch, they should have arrows as in design
 Checked.
 
-
-
 ##Not possible to remove items at all
+Checked.
+
 ##On category page should be requested current category not used ‘all’ category everywhere and should be requested only needed data (For example product description definitely not needed for PLP)
 ##On PDP should be requested only product data
+
+
 ##Showing modal using querySelector and style prop is bad approach, just use state or global state
 ##Please refactor querySelectors that approach is bad
 ##Please use variable destructuring

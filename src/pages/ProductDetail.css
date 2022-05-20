@@ -9,7 +9,7 @@
 /* imges section */
 
 .imgs-gallery {
-  width: 60%;
+  width: 70%;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -52,6 +52,7 @@
 /* big image */
 
 .imgs-gallery__big-img-container {
+  position: relative;
   object-position: center center;
   max-width: 80%;
   margin: 0 auto;
@@ -67,7 +68,7 @@
 /* info section */
 
 .product-detail__info {
-  width: 40%;
+  width: 30%;
   display: flex;  
   flex-direction: column;
   padding-right: 30px;
@@ -117,6 +118,8 @@
   background-color: var(--green);
   width: 100%;
   font-weight: 600;
+  font-size: 1.6rem;
+  font-family: 'Raleway';
   cursor: pointer;
   border: none;
 }
@@ -150,6 +153,12 @@
   margin-bottom: 8px;
   font-weight: 400;
 }
+
+/* out of stock */
+.PDP-out-of-stock img {
+  opacity: 0.5;
+}
+
 
 @media (max-width: 800px) {
   .product-detail-main-section {

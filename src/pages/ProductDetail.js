@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import { Navigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import CurrencyContext from "../contexts/ContextCurrency";
 import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox";
@@ -14,7 +13,6 @@ class ProductDetail extends PureComponent {
       inputsUsed1: undefined,
       inputsUsed2: undefined,
       inputsUsed3: undefined,
-      navigate: false,
     };
     this.addToCart = this.addToCart.bind(this);
     this.inputHandler = this.inputHandler.bind(this);
@@ -50,6 +48,12 @@ class ProductDetail extends PureComponent {
 
   addToCart(e) {
     e.preventDefault();
+    if(!this.state.productToShow.inStock){
+      const message =
+      "Sorry, this product is out of stock by now";
+    return this.props.showModal(e, message);
+    }
+
     const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
     const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
     const inputsToSend = inputsAll.filter((input) => input != undefined);
@@ -70,8 +74,6 @@ class ProductDetail extends PureComponent {
     }
     //lifting info to App.js
     this.props.bringInfo(sendToCart);
-    //go to product list
-    return this.setState({ navigate: true });
   }
 
   inputHandler(e) {
@@ -146,9 +148,6 @@ class ProductDetail extends PureComponent {
 
   render() {
 
-    if (this.state.navigate === true) {
-      return <Navigate to="/" replace={true} />;
-    }
     let productDetail;
     if (this.state.productToShow === undefined) {
       productDetail = (
@@ -157,10 +156,22 @@ class ProductDetail extends PureComponent {
         </div>
       );
     } else {
-      const { gallery, id, brand, name, attributes, prices } = this.state.productToShow;
+      const { gallery, id, brand, name, attributes, prices, inStock } = this.state.productToShow;
+      const outOfSotck = {
+        cssClass: 'PDP-out-of-stock',
+        label: (
+          <div className={`sign__out-of-stock display-flex`}>
+          <p className="sign__out-of-stock--p">out of stock</p>
+        </div>
+        )
+      }
+      if (inStock) {
+        outOfSotck.cssClass = '',
+        outOfSotck.label = ''
+      }
       productDetail = (
         <section className="product-detail-main-section">
-          <article className="imgs-gallery">
+          <article className={`imgs-gallery ${outOfSotck.cssClass}`} >
             <div className="imgs-gallery__mini-img-container">
               {gallery.map((img, i) => {
                 return (
@@ -177,6 +188,7 @@ class ProductDetail extends PureComponent {
             </div>
 
             <div className="imgs-gallery__big-img-container">
+              {outOfSotck.label}
               <img
                 src={gallery[0]}
                 className="imgs-gallery__big-img"
@@ -197,6 +209,7 @@ class ProductDetail extends PureComponent {
               <ProductDetailAttributesBox
                 attributes={attributes}
                 inputHandler={this.inputHandler}
+                inStock={inStock}
               />
             </div>
             <CurrencyContext.Consumer>

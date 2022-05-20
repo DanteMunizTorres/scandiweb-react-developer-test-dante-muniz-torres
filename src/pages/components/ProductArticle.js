@@ -25,7 +25,7 @@ class ProductArticle extends PureComponent {
   }
 
   render() {
-    const { currency, product: { attributes, inStock, id, name, prices, gallery } } = this.props
+    const { currency, product: { attributes, inStock, id, name, brand, prices, gallery } } = this.props
 
     const outOfStock = {
       outOfStock: '',
@@ -78,7 +78,7 @@ class ProductArticle extends PureComponent {
             {addToCartButton}
           </div>
           <Link to={outOfStock.linkUrl}>
-            <h4>{name}</h4>
+            <h4>{brand} {name}</h4>
             <h3>
               {prices[currency].currency.symbol}
               {prices[currency].amount.toFixed(2)}

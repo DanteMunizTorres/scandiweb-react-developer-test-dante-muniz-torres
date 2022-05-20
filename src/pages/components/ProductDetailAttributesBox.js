@@ -21,7 +21,8 @@ class ProductDetailAttributesBox extends PureComponent {
 
   render() {
     const attributesChosen = this.state.attributesChosen;
-    const { attributes } = this.props
+    const { attributes, inStock } = this.props
+    
 
     let attributesBox;
     //if it's called inside Cart or Mini cart component
@@ -160,14 +161,26 @@ class ProductDetailAttributesBox extends PureComponent {
                           backgroundColor: value,
                         }}
                       >
-                        <input
+                        {inStock? (
+                          <input
+                            id={itemId + id}
+                            className="display-none product-detail__input input-color"
+                            type="radio"
+                            name={id}
+                            value={value}
+                            onChange={inputHandler}
+                            inStock
+                          />
+                        ) : (
+                          <input
                           id={itemId + id}
                           className="display-none product-detail__input input-color"
                           type="radio"
                           name={id}
                           value={value}
-                          onChange={inputHandler}
+                          disabled
                         />
+                        )}
                       </label>
                     </div>
                   );
@@ -179,14 +192,25 @@ class ProductDetailAttributesBox extends PureComponent {
                         className="product-detail__input-label"
                       >
                         {displayValue}
-                        <input
+                        {inStock? (
+                          <input
+                            id={itemId + id}
+                            className="display-none product-detail__input input-not-color"
+                            type="radio"
+                            name={id}
+                            value={value}
+                            onChange={inputHandler}
+                          />
+                        ) : (
+                          <input
                           id={itemId + id}
                           className="display-none product-detail__input input-not-color"
                           type="radio"
                           name={id}
                           value={value}
-                          onChange={inputHandler}
+                          disabled
                         />
+                        )}
                       </label>
                     </div>
                   );
@@ -207,6 +231,7 @@ ProductDetailAttributesBox.propTypes = {
   attributes: PropTypes.array,
   attributesChosen: PropTypes.array,
   inputHandler: PropTypes.func,
+  inStock: PropTypes.bool
 };
 
 export default ProductDetailAttributesBox;
