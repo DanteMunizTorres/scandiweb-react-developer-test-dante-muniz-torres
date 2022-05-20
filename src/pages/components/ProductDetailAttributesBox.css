@@ -90,3 +90,7 @@
   box-shadow: 0px 0px 0px 2px var(--green);
   border: 2px solid var(--white);
 }
+
+.cursor-pointer-not {
+  cursor: auto;
+}

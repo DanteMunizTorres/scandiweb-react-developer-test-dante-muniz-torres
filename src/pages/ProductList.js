@@ -12,12 +12,6 @@ class ProductList extends PureComponent {
 
   render() {
     const {products, bringInfo, category } = this.props
-    let justifyContent
-      if (products.length < 3) {
-        justifyContent = "space-evenly";
-      } else {
-        justifyContent = "space-between";
-      }
 
     let articles;
     if (products) {
@@ -39,7 +33,7 @@ class ProductList extends PureComponent {
     return (
       <>
         <h2 className="main__title">{category.toUpperCase()}</h2>
-        <section className={"product-list " + justifyContent}>{articles}</section>
+        <section className="product-list ">{articles}</section>
       </>
     );
   }

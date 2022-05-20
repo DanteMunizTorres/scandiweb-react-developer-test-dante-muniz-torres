@@ -20,20 +20,20 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
-    const id = this.props.id;
-    const products = this.props.products;
+    const { id, products } = this.props
     const productToShow = products.find((product) => product.id === id);
     this.setState({ productToShow: productToShow });
   }
 
   componentDidUpdate() {
+    const { productToShow: { description, gallery } } = this.state
     if (document.querySelector(".productDescription")) {
       const productDescriptionDiv = document.querySelector(".productDescription");
-      productDescriptionDiv.innerHTML = this.state.productToShow.description;
+      productDescriptionDiv.innerHTML = description;
     }
 
     if (document.querySelector(".imgs-gallery__mini-img-container")) {
-      if (this.state.productToShow.gallery.length < 2) {
+      if (gallery.length < 2) {
         document.querySelector(
           ".imgs-gallery__mini-img-container"
         ).style.display = "none";
@@ -48,20 +48,20 @@ class ProductDetail extends PureComponent {
 
   addToCart(e) {
     e.preventDefault();
-    if(!this.state.productToShow.inStock){
+    const {bringInfo, showModal, id} = this.props
+    const { inStock, prices, attributes } = this.state.productToShow
+    if(!inStock){
       const message =
       "Sorry, this product is out of stock by now";
-    return this.props.showModal(e, message);
+    return showModal(e, message);
     }
 
     const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
     const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
     const inputsToSend = inputsAll.filter((input) => input != undefined);
-
-    const { prices, attributes } = this.state.productToShow
     
     const sendToCart = {
-      id: this.props.id,
+      id: id,
       quantity: 1,
       info: inputsToSend,
       prices: prices,
@@ -70,10 +70,10 @@ class ProductDetail extends PureComponent {
     if (attributes.length !== sendToCart.info.length) {
       const message =
         "You need to choose the product attributes before adding it to the cart";
-      return this.props.showModal(e, message);
+      return showModal(e, message);
     }
     //lifting info to App.js
-    this.props.bringInfo(sendToCart);
+    bringInfo(sendToCart);
   }
 
   inputHandler(e) {
@@ -147,16 +147,16 @@ class ProductDetail extends PureComponent {
   }
 
   render() {
-
+    const { productToShow } = this.state
     let productDetail;
-    if (this.state.productToShow === undefined) {
+    if (productToShow === undefined) {
       productDetail = (
         <div>
           <h3>Loading...</h3>
         </div>
       );
     } else {
-      const { gallery, id, brand, name, attributes, prices, inStock } = this.state.productToShow;
+      const { gallery, id, brand, name, attributes, prices, inStock } = productToShow;
       const outOfSotck = {
         cssClass: 'PDP-out-of-stock',
         label: (

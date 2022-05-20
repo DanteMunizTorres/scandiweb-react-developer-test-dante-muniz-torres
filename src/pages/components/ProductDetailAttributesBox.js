@@ -13,20 +13,23 @@ class ProductDetailAttributesBox extends PureComponent {
   }
 
   componentDidMount() {
-    this.setState({ attributesChosen: this.props.attributesChosen });
-    if (this.props.isInCart) {
+    const { isInCart, attributesChosen } = this.props
+    this.setState({ attributesChosen: attributesChosen });
+    if (isInCart) {
       this.setState({ isInCart: true });
     }
   }
 
   render() {
-    const attributesChosen = this.state.attributesChosen;
+    const { attributesChosen, isInCart } = this.state
     const { attributes, inStock } = this.props
-    
+    let cursorPointerNot = ''
+    if(!inStock) {cursorPointerNot = 'cursor-pointer-not'} 
 
     let attributesBox;
     //if it's called inside Cart or Mini cart component
-    if (attributes && this.state.isInCart === true) {
+    if (attributes && isInCart === true) {
+      const { id: productId } = this.props
       attributesBox = attributes.map(( {name, items, id}, i ) => {
         return (
           <div key={name + i} className="in-cart-attributes-main-box">
@@ -48,7 +51,7 @@ class ProductDetailAttributesBox extends PureComponent {
                       <input
                         className="display-none"
                         type="radio"
-                        name={id + this.props.id}
+                        name={id + productId}
                         id={itemId}
                         value={match.value}
                         checked
@@ -72,7 +75,7 @@ class ProductDetailAttributesBox extends PureComponent {
                       <input
                         className="display-none"
                         type="radio"
-                        name={id + this.props.id}
+                        name={id + productId}
                         id={itemId}
                         value={value}
                         disabled
@@ -95,7 +98,7 @@ class ProductDetailAttributesBox extends PureComponent {
                         <input
                           className="display-none"
                           type="radio"
-                          name={id + this.props.id}
+                          name={id + productId}
                           id={itemId + id}
                           value={value}
                           checked
@@ -116,7 +119,7 @@ class ProductDetailAttributesBox extends PureComponent {
                         <input
                           className="display-none"
                           type="radio"
-                          name={id + this.props.id}
+                          name={id + productId}
                           id={itemId + id}
                           value={value}
                           disabled
@@ -138,7 +141,7 @@ class ProductDetailAttributesBox extends PureComponent {
       });
       //if it's called inside Product detail component
     } else if (attributes) {
-      const inputHandler = this.props.inputHandler
+      const {inputHandler} = this.props
       attributesBox = attributes.map(( {name, items, id}, i ) => {
         return (
           <div key={name + i}>
@@ -155,7 +158,7 @@ class ProductDetailAttributesBox extends PureComponent {
                     <div key={id + indx}>
                       <label
                         /* htmlFor={itemId + attribute.id} */
-                        className="product-detail__input-label"
+                        className={`product-detail__input-label ${cursorPointerNot}`}
                         style={{
                           color: value,
                           backgroundColor: value,
@@ -189,7 +192,7 @@ class ProductDetailAttributesBox extends PureComponent {
                     <div key={id + indx}>
                       <label
                         /* htmlFor={itemId + attribute.id}  */
-                        className="product-detail__input-label"
+                        className={`product-detail__input-label ${cursorPointerNot}`}
                       >
                         {displayValue}
                         {inStock? (

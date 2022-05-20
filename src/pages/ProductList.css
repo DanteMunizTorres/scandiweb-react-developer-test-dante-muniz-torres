@@ -5,12 +5,4 @@
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
-
-/* .space-evenly {
-  justify-content: space-evenly;
-}
-.space-between {
-  justify-content: space-between;
-} */

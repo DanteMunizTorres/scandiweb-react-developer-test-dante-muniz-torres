@@ -40,10 +40,11 @@ class Header extends PureComponent {
   }
 
   disappear() {
-    if (this.state.currencyBoxVisible) {
+    const { currencyBoxVisible, miniCartVisible } = this.state
+    if (currencyBoxVisible) {
       this.setState({ currencyBoxVisible: false });
     }
-    if (this.state.miniCartVisible) {
+    if (miniCartVisible) {
       this.setState({ miniCartVisible: false });
     }
   }
@@ -65,30 +66,31 @@ class Header extends PureComponent {
 
   componentDidUpdate(__prevProps, prevState) {
     //currencybox
-    if (prevState.currencyBoxVisible !== this.state.currencyBoxVisible) {
+    const { currencyBoxVisible, miniCartVisible } = this.state
+    if (prevState.currencyBoxVisible !== currencyBoxVisible) {
       const currencySwitcher = document.querySelector(".currency-switcher__form");
-      if (this.state.currencyBoxVisible) {
+      if (currencyBoxVisible) {
         currencySwitcher.style.display = "flex";
-      } else if (!this.state.currencyBoxVisible) {
+      } else if (!currencyBoxVisible) {
         currencySwitcher.style.display = "none";
       }
     }
     //minicart
-    if (prevState.miniCartVisible !== this.state.miniCartVisible) {
+    if (prevState.miniCartVisible !== miniCartVisible) {
       const modal = document.querySelector(".modal");
-      if (this.state.miniCartVisible) {
+      if (miniCartVisible) {
         modal.style.display = "block";
-      } else if (!this.state.miniCartVisible) {
+      } else if (!miniCartVisible) {
         modal.style.display = "none";
       }
     }
   }
 
   render() {
-    
+    const { categories, currencyBoxVisible, currencies } = this.state
     let categoriesOptions;
-    if (this.state.categories) {
-      categoriesOptions = this.state.categories.map(({name}, i) => {
+    if (categories) {
+      categoriesOptions = categories.map(({name}, i) => {
         return (
           <li className="category-li" key={name + i}>
             <Link
@@ -106,14 +108,14 @@ class Header extends PureComponent {
 
     //currency switcher button's arrow
     let arrow;
-    if (this.state.currencyBoxVisible) {
+    if (currencyBoxVisible) {
       arrow = <img src={arrowUpSVG} alt='arrow up icon'></img>;
     } else {
       arrow = <img src={arrowDownSVG} alt='arrow down icon'></img>;
     }
 
     //currency switcher disappear
-    if (this.state.currencyBoxVisible === true) {
+    if (currencyBoxVisible === true) {
       const main = document.querySelector(".main");
       main.addEventListener("click", () => {
         this.setState({ currencyBoxVisible: false });
@@ -137,8 +139,8 @@ class Header extends PureComponent {
           >
             <CurrencyContext.Consumer>
               {(currency) => {
-                if (this.state.currencies.length > 0) {
-                  return <span>{this.state.currencies[currency].symbol}</span>;
+                if (currencies.length > 0) {
+                  return <span>{currencies[currency].symbol}</span>;
                 }
               }}
             </CurrencyContext.Consumer>

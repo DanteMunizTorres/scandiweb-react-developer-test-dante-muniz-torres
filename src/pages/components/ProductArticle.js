@@ -14,14 +14,15 @@ class ProductArticle extends PureComponent {
   }
 
   addToCart() {
+    const {product: {id, prices}, bringInfo} = this.props
     const sendToCart = {
-      id: this.props.product.id,
+      id: id,
       quantity: 1,
       info: [],
-      prices: this.props.product.prices,
+      prices: prices,
     };
     //lifting info to App.js
-    this.props.bringInfo(sendToCart);
+    bringInfo(sendToCart);
   }
 
   render() {

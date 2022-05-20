@@ -22,19 +22,21 @@ class CartArticle extends Component {
   }
 
   changePhotoUp(){
+    const { galleryImgIndex } = this.state
     const lastPhotoIndex = this.props.gallery.length - 1;
-    if (this.state.galleryImgIndex === lastPhotoIndex) {
+    if (galleryImgIndex === lastPhotoIndex) {
       const FIRST_PHOTO_INDEX = 0;
       return this.setState({galleryImgIndex: FIRST_PHOTO_INDEX })
     }
-    this.setState({galleryImgIndex: this.state.galleryImgIndex + 1})
+    this.setState({galleryImgIndex: galleryImgIndex + 1})
   }
   changePhotoDown(){
-    if (this.state.galleryImgIndex === 0) {
+    const { galleryImgIndex } = this.state
+    if (galleryImgIndex === 0) {
       const lastPhotoIndex = this.props.gallery.length - 1;
       return this.setState({galleryImgIndex: lastPhotoIndex})
     }
-    this.setState({galleryImgIndex: this.state.galleryImgIndex -1})
+    this.setState({galleryImgIndex: galleryImgIndex -1})
   }
 
   render() {

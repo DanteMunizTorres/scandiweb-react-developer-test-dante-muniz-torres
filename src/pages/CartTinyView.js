@@ -31,13 +31,15 @@ class CartTinyView extends PureComponent {
 
   checkOutCart(e) {
     e.preventDefault();
+    const {resetCartInfo, showModal} = this.props
+
     const modal = document.querySelector(".modal");
     modal.style.display = "none";
 
-    this.props.resetCartInfo();
+    resetCartInfo();
 
     const checkOutMessage = "Thank you, come again!";
-    this.props.showModal(e, checkOutMessage);
+    showModal(e, checkOutMessage);
   }
 
   render() {

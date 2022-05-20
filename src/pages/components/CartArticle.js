@@ -17,10 +17,10 @@ class CartArticle extends Component {
   }
 
   componentDidMount() {
-    const productsList = this.props.productsList
+    const { productsList, product: productIn } = this.props
     if (productsList) {
       const productInCart = productsList.find(
-        (product) => product.id === this.props.product.id
+        (product) => product.id === productIn.id
       );
       this.setState({ productInCart: productInCart });
     }
@@ -29,32 +29,33 @@ class CartArticle extends Component {
 
   addQuantity(e) {
     e.preventDefault();
-    const { id, quantity} = this.props.product;
+    const { id: idInCart, manageQuantity, product: {id, quantity} } = this.props
     const newQuantity = {
       number: quantity + 1,
       id: id,
-      index: this.props.id,
+      index: idInCart,
     };
     /* lifting quantity to App.js */
-    return this.props.manageQuantity(newQuantity);
+    return manageQuantity(newQuantity);
   }
   substractQuantity(e) {
     e.preventDefault();
-    const { id, quantity} = this.props.product;
+    const { id: idInCart, manageQuantity, product: {id, quantity} } = this.props
       const newQuantity = {
         number: quantity - 1,
         id: id,
-        index: this.props.id,
+        index: idInCart,
       };
       /* lifting quantity to App.js */
-      return this.props.manageQuantity(newQuantity);
+      return manageQuantity(newQuantity);
   }
 
   render() {
     const { product, id, currency, isInCartPage } = this.props
     let cartArticle;
-    if (this.state.productInCart) {
-      const { brand, name, prices, attributes, gallery} = this.state.productInCart
+    const { productInCart } = this.state
+    if (productInCart) {
+      const { brand, name, prices, attributes, gallery} = productInCart
       cartArticle = (
         <article className="cart-article">
           <div className="cart-article__info">

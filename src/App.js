@@ -36,7 +36,7 @@ class App extends PureComponent {
   }
 
   bringInfo(productToAdd) {
-    const productsInCart = this.state.productsInCart
+    const {productsInCart} = this.state
     let newProductsInCart;
     let checkProductsInCart = productsInCart.find(product => product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info))
     if (checkProductsInCart !== undefined) {
@@ -88,24 +88,27 @@ class App extends PureComponent {
   }
 
   componentDidUpdate(__prevProps, prevState) {
-    if (prevState.category !== this.state.category) {
-      const filteredCategory = this.state.productList.filter((product) => product.category === this.state.category);
-      if (this.state.category !== "all") {
+    const { category, productList } = this.state
+    if (prevState.category !== category) {
+      const filteredCategory = productList.filter((product) => product.category === category);
+      if (category !== "all") {
         this.setState({ productListFilteredByCategory: filteredCategory });
       } else {
         this.setState({
-          productListFilteredByCategory: this.state.productList,
+          productListFilteredByCategory: productList,
         });
       }
     }
-    if (prevState.productList !== this.state.productList) {
-      this.setState({ productListFilteredByCategory: this.state.productList });
+    if (prevState.productList !== productList) {
+      this.setState({ productListFilteredByCategory: productList });
     }
   }
 
   render() {
+    const { category, productList, productsInCart, currencyChosen, productListFilteredByCategory, currencies } = this.state
+
     // category nav style
-    if (document.querySelector(`.${this.state.category}`)) {
+    if (document.querySelector(`.${category}`)) {
       const categoryNav = document.getElementsByClassName("category-li__link");
       for (let i = 0; categoryNav.length > i; i++) {
         if (
@@ -117,7 +120,7 @@ class App extends PureComponent {
             `category-active__${categoryNav[i].name}`
           );
         }
-        if (categoryNav[i].name === this.state.category) {
+        if (categoryNav[i].name === category) {
           categoryNav[i].classList.add(
             `category-active__${categoryNav[i].name}`
           );
@@ -126,17 +129,17 @@ class App extends PureComponent {
     }
 
     return (
-      <CartContext.Provider value={this.state.productsInCart}>
-        <CurrencyContext.Provider value={this.state.currencyChosen}>
+      <CartContext.Provider value={productsInCart}>
+        <CurrencyContext.Provider value={currencyChosen}>
           <BrowserRouter>
             <Header
               pickCategory={this.pickCategory}
             />
             <Main
-              category={this.state.category}
-              productListAll={this.state.productList}
-              productList={this.state.productListFilteredByCategory}
-              currencies={this.state.currencies}
+              category={category}
+              productListAll={productList}
+              productList={productListFilteredByCategory}
+              currencies={currencies}
               bringInfo={this.bringInfo}
               resetCartInfo={this.resetCartInfo}
               changeCurrency={this.changeCurrency}
