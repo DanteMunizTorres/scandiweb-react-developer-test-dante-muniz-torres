@@ -96,8 +96,6 @@ Checked.
 ##Out of stock products shouldn’t be possible to add to cart, only view info
 Checked.
 
-##Product description is not rendered as html, please use parser
-(The description is rendered as html in the browser)
 
 ##Cart page should have total, qty and tax data as in design
 Checked
@@ -108,18 +106,37 @@ Checked.
 ##Not possible to remove items at all
 Checked.
 
+##Product description is not rendered as html, please use parser
+(The description is rendered as html in the browser)
+
 ##On category page should be requested current category not used ‘all’ category everywhere and should be requested only needed data (For example product description definitely not needed for PLP)
+
+
 ##On PDP should be requested only product data
 
-
 ##Showing modal using querySelector and style prop is bad approach, just use state or global state
+
 ##Please refactor querySelectors that approach is bad
+
 ##Please use variable destructuring
+Checked.
 
 
 
+# AFTER THIRD SUBMISSION
 
 
+Product description is not rendered as html, please use parser - can ignore
+
+With graphqls it is easily to structure requests where can specify what fields to request
+
+Should not be requested any categories, or other data, only one current product and it's data
+
+Please fix query usage, for now all data is requested on all category on first page load, but it’s not correct approach, if category is changed new data for current category should be loaded and same goes for product page, on PDP should be requested current product data for example if I’m now refreshing page on any PDP I’ll see blank page as no data is loaded
+
+
+
+Rendering modals using redux for global stage management
 
 
 muniztorresdante@gmail.com

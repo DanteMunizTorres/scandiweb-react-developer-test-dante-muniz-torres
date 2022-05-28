@@ -31,7 +31,7 @@ class Main extends PureComponent {
     return this.setState({ message: message });
   }
   render() {
-    const {productList, productListAll, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
+    const {productListFilteredByCategory, productListAll, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
     return (
       <main className="main">
         <Modal message={this.state.message} />
@@ -51,7 +51,7 @@ class Main extends PureComponent {
             exact={true}
             element={
               <ProductList
-                products={productList}
+                products={productListFilteredByCategory}
                 bringInfo={bringInfo}
                 category={category}
               />
@@ -74,7 +74,7 @@ class Main extends PureComponent {
             exact={true}
             element={
               <GetParamsId
-                products={productList}
+                products={productListFilteredByCategory}
                 bringInfo={bringInfo}
                 showModal={this.showModal}
               />
@@ -87,7 +87,7 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  productList: PropTypes.array,
+  productListFilteredByCategory: PropTypes.array,
   productListAll: PropTypes.array,
   currencies: PropTypes.array,
   category: PropTypes.string,

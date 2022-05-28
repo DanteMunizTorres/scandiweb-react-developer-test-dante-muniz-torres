@@ -9,8 +9,9 @@ import Header from "./pages/components/Header";
 import Main from "./pages/Main";
 
 import client from './grapgql/client'
-import productsQuery from './grapgql/queryProducts'
 import currenciesQuery from "./grapgql/queryCurrencies";
+import productsQuery from './grapgql/queryProducts'
+import { productsByCategory } from "./grapgql/querierProductsByCategory";
 
 class App extends PureComponent {
   constructor(props) {
@@ -90,14 +91,24 @@ class App extends PureComponent {
   componentDidUpdate(__prevProps, prevState) {
     const { category, productList } = this.state
     if (prevState.category !== category) {
-      const filteredCategory = productList.filter((product) => product.category === category);
+      client
+      .query(productsByCategory(category))
+      .then((result) => {
+        console.log(result.data.category.products);
+        return this.setState({ productListFilteredByCategory: result.data.category.products })
+      })
+      .catch(err => console.log(err));
+
+
+      
+      /* const filteredCategory = productList.filter((product) => product.category === category);
       if (category !== "all") {
         this.setState({ productListFilteredByCategory: filteredCategory });
       } else {
         this.setState({
           productListFilteredByCategory: productList,
         });
-      }
+      } */
     }
     if (prevState.productList !== productList) {
       this.setState({ productListFilteredByCategory: productList });
@@ -138,7 +149,7 @@ class App extends PureComponent {
             <Main
               category={category}
               productListAll={productList}
-              productList={productListFilteredByCategory}
+              productListFilteredByCategory={productListFilteredByCategory}
               currencies={currencies}
               bringInfo={this.bringInfo}
               resetCartInfo={this.resetCartInfo}

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import CurrencyContext from "../contexts/ContextCurrency";
 import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox";
 
+import client from '../grapgql/client'
+import { productById } from '../grapgql/querierProductById'
+
 import "./ProductDetail.css";
 
 class ProductDetail extends PureComponent {
@@ -20,9 +23,18 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
-    const { id, products } = this.props
-    const productToShow = products.find((product) => product.id === id);
-    this.setState({ productToShow: productToShow });
+    const { id } = this.props
+
+    client
+    .query(productById(id))
+    .then((result) => {
+      console.log(result.data.product);
+      return this.setState({ productToShow: result.data.product })
+    })
+    .catch(err => console.log(err));
+
+    /* const productToShow = products.find((product) => product.id === id);
+    this.setState({ productToShow: productToShow }); */
   }
 
   componentDidUpdate() {
@@ -40,6 +52,11 @@ class ProductDetail extends PureComponent {
       }
     }
   }
+
+/*   componentDidUnMount() {
+      this.setState({ productToShow: undefined })
+  }
+ */
 
   showBig(e) {
     const bigImg = document.querySelector(".imgs-gallery__big-img");
@@ -157,6 +174,7 @@ class ProductDetail extends PureComponent {
       );
     } else {
       const { gallery, id, brand, name, attributes, prices, inStock } = productToShow;
+      console.log(attributes);
       const outOfSotck = {
         cssClass: 'PDP-out-of-stock',
         label: (
