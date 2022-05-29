@@ -22,9 +22,9 @@ class ProductDetailAttributesBox extends PureComponent {
 
   render() {
     const { attributesChosen, isInCart } = this.state
-    const { attributes, inStock } = this.props
+    const { attributes, instock } = this.props
     let cursorPointerNot = ''
-    if(!inStock) {cursorPointerNot = 'cursor-pointer-not'} 
+    if(!instock) {cursorPointerNot = 'cursor-pointer-not'} 
 
     let attributesBox;
     //if it's called inside Cart or Mini cart component
@@ -164,7 +164,7 @@ class ProductDetailAttributesBox extends PureComponent {
                           backgroundColor: value,
                         }}
                       >
-                        {inStock? (
+                        {instock? (
                           <input
                             id={itemId + id}
                             className="display-none product-detail__input input-color"
@@ -172,7 +172,7 @@ class ProductDetailAttributesBox extends PureComponent {
                             name={id}
                             value={value}
                             onChange={inputHandler}
-                            inStock
+                            /* inStock */
                           />
                         ) : (
                           <input
@@ -195,7 +195,7 @@ class ProductDetailAttributesBox extends PureComponent {
                         className={`product-detail__input-label ${cursorPointerNot}`}
                       >
                         {displayValue}
-                        {inStock? (
+                        {instock? (
                           <input
                             id={itemId + id}
                             className="display-none product-detail__input input-not-color"
@@ -234,7 +234,7 @@ ProductDetailAttributesBox.propTypes = {
   attributes: PropTypes.array,
   attributesChosen: PropTypes.array,
   inputHandler: PropTypes.func,
-  inStock: PropTypes.bool
+  instock: PropTypes.bool
 };
 
 export default ProductDetailAttributesBox;

@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import ProductDetailAttributesBox from "./ProductDetailAttributesBox";
 import CartArticleImgSwitcher from "./CartArticleImgSwitcher";
 
+import client from '../../grapgql/client'
+import { productById } from '../../grapgql/querierProductById'
+
 import "./CartArticle.css";
 
 class CartArticle extends Component {
@@ -17,13 +20,20 @@ class CartArticle extends Component {
   }
 
   componentDidMount() {
-    const { productsList, product: productIn } = this.props
-    if (productsList) {
+    const { /* productsList, */ product: {id} } = this.props
+    /* if (productsList) {
       const productInCart = productsList.find(
         (product) => product.id === productIn.id
       );
       this.setState({ productInCart: productInCart });
-    }
+    } */
+    client
+    .query(productById(id))
+    .then((result) => {
+      console.log(result.data.product);
+      return this.setState({ productInCart: result.data.product })
+    })
+    .catch(err => console.log(err));
   }
 
 

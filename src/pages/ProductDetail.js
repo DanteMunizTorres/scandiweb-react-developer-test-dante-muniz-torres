@@ -227,7 +227,7 @@ class ProductDetail extends PureComponent {
               <ProductDetailAttributesBox
                 attributes={attributes}
                 inputHandler={this.inputHandler}
-                inStock={inStock}
+                instock={inStock}
               />
             </div>
             <CurrencyContext.Consumer>
