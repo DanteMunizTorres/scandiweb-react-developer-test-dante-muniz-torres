@@ -28,13 +28,9 @@ class ProductDetail extends PureComponent {
     client
     .query(productById(id))
     .then((result) => {
-      console.log(result.data.product);
       return this.setState({ productToShow: result.data.product })
     })
     .catch(err => console.log(err));
-
-    /* const productToShow = products.find((product) => product.id === id);
-    this.setState({ productToShow: productToShow }); */
   }
 
   componentDidUpdate() {
@@ -52,11 +48,6 @@ class ProductDetail extends PureComponent {
       }
     }
   }
-
-/*   componentDidUnMount() {
-      this.setState({ productToShow: undefined })
-  }
- */
 
   showBig(e) {
     const bigImg = document.querySelector(".imgs-gallery__big-img");
@@ -174,7 +165,6 @@ class ProductDetail extends PureComponent {
       );
     } else {
       const { gallery, id, brand, name, attributes, prices, inStock } = productToShow;
-      console.log(attributes);
       const outOfSotck = {
         cssClass: 'PDP-out-of-stock',
         label: (

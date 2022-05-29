@@ -20,17 +20,11 @@ class CartArticle extends Component {
   }
 
   componentDidMount() {
-    const { /* productsList, */ product: {id} } = this.props
-    /* if (productsList) {
-      const productInCart = productsList.find(
-        (product) => product.id === productIn.id
-      );
-      this.setState({ productInCart: productInCart });
-    } */
+    const { product: {id} } = this.props
+
     client
     .query(productById(id))
     .then((result) => {
-      console.log(result.data.product);
       return this.setState({ productInCart: result.data.product })
     })
     .catch(err => console.log(err));
@@ -130,7 +124,6 @@ class CartArticle extends Component {
 }
 
 CartArticle.propTypes = {
-  productsList: PropTypes.array,
   manageQuantity: PropTypes.func,
   product: PropTypes.object,
   currency: PropTypes.number,

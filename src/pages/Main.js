@@ -31,7 +31,7 @@ class Main extends PureComponent {
     return this.setState({ message: message });
   }
   render() {
-    const {productListFilteredByCategory, productListAll, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
+    const {productListFilteredByCategory, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
     return (
       <main className="main">
         <Modal message={this.state.message} />
@@ -40,7 +40,6 @@ class Main extends PureComponent {
           currencies={currencies}
         />
         <CartTinyView
-          productsList={productListAll}
           manageQuantity={manageQuantity}
           showModal={this.showModal}
           resetCartInfo={resetCartInfo}
@@ -62,7 +61,6 @@ class Main extends PureComponent {
             exact={true}
             element={
               <Cart
-                productsList={productListAll}
                 manageQuantity={manageQuantity}
                 showModal={this.showModal}
                 resetCartInfo={resetCartInfo}
@@ -88,7 +86,6 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   productListFilteredByCategory: PropTypes.array,
-  productListAll: PropTypes.array,
   currencies: PropTypes.array,
   category: PropTypes.string,
   manageQuantity: PropTypes.func,

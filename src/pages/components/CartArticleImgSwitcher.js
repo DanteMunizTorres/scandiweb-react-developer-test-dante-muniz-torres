@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 import "./CartArticleSwitcher.css";
 
-/* import arrowLeft from '../../icons/arrowLeft.svg'
-import arrowRight from '../../icons/arrowRight.svg' */
-
 class CartArticle extends Component {
   constructor(props) {
     super(props);

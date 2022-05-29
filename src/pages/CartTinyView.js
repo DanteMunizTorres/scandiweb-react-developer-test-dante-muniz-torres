@@ -43,7 +43,7 @@ class CartTinyView extends PureComponent {
   }
 
   render() {
-    const { productsList, manageQuantity } = this.props
+    const { manageQuantity } = this.props
 
     return (
       <div className="modal" onClick={this.disapear}>
@@ -67,7 +67,6 @@ class CartTinyView extends PureComponent {
                             key={product.id + i}
                             product={product}
                             id={i}
-                            productsList={productsList}
                             manageQuantity={manageQuantity}
                             currency={parseInt(currency)}
                             isInCartPage={false}
@@ -110,7 +109,6 @@ class CartTinyView extends PureComponent {
 }
 
 CartTinyView.propTypes = {
-  productsList: PropTypes.array,
   manageQuantity: PropTypes.func,
   showModal: PropTypes.func,
   resetCartInfo: PropTypes.func,

@@ -26,7 +26,7 @@ class Cart extends PureComponent {
   }
 
   render() {
-    const {productsList, manageQuantity } = this.props;
+    const { manageQuantity } = this.props;
     
     return (
       <form className="cart">
@@ -46,7 +46,6 @@ class Cart extends PureComponent {
                         key={product.id + i}
                         product={product}
                         id={i}
-                        productsList={productsList}
                         manageQuantity={manageQuantity}
                         currency={parseInt(currency)}
                         isInCartPage={true}
@@ -86,7 +85,6 @@ class Cart extends PureComponent {
 }
 
 Cart.propTypes = {
-  productsList: PropTypes.array,
   manageQuantity: PropTypes.func,
   showModal: PropTypes.func,
   resetCartInfo: PropTypes.func,

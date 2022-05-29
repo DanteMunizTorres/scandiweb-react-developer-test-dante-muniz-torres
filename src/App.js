@@ -10,7 +10,6 @@ import Main from "./pages/Main";
 
 import client from './grapgql/client'
 import currenciesQuery from "./grapgql/queryCurrencies";
-import productsQuery from './grapgql/queryProducts'
 import { productsByCategory } from "./grapgql/querierProductsByCategory";
 
 class App extends PureComponent {
@@ -75,11 +74,13 @@ class App extends PureComponent {
 
   componentDidMount() {
     //products
+    const { category } = this.state
     client
-      .query(productsQuery)
+      .query(productsByCategory(category))
       .then((result) => {
-        return this.setState({ productList: result.data.category.products });
-      });
+        return this.setState({ productListFilteredByCategory: result.data.category.products })
+      })
+      .catch(err => console.log(err));
     //currencies
     client
       .query(currenciesQuery)
@@ -89,34 +90,20 @@ class App extends PureComponent {
   }
 
   componentDidUpdate(__prevProps, prevState) {
-    const { category, productList } = this.state
+    const { category } = this.state
     if (prevState.category !== category) {
       client
       .query(productsByCategory(category))
       .then((result) => {
-        console.log(result.data.category.products);
         return this.setState({ productListFilteredByCategory: result.data.category.products })
       })
       .catch(err => console.log(err));
-
-
-      
-      /* const filteredCategory = productList.filter((product) => product.category === category);
-      if (category !== "all") {
-        this.setState({ productListFilteredByCategory: filteredCategory });
-      } else {
-        this.setState({
-          productListFilteredByCategory: productList,
-        });
-      } */
     }
-    if (prevState.productList !== productList) {
-      this.setState({ productListFilteredByCategory: productList });
-    }
+
   }
 
   render() {
-    const { category, productList, productsInCart, currencyChosen, productListFilteredByCategory, currencies } = this.state
+    const { category, productsInCart, currencyChosen, productListFilteredByCategory, currencies } = this.state
 
     // category nav style
     if (document.querySelector(`.${category}`)) {
@@ -148,7 +135,7 @@ class App extends PureComponent {
             />
             <Main
               category={category}
-              productListAll={productList}
+              /* productListAll={productList} */
               productListFilteredByCategory={productListFilteredByCategory}
               currencies={currencies}
               bringInfo={this.bringInfo}
