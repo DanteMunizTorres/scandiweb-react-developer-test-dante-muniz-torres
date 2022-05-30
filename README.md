@@ -128,6 +128,7 @@ Checked.
 
 Product description is not rendered as html, please use parser - can ignore
 
+
 With graphqls it is easily to structure requests where can specify what fields to request
 
 Should not be requested any categories, or other data, only one current product and it's data

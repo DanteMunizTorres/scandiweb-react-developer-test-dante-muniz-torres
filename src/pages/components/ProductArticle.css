@@ -5,6 +5,7 @@
   height: 444px;
   padding: 16px;
   margin: 0 56px 88px 0;
+  cursor: pointer;
 }
 
 .product-article:hover {
@@ -69,9 +70,6 @@
 .out-of-stock h4 {
   color: var(--gray);
 }
-/* .out-of-stock:hover {
-  box-shadow: none;
-} */
 
 .out-of-stock:hover .product-article__add-to-cart-button {
   display: none;
