@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CartContext from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
 import CartArticle from "./components/CartArticle";
+import { OpenModalBtn } from "./components/OpenModalBtn";
 import { productsCounter, productsTotalPrice, taxesCalculator } from "../utils/utils";
 
 
@@ -64,13 +65,19 @@ class Cart extends PureComponent {
                       </div>
                     </article>
                     <div className="orderButton__container">
-                      <button
-                          type="reset"
-                          className="mini-cart__button checkout"
-                          onClick={this.checkOutCart}
-                        >
-                          order
-                        </button>
+                      <OpenModalBtn 
+                        className="mini-cart__button checkout"
+                        message="Thank you, come again!"
+                        buttonText='order'
+                        otherFunction1={this.props.resetCartInfo}
+                      />
+{/*                       <button
+                        type="reset"
+                        className="mini-cart__button checkout"
+                        onClick={this.checkOutCart}
+                      >
+                        order
+                      </button> */}
                     </div>
                     </>
                   )

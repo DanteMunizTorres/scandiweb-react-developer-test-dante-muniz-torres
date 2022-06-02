@@ -6,6 +6,8 @@ import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox"
 import client from '../grapgql/client'
 import { productById } from '../grapgql/querierProductById'
 
+import { OpenModalBtn } from './components/OpenModalBtn'
+
 import "./ProductDetail.css";
 
 class ProductDetail extends PureComponent {
@@ -56,13 +58,16 @@ class ProductDetail extends PureComponent {
 
   addToCart(e) {
     e.preventDefault();
-    const {bringInfo, showModal, id} = this.props
-    const { inStock, prices, attributes } = this.state.productToShow
-    if(!inStock){
+    const {bringInfo, /* showModal, */ id} = this.props
+
+
+    const { /* inStock, */ prices, /* attributes */ } = this.state.productToShow
+
+    /* if(!inStock){
       const message =
       "Sorry, this product is out of stock by now";
     return showModal(e, message);
-    }
+    } */
 
     const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
     const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
@@ -75,11 +80,13 @@ class ProductDetail extends PureComponent {
       prices: prices,
     };
     //show modal if no attribute is selected
-    if (attributes.length !== sendToCart.info.length) {
+    /* if (attributes.length !== sendToCart.info.length) {
       const message =
         "You need to choose the product attributes before adding it to the cart";
       return showModal(e, message);
-    }
+    } */
+
+
     //lifting info to App.js
     bringInfo(sendToCart);
   }
@@ -155,6 +162,13 @@ class ProductDetail extends PureComponent {
   }
 
   render() {
+
+    
+
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
+    const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
+    const inputsToSend = inputsAll.filter((input) => input != undefined);
+
     const { productToShow } = this.state
     let productDetail;
     if (productToShow === undefined) {
@@ -231,9 +245,25 @@ class ProductDetail extends PureComponent {
                 </div>
               )}
             </CurrencyContext.Consumer>
-            <button className="addToCartButton" type="submit">
-              add to cart
-            </button>
+            {
+              (!inStock)? 
+                <OpenModalBtn
+                  className="addToCartButton"
+                  message="Sorry, this product is out of stock by now"
+                  buttonText='add to cart'
+                />
+              :
+              (attributes.length !== inputsToSend.length)? 
+                <OpenModalBtn
+                  className="addToCartButton"
+                  message="You need to choose the product attributes before adding it to the cart"
+                  buttonText='add to cart'
+                />
+              :
+                <button className="addToCartButton" type="submit">
+                  add to cart
+                </button>
+            }
             <div className="productDescription attributes-product-detail__description"></div>
           </form>
         </section>

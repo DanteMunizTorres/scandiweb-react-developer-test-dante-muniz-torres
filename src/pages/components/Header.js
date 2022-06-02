@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import CartContext from "../../contexts/ContextCart";
 import CurrencyContext from "../../contexts/ContextCurrency";
+import { CartOverlayContext } from "../../contexts/CartOverlayContext";
 
 import cartSVG from "../../icons/cart.svg";
 import arrowDownSVG from "../../icons/arrowDown.svg";
@@ -32,20 +33,20 @@ class Header extends PureComponent {
   }
 
   miniCartShowUp() {
-    this.setState({ miniCartVisible: !this.state.miniCartVisible });
+    return this.setState({ miniCartVisible: !this.state.miniCartVisible });
   }
 
   currencySwitcherShowUp() {
     this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible });
   }
 
-  disappear() {
-    const { currencyBoxVisible, miniCartVisible } = this.state
+  disappear(cartHide, cartVisible) {
+    const { currencyBoxVisible} = this.state
+    if (cartVisible) {
+      cartHide()
+    }
     if (currencyBoxVisible) {
       this.setState({ currencyBoxVisible: false });
-    }
-    if (miniCartVisible) {
-      this.setState({ miniCartVisible: false });
     }
   }
 
@@ -87,6 +88,7 @@ class Header extends PureComponent {
   }
 
   render() {
+    window.addEventListener('click', () => console.log('minicart state',this.state.miniCartVisible))
     const { categories, currencyBoxVisible, currencies } = this.state
     let categoriesOptions;
     if (categories) {
@@ -121,52 +123,68 @@ class Header extends PureComponent {
         this.setState({ currencyBoxVisible: false });
       });
     }
+/*     if (miniCartVisible === true) {
+      const main = document.querySelector(".main");
+      const miniCart = document.getElementById("miniCart");
+      main.addEventListener("click", (e) => {
+        if (e.target !== miniCart) {
+
+          this.setState({ miniCartVisible: false });
+        }
+      });
+    } */
 
     return (
-      <header className="header" onClick={this.disappear}>
-        <nav>
-          <ul className="header__nav-categories">{categoriesOptions}</ul>
-        </nav>
+      <CartOverlayContext.Consumer>
+        {({cartOverlayToggler, cartOverlayHide, cartOverlayVisible})=> {
+          return (
+            <header className="header" onClick={()=>this.disappear(cartOverlayHide, cartOverlayVisible)}>
+              <nav>
+                <ul className="header__nav-categories">{categoriesOptions}</ul>
+              </nav>
 
-        <div>
-          <img alt='just an icon' src={reloadSVG}></img>
-        </div>
+              <div>
+                <img alt='just an icon' src={reloadSVG}></img>
+              </div>
 
-        <div className="header__buttons-section">
-          <button
-            className="header__currency-switcher-button"
-            onClick={this.currencySwitcherShowUp}
-          >
-            <CurrencyContext.Consumer>
-              {(currency) => {
-                if (currencies.length > 0) {
-                  return <span>{currencies[currency].symbol}</span>;
-                }
-              }}
-            </CurrencyContext.Consumer>
-            {arrow}
-          </button>
+              <div className="header__buttons-section">
+                <button
+                  className="header__currency-switcher-button"
+                  onClick={this.currencySwitcherShowUp}
+                >
+                  <CurrencyContext.Consumer>
+                    {(currency) => {
+                      if (currencies.length > 0) {
+                        return <span>{currencies[currency].symbol}</span>;
+                      }
+                    }}
+                  </CurrencyContext.Consumer>
+                  {arrow}
+                </button>
 
-          <button
-            onClick={this.miniCartShowUp}
-            className="header__mini-cart-button"
-          >
-            <CartContext.Consumer>
-              {(productsInCart) => {
-                if (productsInCart.length > 0) {
-                  return (
-                    <p className="header__mini-cart-button-counter">
-                      {productsCounter(productsInCart)}
-                    </p>
-                  );
-                }
-              }}
-            </CartContext.Consumer>
+                <button
+                  onClick={()=>cartOverlayToggler()}
+                  className="header__mini-cart-button"
+                >
+                  <CartContext.Consumer>
+                    {(productsInCart) => {
+                      if (productsInCart.length > 0) {
+                        return (
+                          <p className="header__mini-cart-button-counter">
+                            {productsCounter(productsInCart)}
+                          </p>
+                        );
+                      }
+                    }}
+                  </CartContext.Consumer>
 
-            <img alt='cart icon' src={cartSVG}></img>
-          </button>
-        </div>
-      </header>
+                  <img alt='cart icon' src={cartSVG}></img>
+                </button>
+              </div>
+            </header>
+          )
+        }}
+      </CartOverlayContext.Consumer>
     );
   }
 }

@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import CurrencyContext from "./contexts/ContextCurrency";
 import CartContext from "./contexts/ContextCart";
+import { CartOverlayProvider } from "./contexts/CartOverlayContext";
 
 import Header from "./pages/components/Header";
 import Main from "./pages/Main";
@@ -129,21 +130,23 @@ class App extends PureComponent {
     return (
       <CartContext.Provider value={productsInCart}>
         <CurrencyContext.Provider value={currencyChosen}>
-          <BrowserRouter>
-            <Header
-              pickCategory={this.pickCategory}
-            />
-            <Main
-              category={category}
-              /* productListAll={productList} */
-              productListFilteredByCategory={productListFilteredByCategory}
-              currencies={currencies}
-              bringInfo={this.bringInfo}
-              resetCartInfo={this.resetCartInfo}
-              changeCurrency={this.changeCurrency}
-              manageQuantity={this.manageQuantity}
-            />
-          </BrowserRouter>
+          <CartOverlayProvider>
+            <BrowserRouter>
+              <Header
+                pickCategory={this.pickCategory}
+              />
+              <Main
+                category={category}
+                /* productListAll={productList} */
+                productListFilteredByCategory={productListFilteredByCategory}
+                currencies={currencies}
+                bringInfo={this.bringInfo}
+                resetCartInfo={this.resetCartInfo}
+                changeCurrency={this.changeCurrency}
+                manageQuantity={this.manageQuantity}
+              />
+            </BrowserRouter>
+          </CartOverlayProvider>
         </CurrencyContext.Provider>
       </CartContext.Provider>
     );

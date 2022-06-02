@@ -9,7 +9,7 @@
   
   height: 100%;
   width: 100%;
-  display: none;
+  display: inline-block;
 
   z-index: 2;
   animation: opacity 0.2s;
