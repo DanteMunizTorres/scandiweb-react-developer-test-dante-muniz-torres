@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { Route, Routes } from "react-router-dom";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import ProductList from "./ProductList";
 import CartTinyView from "./CartTinyView";
@@ -12,38 +12,26 @@ import Modal from "./Modal";
 import "./Main.css";
 
 class Main extends PureComponent {
-
   constructor(props) {
     super(props);
-    this.state = {
-      productDetail: "",
-      productsInCart: [],
-      message: "Ups, somthing went wrong...",
-    };
-    this.showModal = this.showModal.bind(this);
+    this.state = {};
   }
 
-  
-  showModal(e, message) {
-    e.preventDefault();
-    const checkOutModal = document.querySelector(".modal-container");
-    checkOutModal.style.display = "flex";
-    return this.setState({ message: message });
-  }
   render() {
-    const {productListFilteredByCategory, currencies, category, manageQuantity, changeCurrency, resetCartInfo, bringInfo} = this.props
+    const {
+      productListFilteredByCategory,
+      currencies,
+      category,
+      changeCurrency,
+    } = this.props;
     return (
       <main className="main">
-        <Modal message={this.state.message} />
+        <Modal />
         <CurrencySwitcher
           changeCurrency={changeCurrency}
           currencies={currencies}
         />
-        <CartTinyView
-          manageQuantity={manageQuantity}
-          showModal={this.showModal}
-          resetCartInfo={resetCartInfo}
-        />
+        <CartTinyView />
         <Routes>
           <Route
             path="/"
@@ -51,32 +39,15 @@ class Main extends PureComponent {
             element={
               <ProductList
                 products={productListFilteredByCategory}
-                bringInfo={bringInfo}
                 category={category}
               />
             }
           />
-          <Route
-            path="/cart"
-            exact={true}
-            element={
-              <Cart
-                manageQuantity={manageQuantity}
-                showModal={this.showModal}
-                resetCartInfo={resetCartInfo}
-              />
-            }
-          />
+          <Route path="/cart" exact={true} element={<Cart />} />
           <Route
             path="/detail/:id"
             exact={true}
-            element={
-              <GetParamsId
-                products={productListFilteredByCategory}
-                bringInfo={bringInfo}
-                showModal={this.showModal}
-              />
-            }
+            element={<GetParamsId products={productListFilteredByCategory} />}
           />
         </Routes>
       </main>
@@ -88,10 +59,7 @@ Main.propTypes = {
   productListFilteredByCategory: PropTypes.array,
   currencies: PropTypes.array,
   category: PropTypes.string,
-  manageQuantity: PropTypes.func,
   changeCurrency: PropTypes.func,
-  resetCartInfo: PropTypes.func,
-  bringInfo: PropTypes.func,
 };
 
 export default Main;

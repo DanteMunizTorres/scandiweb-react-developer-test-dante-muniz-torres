@@ -28,12 +28,6 @@ function OpenModalBtn ({ message, buttonText, className, otherFunction1, otherFu
     </>
 }
 
-/* export function OpenModalFunc(message) {
-  const dispatch = useDispatch()
-  dispatch(show_true(message))
-} */
-
-
 export { OpenModalBtn }
 
 OpenModalBtn.propTypes = {

@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-/* import PropTypes from 'prop-types'; */
 import {CartContext} from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
 import CartArticle from "./components/CartArticle";
@@ -13,22 +12,10 @@ class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
-/*     this.checkOutCart = this.checkOutCart.bind(this); */
+
   }
 
-/*   checkOutCart(e) {
-    e.preventDefault();
-    const { resetCartInfo, showModal } = this.props
-    const modal = document.querySelector(".modal");
-    modal.style.display = "none";
-    resetCartInfo();
-    const checkOutMessage = "Thank you, come again!";
-    showModal(e, checkOutMessage);
-  } */
-
   render() {
-    /* const { manageQuantity } = this.props; */
-    
     return (
       <form className="cart">
         <h2 className="cart__title">Cart</h2>
@@ -71,13 +58,6 @@ class Cart extends PureComponent {
                         buttonText='order'
                         otherFunction1={resetCartInfo}
                       />
-{/*                       <button
-                        type="reset"
-                        className="mini-cart__button checkout"
-                        onClick={this.checkOutCart}
-                      >
-                        order
-                      </button> */}
                     </div>
                     </>
                   )
@@ -90,11 +70,5 @@ class Cart extends PureComponent {
     );
   }
 }
-
-/* Cart.propTypes = {
-  manageQuantity: PropTypes.func,
-  showModal: PropTypes.func,
-  resetCartInfo: PropTypes.func,
-}; */
 
 export default Cart;

@@ -16,14 +16,13 @@ class ProductArticle extends PureComponent {
   }
 
   addToCart(bringInfoFunc) {
-    const {product: {id, prices}/* , bringInfo */} = this.props
+    const { product: {id, prices} } = this.props
     const sendToCart = {
       id: id,
       quantity: 1,
       info: [],
       prices: prices,
     };
-    //lifting info to App.js
     bringInfoFunc(sendToCart);
   }
 
@@ -67,9 +66,6 @@ class ProductArticle extends PureComponent {
         </button>
       );
     }
-
-
-
     return (
       <>
         <article className={`product-article ${outOfStock.outOfStock}`}>
@@ -102,7 +98,6 @@ class ProductArticle extends PureComponent {
 ProductArticle.propTypes = {
   product: PropTypes.object,
   currency: PropTypes.number,
-  bringInfo: PropTypes.func,
 };
 
 export default ProductArticle;

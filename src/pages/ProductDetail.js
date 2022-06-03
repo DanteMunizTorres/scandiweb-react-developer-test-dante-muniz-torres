@@ -1,14 +1,14 @@
 import React, { PureComponent } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import CurrencyContext from "../contexts/ContextCurrency";
 import { CartContext } from "../contexts/ContextCart";
 
 import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox";
 
-import client from '../grapgql/client'
-import { productById } from '../grapgql/querierProductById'
+import client from "../grapgql/client";
+import { productById } from "../grapgql/querierProductById";
 
-import { OpenModalBtn } from './components/OpenModalBtn'
+import { OpenModalBtn } from "./components/OpenModalBtn";
 
 import "./ProductDetail.css";
 
@@ -27,20 +27,24 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
-    const { id } = this.props
+    const { id } = this.props;
 
     client
-    .query(productById(id))
-    .then((result) => {
-      return this.setState({ productToShow: result.data.product })
-    })
-    .catch(err => console.log(err));
+      .query(productById(id))
+      .then((result) => {
+        return this.setState({ productToShow: result.data.product });
+      })
+      .catch((err) => console.log(err));
   }
 
   componentDidUpdate() {
-    const { productToShow: { description, gallery } } = this.state
+    const {
+      productToShow: { description, gallery },
+    } = this.state;
     if (document.querySelector(".productDescription")) {
-      const productDescriptionDiv = document.querySelector(".productDescription");
+      const productDescriptionDiv = document.querySelector(
+        ".productDescription"
+      );
       productDescriptionDiv.innerHTML = description;
     }
 
@@ -60,42 +64,25 @@ class ProductDetail extends PureComponent {
 
   addToCart(e, bringInfoFunc) {
     e.preventDefault();
-    const {/* bringInfo, */ /* showModal, */ id} = this.props
+    const { id } = this.props;
+    const { prices } = this.state.productToShow;
 
-
-    const { /* inStock, */ prices, /* attributes */ } = this.state.productToShow
-
-    /* if(!inStock){
-      const message =
-      "Sorry, this product is out of stock by now";
-    return showModal(e, message);
-    } */
-
-    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state;
     const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
     const inputsToSend = inputsAll.filter((input) => input != undefined);
-    
+
     const sendToCart = {
       id: id,
       quantity: 1,
       info: inputsToSend,
       prices: prices,
     };
-    //show modal if no attribute is selected
-    /* if (attributes.length !== sendToCart.info.length) {
-      const message =
-        "You need to choose the product attributes before adding it to the cart";
-      return showModal(e, message);
-    } */
-
-
-    //lifting info to App.js
     bringInfoFunc(sendToCart);
   }
 
   inputHandler(e) {
-    const target = e.target
-    const {name, value} = target
+    const target = e.target;
+    const { name, value } = target;
 
     //modify inputs-labels styles
     if (target.classList.contains("input-not-color")) {
@@ -133,7 +120,7 @@ class ProductDetail extends PureComponent {
         }
       }
     }
-    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state;
     //input 1
     if (inputsUsed1 === undefined) {
       return this.setState({ inputsUsed1: { name: name, value: value } });
@@ -142,20 +129,14 @@ class ProductDetail extends PureComponent {
       return this.setState({ inputsUsed1: { name: name, value: value } });
     }
     //input 2
-    if (
-      name != inputsUsed1.name &&
-      inputsUsed2 === undefined
-    ) {
+    if (name != inputsUsed1.name && inputsUsed2 === undefined) {
       return this.setState({ inputsUsed2: { name: name, value: value } });
     }
     if (name === inputsUsed2.name) {
       return this.setState({ inputsUsed2: { name: name, value: value } });
     }
     //input 3
-    if (
-      name != inputsUsed2.name &&
-      inputsUsed3 === undefined
-    ) {
+    if (name != inputsUsed2.name && inputsUsed3 === undefined) {
       return this.setState({ inputsUsed3: { name: name, value: value } });
     }
     if (name === inputsUsed3.name) {
@@ -164,14 +145,11 @@ class ProductDetail extends PureComponent {
   }
 
   render() {
-
-    
-
-    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state
+    const { inputsUsed1, inputsUsed2, inputsUsed3 } = this.state;
     const inputsAll = [inputsUsed1, inputsUsed2, inputsUsed3];
     const inputsToSend = inputsAll.filter((input) => input != undefined);
 
-    const { productToShow } = this.state
+    const { productToShow } = this.state;
     let productDetail;
     if (productToShow === undefined) {
       productDetail = (
@@ -180,22 +158,22 @@ class ProductDetail extends PureComponent {
         </div>
       );
     } else {
-      const { gallery, id, brand, name, attributes, prices, inStock } = productToShow;
+      const { gallery, id, brand, name, attributes, prices, inStock } =
+        productToShow;
       const outOfSotck = {
-        cssClass: 'PDP-out-of-stock',
+        cssClass: "PDP-out-of-stock",
         label: (
           <div className={`sign__out-of-stock display-flex`}>
-          <p className="sign__out-of-stock--p">out of stock</p>
-        </div>
-        )
-      }
+            <p className="sign__out-of-stock--p">out of stock</p>
+          </div>
+        ),
+      };
       if (inStock) {
-        outOfSotck.cssClass = '',
-        outOfSotck.label = ''
+        (outOfSotck.cssClass = ""), (outOfSotck.label = "");
       }
       productDetail = (
         <section className="product-detail-main-section">
-          <article className={`imgs-gallery ${outOfSotck.cssClass}`} >
+          <article className={`imgs-gallery ${outOfSotck.cssClass}`}>
             <div className="imgs-gallery__mini-img-container">
               {gallery.map((img, i) => {
                 return (
@@ -221,10 +199,10 @@ class ProductDetail extends PureComponent {
             </div>
           </article>
           <CartContext.Consumer>
-            {({bringInfo})=> {
+            {({ bringInfo }) => {
               return (
                 <form
-                  onSubmit={(e)=> this.addToCart(e, bringInfo)}
+                  onSubmit={(e) => this.addToCart(e, bringInfo)}
                   value={id}
                   className="product-detail__info"
                 >
@@ -249,28 +227,26 @@ class ProductDetail extends PureComponent {
                       </div>
                     )}
                   </CurrencyContext.Consumer>
-                  {
-                    (!inStock)? 
-                      <OpenModalBtn
-                        className="addToCartButton"
-                        message="Sorry, this product is out of stock by now"
-                        buttonText='add to cart'
-                      />
-                    :
-                    (attributes.length !== inputsToSend.length)? 
-                      <OpenModalBtn
-                        className="addToCartButton"
-                        message="You need to choose the product attributes before adding it to the cart"
-                        buttonText='add to cart'
-                      />
-                    :
-                      <button className="addToCartButton" type="submit">
-                        add to cart
-                      </button>
-                  }
+                  {!inStock ? (
+                    <OpenModalBtn
+                      className="addToCartButton"
+                      message="Sorry, this product is out of stock by now"
+                      buttonText="add to cart"
+                    />
+                  ) : attributes.length !== inputsToSend.length ? (
+                    <OpenModalBtn
+                      className="addToCartButton"
+                      message="You need to choose the product attributes before adding it to the cart"
+                      buttonText="add to cart"
+                    />
+                  ) : (
+                    <button className="addToCartButton" type="submit">
+                      add to cart
+                    </button>
+                  )}
                   <div className="productDescription attributes-product-detail__description"></div>
                 </form>
-              )
+              );
             }}
           </CartContext.Consumer>
         </section>
@@ -284,8 +260,6 @@ class ProductDetail extends PureComponent {
 ProductDetail.propTypes = {
   id: PropTypes.string,
   products: PropTypes.array,
-  showModal: PropTypes.func,
-  bringInfo: PropTypes.func,
 };
 
 export default ProductDetail;

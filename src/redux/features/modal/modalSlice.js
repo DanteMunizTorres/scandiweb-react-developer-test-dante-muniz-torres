@@ -1,26 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   show: false,
-  message: ''
-}
+  message: "",
+};
 
 export const modalSlice = createSlice({
-  name: 'modal',
+  name: "modal",
   initialState,
   reducers: {
-    show_true: (state, {payload}) => {
-      const message = payload
-      state.show = true
-      state.message = message
+    show_true: (state, { payload }) => {
+      const message = payload;
+      state.show = true;
+      state.message = message;
     },
     show_false: (state) => {
-      state.show = false
+      state.show = false;
     },
   },
-})
+});
 
-// Action creators are generated for each case reducer function
-export const { show_true, show_false } = modalSlice.actions
+export const { show_true, show_false } = modalSlice.actions;
 
-export default modalSlice.reducer
+export default modalSlice.reducer;

@@ -3,13 +3,13 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
 import CurrencyContext from "./contexts/ContextCurrency";
-import {CartProvider} from "./contexts/ContextCart";
+import { CartProvider } from "./contexts/ContextCart";
 import { CartOverlayProvider } from "./contexts/CartOverlayContext";
 
 import Header from "./pages/components/Header";
 import Main from "./pages/Main";
 
-import client from './grapgql/client'
+import client from "./grapgql/client";
 import currenciesQuery from "./grapgql/queryCurrencies";
 import { productsByCategory } from "./grapgql/querierProductsByCategory";
 
@@ -22,11 +22,8 @@ class App extends PureComponent {
       currencies: [],
       productListFilteredByCategory: [],
     };
-    /* this.bringInfo = this.bringInfo.bind(this); */
-    /* this.resetCartInfo = this.resetCartInfo.bind(this); */
     this.changeCurrency = this.changeCurrency.bind(this);
     this.pickCategory = this.pickCategory.bind(this);
-    /* this.manageQuantity = this.manageQuantity.bind(this); */
   }
 
   changeCurrency(e) {
@@ -41,36 +38,42 @@ class App extends PureComponent {
 
   componentDidMount() {
     //products
-    const { category } = this.state
+    const { category } = this.state;
     client
       .query(productsByCategory(category))
       .then((result) => {
-        return this.setState({ productListFilteredByCategory: result.data.category.products })
+        return this.setState({
+          productListFilteredByCategory: result.data.category.products,
+        });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
     //currencies
-    client
-      .query(currenciesQuery)
-      .then((result) => {
-        return this.setState({ currencies: result.data.currencies });
-      });
+    client.query(currenciesQuery).then((result) => {
+      return this.setState({ currencies: result.data.currencies });
+    });
   }
 
   componentDidUpdate(__prevProps, prevState) {
-    const { category } = this.state
+    const { category } = this.state;
     if (prevState.category !== category) {
       client
-      .query(productsByCategory(category))
-      .then((result) => {
-        return this.setState({ productListFilteredByCategory: result.data.category.products })
-      })
-      .catch(err => console.log(err));
+        .query(productsByCategory(category))
+        .then((result) => {
+          return this.setState({
+            productListFilteredByCategory: result.data.category.products,
+          });
+        })
+        .catch((err) => console.log(err));
     }
-
   }
 
   render() {
-    const { category, currencyChosen, productListFilteredByCategory, currencies } = this.state
+    const {
+      category,
+      currencyChosen,
+      productListFilteredByCategory,
+      currencies,
+    } = this.state;
 
     // category nav style
     if (document.querySelector(`.${category}`)) {
@@ -98,9 +101,7 @@ class App extends PureComponent {
         <CurrencyContext.Provider value={currencyChosen}>
           <CartOverlayProvider>
             <BrowserRouter>
-              <Header
-                pickCategory={this.pickCategory}
-              />
+              <Header pickCategory={this.pickCategory} />
               <Main
                 category={category}
                 productListFilteredByCategory={productListFilteredByCategory}

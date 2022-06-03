@@ -1,11 +1,5 @@
-/* import React from "react";
-
-const CartContext = React.createContext();
-
-export default CartContext */
-
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CartContext = React.createContext();
 
@@ -21,18 +15,25 @@ class CartProvider extends React.Component {
   }
 
   bringInfo(productToAdd) {
-    const {productsInCart} = this.state
+    const { productsInCart } = this.state;
     let newProductsInCart;
-    let checkProductsInCart = productsInCart.find(product => product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info))
+    let checkProductsInCart = productsInCart.find(
+      (product) =>
+        product.id === productToAdd.id &&
+        JSON.stringify(product.info) === JSON.stringify(productToAdd.info)
+    );
     if (checkProductsInCart !== undefined) {
-      newProductsInCart = productsInCart.map(product => {
-        if( product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info) ) {
-          return {...product, quantity: product.quantity + 1}
+      newProductsInCart = productsInCart.map((product) => {
+        if (
+          product.id === productToAdd.id &&
+          JSON.stringify(product.info) === JSON.stringify(productToAdd.info)
+        ) {
+          return { ...product, quantity: product.quantity + 1 };
         }
-        return product         
-      })
+        return product;
+      });
     } else {
-      newProductsInCart = [...productsInCart, productToAdd]
+      newProductsInCart = [...productsInCart, productToAdd];
     }
     return this.setState({ productsInCart: newProductsInCart });
   }
@@ -46,27 +47,28 @@ class CartProvider extends React.Component {
       if (prdct.id === newQuantity.id && index === newQuantity.index) {
         prdct.quantity = newQuantity.number;
       }
-        return prdct;
+      return prdct;
     });
-    modifiedProduct = modifiedProduct.filter(prdct => prdct.quantity > 0 )
+    modifiedProduct = modifiedProduct.filter((prdct) => prdct.quantity > 0);
     return this.setState({ productsInCart: modifiedProduct });
   }
 
-  render () {
+  render() {
     return (
-    <CartContext.Provider value={{
-      bringInfo: this.bringInfo,
-      resetCartInfo: this.resetCartInfo,
-      manageQuantity: this.manageQuantity,
-      productsInCart: this.state.productsInCart
-    }}>
-      {this.props.children}
-    </CartContext.Provider>
-  )
+      <CartContext.Provider
+        value={{
+          bringInfo: this.bringInfo,
+          resetCartInfo: this.resetCartInfo,
+          manageQuantity: this.manageQuantity,
+          productsInCart: this.state.productsInCart,
+        }}
+      >
+        {this.props.children}
+      </CartContext.Provider>
+    );
   }
-
 }
 CartProvider.propTypes = {
   children: PropTypes.element,
 };
-export { CartContext, CartProvider }
+export { CartContext, CartProvider };

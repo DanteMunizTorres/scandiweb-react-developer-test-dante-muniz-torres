@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 function ModalRedux ({children}) {
   const { show } = useSelector(state => state.modal)
-  console.log('SHOW MODAL?  ', show);
   return <>
     {show &&
       <div>
@@ -39,38 +38,15 @@ class Modal extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
-    this.disappear = this.disappear.bind(this);
-    this.modalDesapear = this.modalDesapear.bind(this);
   }
-
-  disappear(e) {
-    e.preventDefault();
-    const modal = document.querySelector(".modal-container");
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-  modalDesapear(e) {
-    e.preventDefault();
-    const modal = document.querySelector(".modal-container");
-    modal.style.display = "none";
-  }
-
-  
 
   render() {
-    
     return (
       <ModalRedux>
-        <section className="modal-container" onClick={this.disappear}>
+        <section className="modal-container">
           <article className="modal__message-container">
             <ModalMessage />
-            {/* <p className="modal__message">{this.props.message}</p> */}
             <CloseModalBtn />
-{/*             <button className="modal__ok-button" onClick={this.modalDesapear}>
-              ok
-            </button> */}
-            
           </article>
         </section>
       </ModalRedux>
