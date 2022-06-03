@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
-import CartContext from "../../contexts/ContextCart";
+import {CartContext} from "../../contexts/ContextCart";
 import CurrencyContext from "../../contexts/ContextCurrency";
 import { CartOverlayContext } from "../../contexts/CartOverlayContext";
 
@@ -25,16 +25,16 @@ class Header extends PureComponent {
       currencies: [],
       categories: [],
       currencyBoxVisible: false,
-      miniCartVisible: false,
+      /* miniCartVisible: false, */
     };
-    this.miniCartShowUp = this.miniCartShowUp.bind(this);
+    /* this.miniCartShowUp = this.miniCartShowUp.bind(this); */
     this.currencySwitcherShowUp = this.currencySwitcherShowUp.bind(this);
     this.disappear = this.disappear.bind(this);
   }
 
-  miniCartShowUp() {
+  /* miniCartShowUp() {
     return this.setState({ miniCartVisible: !this.state.miniCartVisible });
-  }
+  } */
 
   currencySwitcherShowUp() {
     this.setState({ currencyBoxVisible: !this.state.currencyBoxVisible });
@@ -67,7 +67,7 @@ class Header extends PureComponent {
 
   componentDidUpdate(__prevProps, prevState) {
     //currencybox
-    const { currencyBoxVisible, miniCartVisible } = this.state
+    const { currencyBoxVisible/* , miniCartVisible */ } = this.state
     if (prevState.currencyBoxVisible !== currencyBoxVisible) {
       const currencySwitcher = document.querySelector(".currency-switcher__form");
       if (currencyBoxVisible) {
@@ -77,14 +77,14 @@ class Header extends PureComponent {
       }
     }
     //minicart
-    if (prevState.miniCartVisible !== miniCartVisible) {
+/*     if (prevState.miniCartVisible !== miniCartVisible) {
       const modal = document.querySelector(".modal");
       if (miniCartVisible) {
         modal.style.display = "block";
       } else if (!miniCartVisible) {
         modal.style.display = "none";
       }
-    }
+    } */
   }
 
   render() {
@@ -167,7 +167,7 @@ class Header extends PureComponent {
                   className="header__mini-cart-button"
                 >
                   <CartContext.Consumer>
-                    {(productsInCart) => {
+                    {({productsInCart}) => {
                       if (productsInCart.length > 0) {
                         return (
                           <p className="header__mini-cart-button-counter">

@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from 'prop-types';
 import CurrencyContext from "../contexts/ContextCurrency";
+import { CartContext } from "../contexts/ContextCart";
+
 import ProductDetailAttributesBox from "./components/ProductDetailAttributesBox";
 
 import client from '../grapgql/client'
@@ -56,9 +58,9 @@ class ProductDetail extends PureComponent {
     bigImg.src = e.target.src;
   }
 
-  addToCart(e) {
+  addToCart(e, bringInfoFunc) {
     e.preventDefault();
-    const {bringInfo, /* showModal, */ id} = this.props
+    const {/* bringInfo, */ /* showModal, */ id} = this.props
 
 
     const { /* inStock, */ prices, /* attributes */ } = this.state.productToShow
@@ -88,7 +90,7 @@ class ProductDetail extends PureComponent {
 
 
     //lifting info to App.js
-    bringInfo(sendToCart);
+    bringInfoFunc(sendToCart);
   }
 
   inputHandler(e) {
@@ -218,54 +220,59 @@ class ProductDetail extends PureComponent {
               ></img>
             </div>
           </article>
+          <CartContext.Consumer>
+            {({bringInfo})=> {
+              return (
+                <form
+                  onSubmit={(e)=> this.addToCart(e, bringInfo)}
+                  value={id}
+                  className="product-detail__info"
+                >
+                  <h2 className="product-detail__brand">{brand}</h2>
+                  <h2 className="product-detail__name">{name}</h2>
 
-          <form
-            onSubmit={this.addToCart}
-            value={id}
-            className="product-detail__info"
-          >
-            <h2 className="product-detail__brand">{brand}</h2>
-            <h2 className="product-detail__name">{name}</h2>
-
-            <div className="attributes-container">
-              <ProductDetailAttributesBox
-                attributes={attributes}
-                inputHandler={this.inputHandler}
-                instock={inStock}
-              />
-            </div>
-            <CurrencyContext.Consumer>
-              {(value) => (
-                <div>
-                  <h4 className="attributes-price-title">price:</h4>
-                  <h3 className="attributes-price-number">
-                    {prices[value].currency.symbol}
-                    {prices[value].amount.toFixed(2)}
-                  </h3>
-                </div>
-              )}
-            </CurrencyContext.Consumer>
-            {
-              (!inStock)? 
-                <OpenModalBtn
-                  className="addToCartButton"
-                  message="Sorry, this product is out of stock by now"
-                  buttonText='add to cart'
-                />
-              :
-              (attributes.length !== inputsToSend.length)? 
-                <OpenModalBtn
-                  className="addToCartButton"
-                  message="You need to choose the product attributes before adding it to the cart"
-                  buttonText='add to cart'
-                />
-              :
-                <button className="addToCartButton" type="submit">
-                  add to cart
-                </button>
-            }
-            <div className="productDescription attributes-product-detail__description"></div>
-          </form>
+                  <div className="attributes-container">
+                    <ProductDetailAttributesBox
+                      attributes={attributes}
+                      inputHandler={this.inputHandler}
+                      instock={inStock}
+                    />
+                  </div>
+                  <CurrencyContext.Consumer>
+                    {(value) => (
+                      <div>
+                        <h4 className="attributes-price-title">price:</h4>
+                        <h3 className="attributes-price-number">
+                          {prices[value].currency.symbol}
+                          {prices[value].amount.toFixed(2)}
+                        </h3>
+                      </div>
+                    )}
+                  </CurrencyContext.Consumer>
+                  {
+                    (!inStock)? 
+                      <OpenModalBtn
+                        className="addToCartButton"
+                        message="Sorry, this product is out of stock by now"
+                        buttonText='add to cart'
+                      />
+                    :
+                    (attributes.length !== inputsToSend.length)? 
+                      <OpenModalBtn
+                        className="addToCartButton"
+                        message="You need to choose the product attributes before adding it to the cart"
+                        buttonText='add to cart'
+                      />
+                    :
+                      <button className="addToCartButton" type="submit">
+                        add to cart
+                      </button>
+                  }
+                  <div className="productDescription attributes-product-detail__description"></div>
+                </form>
+              )
+            }}
+          </CartContext.Consumer>
         </section>
       );
     }

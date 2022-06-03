@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import { CartContext } from "../../contexts/ContextCart";
+
 import cartSVGWhite from "../../icons/cart-white.svg";
 
 import "./ProductArticle.css";
@@ -13,8 +15,8 @@ class ProductArticle extends PureComponent {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  addToCart() {
-    const {product: {id, prices}, bringInfo} = this.props
+  addToCart(bringInfoFunc) {
+    const {product: {id, prices}/* , bringInfo */} = this.props
     const sendToCart = {
       id: id,
       quantity: 1,
@@ -22,7 +24,7 @@ class ProductArticle extends PureComponent {
       prices: prices,
     };
     //lifting info to App.js
-    bringInfo(sendToCart);
+    bringInfoFunc(sendToCart);
   }
 
   render() {
@@ -41,12 +43,18 @@ class ProductArticle extends PureComponent {
     let addToCartButton;
     if (attributes.length === 0 && inStock === true) {
       addToCartButton = (
-        <button
-          className="product-article__add-to-cart-button"
-          onClick={this.addToCart}
-        >
-          <img src={cartSVGWhite}></img>
-        </button>
+        <CartContext.Consumer>
+          {({bringInfo})=> {
+            return (
+              <button
+                className="product-article__add-to-cart-button"
+                onClick={()=>this.addToCart(bringInfo)}
+              >
+                <img src={cartSVGWhite}></img>
+              </button>
+            )
+          }}
+        </CartContext.Consumer>
       );
     } else {
       addToCartButton = (

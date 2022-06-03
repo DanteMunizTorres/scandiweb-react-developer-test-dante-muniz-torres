@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
-import PropTypes from 'prop-types';
-import CartContext from "../contexts/ContextCart";
+/* import PropTypes from 'prop-types'; */
+import {CartContext} from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
 import CartArticle from "./components/CartArticle";
 import { OpenModalBtn } from "./components/OpenModalBtn";
@@ -13,10 +13,10 @@ class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
-    this.checkOutCart = this.checkOutCart.bind(this);
+/*     this.checkOutCart = this.checkOutCart.bind(this); */
   }
 
-  checkOutCart(e) {
+/*   checkOutCart(e) {
     e.preventDefault();
     const { resetCartInfo, showModal } = this.props
     const modal = document.querySelector(".modal");
@@ -24,16 +24,16 @@ class Cart extends PureComponent {
     resetCartInfo();
     const checkOutMessage = "Thank you, come again!";
     showModal(e, checkOutMessage);
-  }
+  } */
 
   render() {
-    const { manageQuantity } = this.props;
+    /* const { manageQuantity } = this.props; */
     
     return (
       <form className="cart">
         <h2 className="cart__title">Cart</h2>
         <CartContext.Consumer>
-          {(products) => {
+          {({productsInCart: products, manageQuantity, resetCartInfo}) => {
             const productsAmount = productsCounter(products)
             return (
               <CurrencyContext.Consumer>
@@ -69,7 +69,7 @@ class Cart extends PureComponent {
                         className="mini-cart__button checkout"
                         message="Thank you, come again!"
                         buttonText='order'
-                        otherFunction1={this.props.resetCartInfo}
+                        otherFunction1={resetCartInfo}
                       />
 {/*                       <button
                         type="reset"
@@ -91,10 +91,10 @@ class Cart extends PureComponent {
   }
 }
 
-Cart.propTypes = {
+/* Cart.propTypes = {
   manageQuantity: PropTypes.func,
   showModal: PropTypes.func,
   resetCartInfo: PropTypes.func,
-};
+}; */
 
 export default Cart;

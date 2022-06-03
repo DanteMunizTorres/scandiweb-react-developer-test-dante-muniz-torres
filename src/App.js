@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
 import CurrencyContext from "./contexts/ContextCurrency";
-import CartContext from "./contexts/ContextCart";
+import {CartProvider} from "./contexts/ContextCart";
 import { CartOverlayProvider } from "./contexts/CartOverlayContext";
 
 import Header from "./pages/components/Header";
@@ -20,52 +20,18 @@ class App extends PureComponent {
       currencyChosen: 0,
       category: "all",
       currencies: [],
-      productList: [],
       productListFilteredByCategory: [],
-      productsInCart: [],
     };
-    this.bringInfo = this.bringInfo.bind(this);
-    this.resetCartInfo = this.resetCartInfo.bind(this);
+    /* this.bringInfo = this.bringInfo.bind(this); */
+    /* this.resetCartInfo = this.resetCartInfo.bind(this); */
     this.changeCurrency = this.changeCurrency.bind(this);
     this.pickCategory = this.pickCategory.bind(this);
-    this.manageQuantity = this.manageQuantity.bind(this);
+    /* this.manageQuantity = this.manageQuantity.bind(this); */
   }
 
   changeCurrency(e) {
     const value = e.target.value;
     return this.setState({ currencyChosen: value });
-  }
-
-  bringInfo(productToAdd) {
-    const {productsInCart} = this.state
-    let newProductsInCart;
-    let checkProductsInCart = productsInCart.find(product => product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info))
-    if (checkProductsInCart !== undefined) {
-      newProductsInCart = productsInCart.map(product => {
-        if( product.id === productToAdd.id && JSON.stringify(product.info) === JSON.stringify(productToAdd.info) ) {
-          return {...product, quantity: product.quantity + 1}
-        }
-        return product         
-      })
-    } else {
-      newProductsInCart = [...productsInCart, productToAdd]
-    }
-    return this.setState({ productsInCart: newProductsInCart });
-  }
-
-  resetCartInfo() {
-    return this.setState({ productsInCart: [] });
-  }
-
-  manageQuantity(newQuantity) {
-    let modifiedProduct = this.state.productsInCart.map((prdct, index) => {
-      if (prdct.id === newQuantity.id && index === newQuantity.index) {
-        prdct.quantity = newQuantity.number;
-      }
-        return prdct;
-    });
-    modifiedProduct = modifiedProduct.filter(prdct => prdct.quantity > 0 )
-    return this.setState({ productsInCart: modifiedProduct });
   }
 
   pickCategory(e) {
@@ -104,7 +70,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { category, productsInCart, currencyChosen, productListFilteredByCategory, currencies } = this.state
+    const { category, currencyChosen, productListFilteredByCategory, currencies } = this.state
 
     // category nav style
     if (document.querySelector(`.${category}`)) {
@@ -128,7 +94,7 @@ class App extends PureComponent {
     }
 
     return (
-      <CartContext.Provider value={productsInCart}>
+      <CartProvider>
         <CurrencyContext.Provider value={currencyChosen}>
           <CartOverlayProvider>
             <BrowserRouter>
@@ -137,18 +103,14 @@ class App extends PureComponent {
               />
               <Main
                 category={category}
-                /* productListAll={productList} */
                 productListFilteredByCategory={productListFilteredByCategory}
                 currencies={currencies}
-                bringInfo={this.bringInfo}
-                resetCartInfo={this.resetCartInfo}
                 changeCurrency={this.changeCurrency}
-                manageQuantity={this.manageQuantity}
               />
             </BrowserRouter>
           </CartOverlayProvider>
         </CurrencyContext.Provider>
-      </CartContext.Provider>
+      </CartProvider>
     );
   }
 }

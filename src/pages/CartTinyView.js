@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 import { Link } from "react-router-dom";
 
-import CartContext from "../contexts/ContextCart";
+import {CartContext} from "../contexts/ContextCart";
 import CurrencyContext from "../contexts/ContextCurrency";
 import { CartOverlayContext } from "../contexts/CartOverlayContext";
 
@@ -47,7 +47,7 @@ class CartTinyView extends PureComponent {
   } */
 
   render() {
-    const { manageQuantity } = this.props
+    /* const { manageQuantity } = this.props */
 
     return (
       <CartOverlayContext.Consumer>
@@ -57,7 +57,7 @@ class CartTinyView extends PureComponent {
             cartOverlayVisible === true && (
                <div className="modal" onClick={(e)=>this.disapear(e, cartOverlayToggler)}>
                 <CartContext.Consumer>
-                  {(products) => {
+                  {({productsInCart: products, manageQuantity, resetCartInfo}) => {
                     const productsAmount = productsCounter(products)
                     return (
                       <form className="miniCart" id="miniCart">
@@ -101,7 +101,7 @@ class CartTinyView extends PureComponent {
                                     className="mini-cart__button checkout"
                                     message="Thank you, come again!"
                                     buttonText='check out'
-                                    otherFunction1={this.props.resetCartInfo}
+                                    otherFunction1={resetCartInfo}
                                     otherFunction2={cartOverlayToggler}
                                   />
         {/*                           <button
@@ -134,10 +134,10 @@ class CartTinyView extends PureComponent {
   }
 }
 
-CartTinyView.propTypes = {
+/* CartTinyView.propTypes = {
   manageQuantity: PropTypes.func,
   showModal: PropTypes.func,
   resetCartInfo: PropTypes.func,
-};
+}; */
 
 export default CartTinyView;
